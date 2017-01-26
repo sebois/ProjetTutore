@@ -7,3 +7,6 @@ C:\Users\DAMIEN\Desktop\iut test vb\PlateauJeu\PlateauJeu\obj\Debug\PlateauJeu.P
 C:\Users\DAMIEN\Desktop\iut test vb\PlateauJeu\PlateauJeu\obj\Debug\PlateauJeu.csproj.GenerateResource.Cache
 C:\Users\DAMIEN\Desktop\iut test vb\PlateauJeu\PlateauJeu\obj\Debug\PlateauJeu.exe
 C:\Users\DAMIEN\Desktop\iut test vb\PlateauJeu\PlateauJeu\obj\Debug\PlateauJeu.pdb
+C:\Users\Sebois\Documents\IUT\Projet_tuto_S3\ProjetTutore\PlateauJeu\PlateauJeu\bin\Debug\PlateauJeu.exe.config
+C:\Users\Sebois\Documents\IUT\Projet_tuto_S3\ProjetTutore\PlateauJeu\PlateauJeu\obj\Debug\PlateauJeu.exe
+C:\Users\Sebois\Documents\IUT\Projet_tuto_S3\ProjetTutore\PlateauJeu\PlateauJeu\obj\Debug\PlateauJeu.pdb
