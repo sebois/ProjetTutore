@@ -44,14 +44,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class_Cartes\Action.cs" />
+    <Compile Include="Class_Cartes\Carte.cs" />
+    <Compile Include="Class_Cartes\CarteChemin.cs" />
+    <Compile Include="Class_Cartes\CarteObjectif.cs" />
+    <Compile Include="Class_Cartes\Cle.cs" />
+    <Compile Include="Class_Cartes\Depart.cs" />
+    <Compile Include="Class_Cartes\Echelle.cs" />
+    <Compile Include="Class_Cartes\Placable.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Class_Cartes\Outils.cs" />
+    <Compile Include="Class_Cartes\OutilsBrises.cs" />
+    <Compile Include="Class_Cartes\Pepite.cs" />
+    <Compile Include="Class_Cartes\Porte.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Class_Cartes\Reparer.cs" />
+    <Compile Include="Class_Cartes\Troll.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

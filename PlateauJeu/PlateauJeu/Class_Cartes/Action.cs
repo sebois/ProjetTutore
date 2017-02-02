@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SaboteurLeDuel
+namespace PlateauJeu.Class_Cartes
 {
-    class Carte
+    class Action : Carte
     {
-        String Type;
+        //TODO
     }
 }

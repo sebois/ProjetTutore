@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SaboteurLeDuel.Class_Cartes
+namespace PlateauJeu.Class_Cartes
 {
     enum Outils
     {

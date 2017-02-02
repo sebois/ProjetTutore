@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SaboteurLeDuel.Class_Cartes
+namespace PlateauJeu.Class_Cartes
 {
     class Cle
     {
@@ -13,7 +13,7 @@ namespace SaboteurLeDuel.Class_Cartes
 
         }
 
-        public Boolean utiliser(Porte p)
+        public bool utiliser(Porte p)
         {
             return p.ouvrir();
         }
