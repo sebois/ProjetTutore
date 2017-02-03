@@ -16,6 +16,14 @@ namespace PlateauJeu.Class_Cartes
                 m_outils.Add(outil);
         }
 
+        public void Utiliser(Joueur joueur)
+        {
+            foreach(Outils outilABriser in m_outils)
+            {
+                joueur.Briser(outilABriser);
+            }
+        }
+
 
     }
 }

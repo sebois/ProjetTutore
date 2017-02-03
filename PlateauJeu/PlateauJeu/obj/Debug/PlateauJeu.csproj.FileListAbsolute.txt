@@ -16,3 +16,10 @@ C:\Users\Sebois\Documents\IUT\Projet_tuto_S3\ProjetTutore\PlateauJeu\PlateauJeu\
 C:\Users\Sebois\Documents\IUT\Projet_tuto_S3\ProjetTutore\PlateauJeu\PlateauJeu\obj\Debug\PlateauJeu.csproj.GenerateResource.Cache
 C:\Users\Sebois\Documents\IUT\Projet_tuto_S3\ProjetTutore\PlateauJeu\PlateauJeu\bin\Debug\PlateauJeu.exe
 C:\Users\Sebois\Documents\IUT\Projet_tuto_S3\ProjetTutore\PlateauJeu\PlateauJeu\bin\Debug\PlateauJeu.pdb
+C:\Users\Sam\Desktop\Tutoré\PlateauJeu\PlateauJeu\bin\Debug\PlateauJeu.exe.config
+C:\Users\Sam\Desktop\Tutoré\PlateauJeu\PlateauJeu\obj\Debug\PlateauJeu.exe
+C:\Users\Sam\Desktop\Tutoré\PlateauJeu\PlateauJeu\obj\Debug\PlateauJeu.pdb
+C:\Users\Sam\Desktop\Tutoré\PlateauJeu\PlateauJeu\obj\Debug\PlateauJeu.csprojResolveAssemblyReference.cache
+C:\Users\Sam\Desktop\Tutoré\PlateauJeu\PlateauJeu\obj\Debug\PlateauJeu.Form1.resources
+C:\Users\Sam\Desktop\Tutoré\PlateauJeu\PlateauJeu\obj\Debug\PlateauJeu.Properties.Resources.resources
+C:\Users\Sam\Desktop\Tutoré\PlateauJeu\PlateauJeu\obj\Debug\PlateauJeu.csproj.GenerateResource.Cache

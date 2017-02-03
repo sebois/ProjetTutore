@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PlateauJeu.Class_Cartes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,11 +18,12 @@ namespace PlateauJeu
         {
             
             InitializeComponent();
+
+            Plateau monPlateau;
+            Joueur joueur1;
+            Joueur joueur2;
             
-
         }
-
-
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {

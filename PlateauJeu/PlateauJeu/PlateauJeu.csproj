@@ -48,10 +48,13 @@
     <Compile Include="Class_Cartes\Carte.cs" />
     <Compile Include="Class_Cartes\CarteChemin.cs" />
     <Compile Include="Class_Cartes\CarteObjectif.cs" />
+    <Compile Include="Class_Cartes\CartePlacable.cs" />
     <Compile Include="Class_Cartes\Cle.cs" />
     <Compile Include="Class_Cartes\Depart.cs" />
     <Compile Include="Class_Cartes\Echelle.cs" />
+    <Compile Include="Class_Cartes\Joueur.cs" />
     <Compile Include="Class_Cartes\Placable.cs" />
+    <Compile Include="Class_Cartes\Plateau.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
