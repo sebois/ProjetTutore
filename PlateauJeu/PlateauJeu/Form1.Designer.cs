@@ -568,7 +568,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.090909F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(649, 434);
             this.tableLayoutPanel1.TabIndex = 0;
-            this.tableLayoutPanel1.Click += new System.EventHandler(this.tableLayoutPanel1_Click);
             // 
             // pictureBox165
             // 
@@ -1898,7 +1897,6 @@
             this.pic_test.Size = new System.Drawing.Size(37, 37);
             this.pic_test.TabIndex = 1;
             this.pic_test.TabStop = false;
-            this.pic_test.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pic_test_MouseClick);
             // 
             // panel1
             // 

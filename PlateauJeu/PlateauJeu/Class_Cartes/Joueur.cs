@@ -35,8 +35,8 @@ namespace PlateauJeu.Class_Cartes
         public void Piocher()
         {
             //ATTENTION!!! ??? monPlateau ???
-            Carte tmp = monPlateau.PrendreCarte();
-            m_mainJoueur.Add(tmp);
+            //Carte tmp = monPlateau.PrendreCarte();
+            //m_mainJoueur.Add(tmp);
         }
 
 
