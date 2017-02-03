@@ -14,7 +14,7 @@ namespace PlateauJeu.Class_Cartes
         public Plateau()
         {
             //On ajoute toute les cartes
-            Pioche.Add();
+            //Pioche.Add();
             //etc...
 
         }
