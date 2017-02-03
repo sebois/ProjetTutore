@@ -10,8 +10,8 @@ namespace PlateauJeu.Class_Cartes
     {
         protected Pepite m_Pepite;
         protected int id;
-        private bool l_HautBas;
-        private bool l_GaucheDroite;
+        private bool m_l_HautBas;
+        private bool m_l_GaucheDroite;
         protected bool m_l_HautDroite;
         protected bool m_l_HautGauche;
         protected bool m_l_BasDroite;
@@ -21,31 +21,111 @@ namespace PlateauJeu.Class_Cartes
         protected bool m_droite;
         protected bool m_gauche;
 
-        protected bool L_HautBas
+        #region Accesseur
+        public bool M_l_HautBas
         {
             get
             {
-                return l_HautBas;
+                return m_l_HautBas;
             }
 
             private set
             {
-                l_HautBas = value;
+                m_l_HautBas = value;
             }
         }
 
-        protected bool L_GaucheDroite
+        public bool M_l_GaucheDroite
         {
             get
             {
-                return l_GaucheDroite;
+                return m_l_GaucheDroite;
             }
 
-            set
+            private set
             {
-                l_GaucheDroite = value;
+                m_l_GaucheDroite = value;
             }
         }
+
+        public bool M_l_HautDroite
+        {
+            get
+            {
+                return m_l_HautDroite;
+            }
+
+            private set
+            {
+                m_l_HautDroite = value;
+            }
+        }
+
+        public bool M_l_BasDroite
+        {
+            get
+            {
+                return m_l_BasDroite;
+            }
+
+            private set
+            {
+                m_l_BasDroite = value;
+            }
+        }
+
+        public bool M_bas
+        {
+            get
+            {
+                return m_bas;
+            }
+
+            private set
+            {
+                m_bas = value;
+            }
+        }
+
+        public bool M_droite
+        {
+            get
+            {
+                return m_droite;
+            }
+
+            private set
+            {
+                m_droite = value;
+            }
+        }
+
+        public bool M_hAut
+        {
+            get
+            {
+                return m_haut;
+            }
+
+            private set
+            {
+                m_haut = value;
+            }
+        }
+
+        public bool M_l_gauche
+        {
+            get
+            {
+                return m_gauche;
+            }
+
+            private set
+            {
+                m_gauche = value;
+            }
+        }
+        #endregion
 
         public CartePlacable(
             bool p_l_HautBas, bool p_l_GaucheDroite,
@@ -54,8 +134,8 @@ namespace PlateauJeu.Class_Cartes
             Pepite p_Pepite = null) 
         {
             #region Initialisation liaisons
-            L_HautBas = p_l_HautBas;
-            L_GaucheDroite = p_l_GaucheDroite;
+            m_l_HautBas = p_l_HautBas;
+            m_l_GaucheDroite = p_l_GaucheDroite;
             m_l_HautGauche = p_l_HautGauche;
             m_l_HautDroite = p_l_HautDroite;
             m_l_BasGauche = p_l_BasGauche;
@@ -63,7 +143,7 @@ namespace PlateauJeu.Class_Cartes
             #endregion
 
             #region Initialisation acces
-            if (L_HautBas || m_l_HautDroite || m_l_HautGauche)
+            if (m_l_HautBas || m_l_HautDroite || m_l_HautGauche)
             {
                 m_haut = true;
             }
@@ -72,7 +152,7 @@ namespace PlateauJeu.Class_Cartes
                 m_haut = false;
             }
 
-            if (L_HautBas || m_l_BasDroite || m_l_BasGauche)
+            if (m_l_HautBas || m_l_BasDroite || m_l_BasGauche)
             {
                 m_bas = true;
             }
@@ -81,7 +161,7 @@ namespace PlateauJeu.Class_Cartes
                 m_bas = false;
             }
 
-            if (L_GaucheDroite || m_l_HautDroite || m_l_BasDroite)
+            if (m_l_GaucheDroite || m_l_HautDroite || m_l_BasDroite)
             {
                 m_droite = true;
             }
@@ -90,7 +170,7 @@ namespace PlateauJeu.Class_Cartes
                 m_droite = false;
             }
 
-            if (L_GaucheDroite || m_l_HautGauche || m_l_BasGauche)
+            if (m_l_GaucheDroite || m_l_HautGauche || m_l_BasGauche)
             {
                 m_gauche = true;
             }
