@@ -67,8 +67,7 @@ namespace PlateauJeu.Class_Cartes
                 p_l_HautDroite, p_l_HautGauche, 
                 p_l_BasDroite, p_l_BasGauche,
                 p_haut, p_bas,
-                p_droite, p_gauche,
-                p_Pepite)
+                p_droite, p_gauche)
         {
 
             #region initialisation du type
