@@ -8,6 +8,7 @@ namespace PlateauJeu.Class_Cartes
 {
     class CarteChemin : CartePlacable
     {
+        private Pepite m_Pepite;
         private Porte m_Porte;
         private Troll m_Troll;
         private Echelle m_Echelle;
@@ -69,6 +70,12 @@ namespace PlateauJeu.Class_Cartes
                 p_haut, p_bas,
                 p_droite, p_gauche)
         {
+            #region initialisation pepites
+            if (p_Pepite != null)
+            {
+                m_Pepite = p_Pepite;
+            }
+            #endregion
 
             #region initialisation du type
             if (p_Porte != null)

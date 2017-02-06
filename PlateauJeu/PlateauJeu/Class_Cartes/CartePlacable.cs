@@ -68,13 +68,6 @@ namespace PlateauJeu.Class_Cartes
 
             #endregion
 
-            #region initialisation pepites
-            if (p_Pepite != null)
-            {
-                m_Pepite = p_Pepite;
-            }
-            #endregion
-
             #region initialisation du type
             if (((p_l_BasDroite && p_l_HautGauche) || (p_l_BasGauche && p_l_HautDroite)) && (!p_l_HautBas))
             {

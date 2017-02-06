@@ -64,6 +64,8 @@ namespace PlateauJeu.Class_Cartes
             }
         } 
 
+
+
         public string NomJoueur
         {
             get
