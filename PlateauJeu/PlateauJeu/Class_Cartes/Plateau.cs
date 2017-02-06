@@ -52,6 +52,25 @@ namespace PlateauJeu.Class_Cartes
             Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("../Cartes/CarteChemin/cd3"), p_l_HautGauche: true, p_Echelle : new Echelle("bleu")));
             Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("../Cartes/CarteChemin/cd4"), p_l_BasGauche: true, p_Echelle : new Echelle("vert")));
 
+            Pioche.Add(new Reparer(p_imgRecto: new System.Drawing.Bitmap("../Cartes/CarteChemin/ca1"), p_outils: new List<Outils> { Outils.Pioche }));
+            Pioche.Add(new OutilsBrises(p_imgRecto: new System.Drawing.Bitmap("../Cartes/CarteChemin/ca2"), p_outils: Outils.Pioche));
+            Pioche.Add(new PlanSecret(p_imgRecto: new System.Drawing.Bitmap("../Cartes/CarteChemin/ca3")));
+            Pioche.Add(new PlanSecret(p_imgRecto: new System.Drawing.Bitmap("../Cartes/CarteChemin/ca4")));
+            Pioche.Add(new Cle(p_imgRecto: new System.Drawing.Bitmap("../Cartes/CarteChemin/ca5")));
+            Pioche.Add(new Cle(p_imgRecto: new System.Drawing.Bitmap("../Cartes/CarteChemin/ca6")));
+            Pioche.Add(new OutilsBrises(p_imgRecto: new System.Drawing.Bitmap("../Cartes/CarteChemin/ca7"), p_outils: Outils.Lampe));
+            Pioche.Add(new OutilsBrises(p_imgRecto: new System.Drawing.Bitmap("../Cartes/CarteChemin/ca8"), p_outils: Outils.Pioche));
+            Pioche.Add(new Reparer(p_imgRecto: new System.Drawing.Bitmap("../Cartes/CarteChemin/ca9"), p_outils: new List<Outils> { Outils.Chariot }));
+            Pioche.Add(new OutilsBrises(p_imgRecto: new System.Drawing.Bitmap("../Cartes/CarteChemin/ca10"), p_outils: Outils.Chariot));
+            Pioche.Add(new OutilsBrises(p_imgRecto: new System.Drawing.Bitmap("../Cartes/CarteChemin/ca11"), p_outils: Outils.Chariot));
+            Pioche.Add(new Reparer(p_imgRecto: new System.Drawing.Bitmap("../Cartes/CarteChemin/ca12"), p_outils: new List<Outils> { Outils.Pioche, Outils.Chariot }));
+            Pioche.Add(new Eboulement(p_imgRecto: new System.Drawing.Bitmap("../Cartes/CarteChemin/ca13")));
+            Pioche.Add(new Reparer(p_imgRecto: new System.Drawing.Bitmap("../Cartes/CarteChemin/ca14"), p_outils: new List<Outils> { Outils.Chariot, Outils.Lampe }));
+            Pioche.Add(new Reparer(p_imgRecto: new System.Drawing.Bitmap("../Cartes/CarteChemin/ca15"), p_outils: new List<Outils> { Outils.Lampe, Outils.Pioche }));
+            Pioche.Add(new Reparer(p_imgRecto: new System.Drawing.Bitmap("../Cartes/CarteChemin/ca16"), p_outils: new List<Outils> { Outils.Lampe }));
+            Pioche.Add(new OutilsBrises(p_imgRecto: new System.Drawing.Bitmap("../Cartes/CarteChemin/ca17"), p_outils: Outils.Lampe));
+            Pioche.Add(new Eboulement(p_imgRecto: new System.Drawing.Bitmap("../Cartes/CarteChemin/ca18")));
+
             Departs.Add(new Depart(p_imgRecto: new System.Drawing.Bitmap("../Cartes/CarteChemin/cd1"), p_l_HautGauche: true, p_l_HautBas: true, p_l_HautDroite: true, p_l_BasGauche: true, p_l_BasDroite: true, p_l_GaucheDroite: true, p_couleurJoueur: "bleu"));
             Departs.Add(new Depart(p_imgRecto: new System.Drawing.Bitmap("../Cartes/CarteChemin/cd2"), p_l_HautGauche: true, p_l_HautBas: true, p_l_HautDroite: true, p_l_BasGauche: true, p_l_BasDroite: true, p_l_GaucheDroite: true, p_couleurJoueur: "vert"));
 

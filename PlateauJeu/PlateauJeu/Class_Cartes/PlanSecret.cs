@@ -6,16 +6,11 @@ using System.Threading.Tasks;
 
 namespace PlateauJeu.Class_Cartes
 {
-    class Cle : Action
+    class PlanSecret : Action
     {
-        public Cle(System.Drawing.Bitmap p_imgRecto): base(p_imgRecto)
+        public PlanSecret(System.Drawing.Bitmap p_imgRecto): base(p_imgRecto)
         {
-
-        }
-
-        public bool utiliser(Porte p)
-        {
-            return p.ouvrir();
+            //TO DO
         }
     }
 }
