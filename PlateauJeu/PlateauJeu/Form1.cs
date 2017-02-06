@@ -16,7 +16,7 @@ namespace PlateauJeu
         private byte m_manche;
         private byte m_nbPepite;
         private byte m_tourDe;
-        Plateau m_MonPlateau;
+        Plateau m_Plateau;
         Joueur m_Joueur1;
         Joueur m_Joueur2;
 
@@ -43,6 +43,7 @@ namespace PlateauJeu
             }
             m_manche = 0;
             m_nbPepite = 8;
+            //m_Plateau = new Plateau();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -88,8 +89,12 @@ namespace PlateauJeu
         {
             if(m_manche == 0)
             {
-                initJoueurs();
-                initPlateau();
+                if ((txt_J1.Text != "") && (txt_J2.Text != ""))
+                {
+                    initJoueurs();
+                    m_manche++;
+                    initPlateau();
+                }
             }
             else
             {
@@ -109,23 +114,20 @@ namespace PlateauJeu
 
         private void initJoueurs()
         {
-            if ((txt_J1.Text != "") && (txt_J2.Text != ""))
+            Random rand = new Random();
+            m_tourDe = (byte)rand.Next(1, 2);
+            switch (m_tourDe)
             {
-                Random rand = new Random();
-                m_tourDe = (byte)rand.Next(1, 2);
-                switch (m_tourDe)
-                {
-                    case 1:
-                        m_Joueur1 = new Joueur(txt_J1.Text, Couleur.Vert);
-                        m_Joueur2 = new Joueur(txt_J2.Text, Couleur.Bleu);
-                        break;
-                    case 2:
-                        m_Joueur1 = new Joueur(txt_J1.Text, Couleur.Bleu);
-                        m_Joueur2 = new Joueur(txt_J2.Text, Couleur.Vert);
-                        break;
-                }
-                m_manche++;
+                case 1:
+                    m_Joueur1 = new Joueur(txt_J1.Text, Couleur.Vert, m_Plateau);
+                    m_Joueur2 = new Joueur(txt_J2.Text, Couleur.Bleu, m_Plateau);
+                    break;
+                case 2:
+                    m_Joueur1 = new Joueur(txt_J1.Text, Couleur.Bleu, m_Plateau);
+                    m_Joueur2 = new Joueur(txt_J2.Text, Couleur.Vert, m_Plateau);
+                    break;
             }
+
         }
 
         private void initPlateau()

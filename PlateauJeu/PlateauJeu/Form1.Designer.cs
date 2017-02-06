@@ -1929,9 +1929,9 @@
             // 
             this.pic_test.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pic_test.Image = ((System.Drawing.Image)(resources.GetObject("pic_test.Image")));
-            this.pic_test.Location = new System.Drawing.Point(103, 3);
+            this.pic_test.Location = new System.Drawing.Point(102, 4);
             this.pic_test.Name = "pic_test";
-            this.pic_test.Size = new System.Drawing.Size(44, 74);
+            this.pic_test.Size = new System.Drawing.Size(42, 72);
             this.pic_test.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pic_test.TabIndex = 1;
             this.pic_test.TabStop = false;
@@ -1950,10 +1950,9 @@
             // pictureBox173
             // 
             this.pictureBox173.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox173.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox173.Image")));
-            this.pictureBox173.Location = new System.Drawing.Point(101, 3);
+            this.pictureBox173.Location = new System.Drawing.Point(102, 4);
             this.pictureBox173.Name = "pictureBox173";
-            this.pictureBox173.Size = new System.Drawing.Size(46, 74);
+            this.pictureBox173.Size = new System.Drawing.Size(44, 72);
             this.pictureBox173.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox173.TabIndex = 9;
             this.pictureBox173.TabStop = false;
@@ -1961,10 +1960,9 @@
             // pictureBox171
             // 
             this.pictureBox171.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox171.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox171.Image")));
-            this.pictureBox171.Location = new System.Drawing.Point(52, 3);
+            this.pictureBox171.Location = new System.Drawing.Point(53, 4);
             this.pictureBox171.Name = "pictureBox171";
-            this.pictureBox171.Size = new System.Drawing.Size(43, 74);
+            this.pictureBox171.Size = new System.Drawing.Size(42, 72);
             this.pictureBox171.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox171.TabIndex = 7;
             this.pictureBox171.TabStop = false;
@@ -1972,10 +1970,9 @@
             // pictureBox172
             // 
             this.pictureBox172.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox172.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox172.Image")));
-            this.pictureBox172.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox172.Location = new System.Drawing.Point(4, 4);
             this.pictureBox172.Name = "pictureBox172";
-            this.pictureBox172.Size = new System.Drawing.Size(43, 74);
+            this.pictureBox172.Size = new System.Drawing.Size(42, 72);
             this.pictureBox172.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox172.TabIndex = 8;
             this.pictureBox172.TabStop = false;
@@ -1984,9 +1981,9 @@
             // 
             this.pictureBox166.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox166.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox166.Image")));
-            this.pictureBox166.Location = new System.Drawing.Point(253, 3);
+            this.pictureBox166.Location = new System.Drawing.Point(249, 4);
             this.pictureBox166.Name = "pictureBox166";
-            this.pictureBox166.Size = new System.Drawing.Size(44, 74);
+            this.pictureBox166.Size = new System.Drawing.Size(47, 72);
             this.pictureBox166.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox166.TabIndex = 2;
             this.pictureBox166.TabStop = false;
@@ -1995,9 +1992,9 @@
             // 
             this.pictureBox170.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox170.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox170.Image")));
-            this.pictureBox170.Location = new System.Drawing.Point(203, 3);
+            this.pictureBox170.Location = new System.Drawing.Point(200, 4);
             this.pictureBox170.Name = "pictureBox170";
-            this.pictureBox170.Size = new System.Drawing.Size(44, 74);
+            this.pictureBox170.Size = new System.Drawing.Size(42, 72);
             this.pictureBox170.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox170.TabIndex = 6;
             this.pictureBox170.TabStop = false;
@@ -2006,9 +2003,9 @@
             // 
             this.pictureBox169.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox169.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox169.Image")));
-            this.pictureBox169.Location = new System.Drawing.Point(53, 3);
+            this.pictureBox169.Location = new System.Drawing.Point(53, 4);
             this.pictureBox169.Name = "pictureBox169";
-            this.pictureBox169.Size = new System.Drawing.Size(44, 74);
+            this.pictureBox169.Size = new System.Drawing.Size(42, 72);
             this.pictureBox169.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox169.TabIndex = 5;
             this.pictureBox169.TabStop = false;
@@ -2017,9 +2014,9 @@
             // 
             this.pictureBox167.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox167.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox167.Image")));
-            this.pictureBox167.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox167.Location = new System.Drawing.Point(4, 4);
             this.pictureBox167.Name = "pictureBox167";
-            this.pictureBox167.Size = new System.Drawing.Size(44, 74);
+            this.pictureBox167.Size = new System.Drawing.Size(42, 72);
             this.pictureBox167.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox167.TabIndex = 3;
             this.pictureBox167.TabStop = false;
@@ -2028,9 +2025,9 @@
             // 
             this.pictureBox168.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox168.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox168.Image")));
-            this.pictureBox168.Location = new System.Drawing.Point(153, 3);
+            this.pictureBox168.Location = new System.Drawing.Point(151, 4);
             this.pictureBox168.Name = "pictureBox168";
-            this.pictureBox168.Size = new System.Drawing.Size(44, 74);
+            this.pictureBox168.Size = new System.Drawing.Size(42, 72);
             this.pictureBox168.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox168.TabIndex = 4;
             this.pictureBox168.TabStop = false;
@@ -2038,7 +2035,7 @@
             // lbl_outilBrises
             // 
             this.lbl_outilBrises.AutoSize = true;
-            this.lbl_outilBrises.Location = new System.Drawing.Point(241, 23);
+            this.lbl_outilBrises.Location = new System.Drawing.Point(312, 19);
             this.lbl_outilBrises.Name = "lbl_outilBrises";
             this.lbl_outilBrises.Size = new System.Drawing.Size(63, 13);
             this.lbl_outilBrises.TabIndex = 10;
@@ -2148,6 +2145,7 @@
             // 
             // pnl_main
             // 
+            this.pnl_main.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.pnl_main.ColumnCount = 6;
             this.pnl_main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.pnl_main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
@@ -2171,6 +2169,7 @@
             // 
             // pnl_outilBrises
             // 
+            this.pnl_outilBrises.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.pnl_outilBrises.ColumnCount = 3;
             this.pnl_outilBrises.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.pnl_outilBrises.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));

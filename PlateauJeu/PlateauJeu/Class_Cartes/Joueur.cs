@@ -23,20 +23,21 @@ namespace PlateauJeu.Class_Cartes
         private List<OutilsBrises> m_cartesEntraveJoueur;
 
 
-        public Joueur(string p_nomJoueur, Couleur p_couleurJoueur)
+        public Joueur(string p_nomJoueur, Couleur p_couleurJoueur, Plateau p_plateau)
         {
             m_nomJoueur = p_nomJoueur;
             m_nbPepites = 0;
-
-            if (p_couleurJoueur == Couleur.Bleu || p_couleurJoueur == Couleur.Vert)
-                m_couleurJoueur = p_couleurJoueur;
+            m_couleurJoueur = p_couleurJoueur;
+            //for(int i = 0; i<6; i++)
+            //{
+            //    Piocher(p_plateau);
+            //}
         }
 
-        public void Piocher()
+        public void Piocher(Plateau p_plateau)
         {
-            //ATTENTION!!! ??? monPlateau ???
-            //Carte tmp = monPlateau.PrendreCarte();
-            //m_mainJoueur.Add(tmp);
+            Carte tmp = p_plateau.PrendreCarte();
+            m_mainJoueur.Add(tmp);
         }
 
 

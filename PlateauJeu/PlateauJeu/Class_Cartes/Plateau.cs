@@ -96,7 +96,7 @@ namespace PlateauJeu.Class_Cartes
             //etc...
         }
 
-        public Carte PrendreCarte(Joueur joueur)
+        public Carte PrendreCarte()
         {
             Random rnd = new Random();
             int nb_rnd = rnd.Next(Pioche.Count());
