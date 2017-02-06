@@ -10,12 +10,12 @@ namespace PlateauJeu.Class_Cartes
     {
         private string m_nomJoueur;
         private int m_nbPepites;
-        private String m_couleurJoueur;
+        private Couleur m_couleurJoueur;
 
         //Les differents outils du joueur (si true = en bon état)
-        private Boolean m_Pioche = true;
-        private Boolean m_Chariot = true;
-        private Boolean m_Lampe = true;
+        private bool m_Pioche = true;
+        private bool m_Chariot = true;
+        private bool m_Lampe = true;
 
         //C'est la liste de carte du joueur
         private List<Carte> m_mainJoueur;
@@ -23,13 +23,13 @@ namespace PlateauJeu.Class_Cartes
         private List<OutilsBrises> m_cartesEntraveJoueur;
 
 
-        public Joueur(String p_nom, String p_couleur)
+        public Joueur(string p_nomJoueur, Couleur p_couleurJoueur)
         {
-            NomJoueur = p_nom;
+            m_nomJoueur = p_nomJoueur;
             m_nbPepites = 0;
 
-            if (p_nom == "Bleu" | p_nom == "Vert")
-                m_couleurJoueur = p_couleur;
+            if (p_couleurJoueur == Couleur.Bleu || p_couleurJoueur == Couleur.Vert)
+                m_couleurJoueur = p_couleurJoueur;
         }
 
         public void Piocher()
@@ -63,8 +63,6 @@ namespace PlateauJeu.Class_Cartes
 
             }
         } 
-
-
 
         public string NomJoueur
         {

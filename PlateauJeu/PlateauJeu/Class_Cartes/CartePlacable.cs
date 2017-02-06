@@ -78,11 +78,11 @@ namespace PlateauJeu.Class_Cartes
             #region initialisation du type
             if (((p_l_BasDroite && p_l_HautGauche) || (p_l_BasGauche && p_l_HautDroite)) && (!p_l_HautBas))
             {
-                m_type = "Double-virage";
+                m_type = Types.DoubleVirage;
             }
             if (p_l_HautBas && p_l_GaucheDroite && !p_l_HautDroite)
             {
-                m_type = "Pont";
+                m_type = Types.Pont;
             }
             #endregion
         }

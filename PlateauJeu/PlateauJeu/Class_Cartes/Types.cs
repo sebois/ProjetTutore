@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace PlateauJeu.Class_Cartes
 {
-    public enum Outils
+    public enum Types
     {
-        Chariot,
-        Lampe,
-        Pioche
+        DoubleVirage,
+        Pont,
+        Porte,
+        Troll,
+        Echelle,
+        Depart
     }
 }

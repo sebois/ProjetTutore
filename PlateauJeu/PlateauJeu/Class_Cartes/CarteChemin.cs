@@ -74,17 +74,17 @@ namespace PlateauJeu.Class_Cartes
             if (p_Porte != null)
             {
                 m_Porte = p_Porte;
-                m_type = "Porte";
+                m_type = Types.Porte;
             }
             else if (p_Troll != null)
             {
                 m_Troll = p_Troll;
-                m_type = "Troll";
+                m_type = Types.Troll;
             }
             else if (p_Echelle != null)
             {
                 m_Echelle = p_Echelle;
-                m_type = "Echelle";
+                m_type = Types.Echelle;
             }
             #endregion
 

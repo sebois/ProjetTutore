@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace PlateauJeu.Class_Cartes
 {
-    public enum Outils
+    public enum Position
     {
-        Chariot,
-        Lampe,
-        Pioche
+        Haut,
+        Bas,
+        Droite,
+        Gauche
     }
 }

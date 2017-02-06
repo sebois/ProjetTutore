@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace PlateauJeu.Class_Cartes
 {
-    public enum Outils
+    public enum Couleur
     {
-        Chariot,
-        Lampe,
-        Pioche
+        Vert,
+        Bleu
     }
 }

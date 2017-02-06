@@ -2270,7 +2270,6 @@
         private System.Windows.Forms.PictureBox pic_test;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
-
     }
 }
 

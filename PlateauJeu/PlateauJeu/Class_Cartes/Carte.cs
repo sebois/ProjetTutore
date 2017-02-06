@@ -8,7 +8,7 @@ namespace PlateauJeu.Class_Cartes
 {
     abstract class Carte
     {
-        protected string m_type;
+        protected Types m_type;
         protected System.Drawing.Bitmap m_imgRecto;
 
         public Carte(System.Drawing.Bitmap p_imgRecto)

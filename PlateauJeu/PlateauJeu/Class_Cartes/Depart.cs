@@ -8,11 +8,11 @@ namespace PlateauJeu.Class_Cartes
 {
     class Depart : CartePlacable
     {
-        private string m_couleurJoueur;
+        private Couleur m_couleurJoueur;
 
         public Depart(
             System.Drawing.Bitmap p_imgRecto,
-            string p_couleurJoueur,
+            Couleur p_couleurJoueur,
             bool p_l_HautBas = false, bool p_l_GaucheDroite = false,
             bool p_l_HautDroite = false, bool p_l_HautGauche = false,
             bool p_l_BasDroite = false, bool p_l_BasGauche = false,
@@ -26,7 +26,7 @@ namespace PlateauJeu.Class_Cartes
                 p_droite, p_gauche)
         {
             m_couleurJoueur = p_couleurJoueur;
-            m_type = "Depart";
+            m_type = Types.Depart;
         }
     }
 }

@@ -8,9 +8,9 @@ namespace PlateauJeu.Class_Cartes
 {
     class Echelle
     {
-        private string m_couleurJoueur;
+        private Couleur m_couleurJoueur;
 
-        public Echelle(string p_couleurJoueur)
+        public Echelle(Couleur p_couleurJoueur)
         {
             m_couleurJoueur = p_couleurJoueur;
         }
