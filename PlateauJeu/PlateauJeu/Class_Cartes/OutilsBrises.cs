@@ -8,20 +8,16 @@ namespace PlateauJeu.Class_Cartes
 {
     class OutilsBrises : Action
     {
-        private List<Outils> m_outils;
+        private Outils m_outils;
 
-        public OutilsBrises(System.Drawing.Bitmap p_imgRecto, List<Outils> type): base(p_imgRecto)
+        public OutilsBrises(System.Drawing.Bitmap p_imgRecto, Outils p_outils): base(p_imgRecto)
         {
-            foreach (Outils outil in type)
-                m_outils.Add(outil);
+            m_outils = p_outils;
         }
 
         public void Utiliser(Joueur joueur)
         {
-            foreach(Outils outilABriser in m_outils)
-            {
-                joueur.Briser(outilABriser);
-            }
+            joueur.Briser(m_outils);
         }
 
 

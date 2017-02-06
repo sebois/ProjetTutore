@@ -10,9 +10,9 @@ namespace PlateauJeu.Class_Cartes
     {
         private List<Outils> m_outils;
 
-        public Reparer(System.Drawing.Bitmap p_imgRecto, List<Outils> type) : base(p_imgRecto)
+        public Reparer(System.Drawing.Bitmap p_imgRecto, List<Outils> p_outils) : base(p_imgRecto)
         {
-            foreach (Outils outil in type)
+            foreach (Outils outil in p_outils)
                 m_outils.Add(outil);
         }
     }

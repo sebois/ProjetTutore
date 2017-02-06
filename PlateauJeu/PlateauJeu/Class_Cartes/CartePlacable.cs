@@ -8,7 +8,6 @@ namespace PlateauJeu.Class_Cartes
 {
     abstract class CartePlacable : Carte
     {
-        protected Pepite m_Pepite;
         protected int id;
         protected bool m_l_HautBas;
         protected bool m_l_GaucheDroite;
@@ -27,8 +26,7 @@ namespace PlateauJeu.Class_Cartes
             bool p_l_HautDroite = false, bool p_l_HautGauche = false,
             bool p_l_BasDroite = false, bool p_l_BasGauche = false,
             bool p_haut = false, bool p_bas = false,
-            bool p_droite = false, bool p_gauche = false,
-            Pepite p_Pepite = null) : base(p_imgRecto)
+            bool p_droite = false, bool p_gauche = false) : base(p_imgRecto)
         {
             #region Initialisation image recto
             m_imgRecto = p_imgRecto;
