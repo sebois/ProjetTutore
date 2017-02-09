@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PlateauJeu.Class_Cartes
 {
@@ -80,9 +81,9 @@ namespace PlateauJeu.Class_Cartes
             #endregion
         }
 
-        public void placer(int x, int y)
+        public void placer(TableLayoutPanel Panel, int x, int y)
         {
-            new Exception("CarteChemin placée : non implémenté");
+            Panel.GetChildAtPoint();
         }
 
         public bool verifPlacement(int x, int y)

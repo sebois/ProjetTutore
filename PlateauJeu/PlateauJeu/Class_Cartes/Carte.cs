@@ -15,5 +15,7 @@ namespace PlateauJeu.Class_Cartes
         {
             m_imgRecto = p_imgRecto;
         }
+
+
     }
 }
