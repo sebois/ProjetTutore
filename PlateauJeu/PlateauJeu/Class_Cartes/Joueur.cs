@@ -34,37 +34,88 @@ namespace PlateauJeu.Class_Cartes
             //}
         }
 
-        public void Piocher(Plateau p_plateau)
+
+        public void Piocher(Plateau p_plateau, int nbCarteAPiocher)
         {
-            Carte tmp = p_plateau.PrendreCarte();
-            m_mainJoueur.Add(tmp);
+            if (nbCarteAPiocher > 0 && nbCarteAPiocher < 3)
+            {
+                for ( int i = 1; i <=nbCarteAPiocher; i++)
+                {
+                    Carte tmp = p_plateau.PrendreCarte();
+                    //La carte est déja retirer de la pioche 
+                    m_mainJoueur.Add(tmp);
+                }
+            }
         }
 
 
-        public void Briser(Outils OutilABriser)
+        public void Briser(Joueur joueur, OutilsBrises CarteOutilABriser)
         {
+            Outils OutilABriser = CarteOutilABriser.Outils;
+
             switch (OutilABriser)
             {
                 case Outils.Chariot :
                     //Le chariot est cassé
-                    m_Chariot = false;
-                    //TODO : Ajouter a la liste de carte qui entrave
-                    //m_cartesEntraveJoueur.Add()
+                    joueur.m_Chariot = false;
                     break;
 
                 case Outils.Lampe :
                     //La lampe est cassé
-                    m_Lampe = false;
+                    joueur.m_Lampe = false;
                     break;
 
                 case Outils.Pioche :
                     //La pioche est cassé
-                    m_Pioche = false;
+                    joueur.m_Pioche = false;
                     break;
-
             }
+
+            joueur.m_cartesEntraveJoueur.Add(CarteOutilABriser);
         } 
 
+
+        public void Reparer(Outils OutilAReparer)
+        {
+            switch (OutilAReparer)
+            {
+                case Outils.Chariot:
+                    //Le chariot est cassé
+                    this.m_Chariot = true;
+                    foreach (OutilsBrises outilBrisé in m_cartesEntraveJoueur)
+                    {
+                        if (outilBrisé.Outils == Outils.Chariot)
+                            m_cartesEntraveJoueur.Remove(outilBrisé);
+                    }
+                    break;
+
+                case Outils.Lampe:
+                    //La lampe est cassé
+                    this.m_Lampe = true;
+                    foreach (OutilsBrises outilBrisé in m_cartesEntraveJoueur)
+                    {
+                        if (outilBrisé.Outils == Outils.Lampe)
+                            m_cartesEntraveJoueur.Remove(outilBrisé);
+                    }
+                    break;
+
+                case Outils.Pioche:
+                    //La pioche est cassé
+                    this.m_Pioche = true;
+                    foreach (OutilsBrises outilBrisé in m_cartesEntraveJoueur)
+                    {
+                        if (outilBrisé.Outils == Outils.Pioche)
+                            m_cartesEntraveJoueur.Remove(outilBrisé);
+                    }
+                    break;
+            }
+        }
+
+
+        public void RetirerCarteDeLaMain(Carte carte)
+        {
+            m_mainJoueur.Remove(carte);
+        }
 
 
         public string NomJoueur
