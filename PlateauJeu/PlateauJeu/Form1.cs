@@ -13,6 +13,7 @@ namespace PlateauJeu
 {
     public partial class Form1 : Form
     {
+        private int m_id;
         private byte m_manche;
         private byte m_nbPepite;
         private byte m_tourDe;
@@ -94,6 +95,7 @@ namespace PlateauJeu
                     m_Plateau = new Plateau();
                     initJoueurs();
                     m_manche++;
+                    m_id = 0;
                     afficherElements();
                 }
             }
@@ -111,6 +113,7 @@ namespace PlateauJeu
             }
             majCompteurs();
             majCartes();
+            placerDeparts();
         }
 
         private void initJoueurs()
@@ -162,6 +165,18 @@ namespace PlateauJeu
                     break;
             }
             
+        }
+
+        private void placerDeparts()
+        {
+            PictureBox pic = (PictureBox)tableLayoutPanel1.GetControlFromPosition(2, 4);
+            pic.Image = m_Plateau.Departs.ElementAt(0).ImgRecto;
+            pic.Tag = m_id;
+            m_Plateau.TableauId[2, 4] = m_id++;
+            pic = (PictureBox)tableLayoutPanel1.GetControlFromPosition(2, 6);
+            pic.Image = m_Plateau.Departs.ElementAt(1).ImgRecto;
+            pic.Tag = m_id;
+            m_Plateau.TableauId[2, 6] = m_id++;
         }
     }
 }
