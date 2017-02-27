@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,13 +26,15 @@ namespace PlateauJeu.Class_Cartes
 
         public Joueur(string p_nomJoueur, Couleur p_couleurJoueur, Plateau p_plateau)
         {
+            m_mainJoueur = new List<Carte>();
+            m_cartesEntraveJoueur = new List<OutilsBrises>();
             m_nomJoueur = p_nomJoueur;
             m_nbPepites = 0;
             m_couleurJoueur = p_couleurJoueur;
-            //for(int i = 0; i<6; i++)
-            //{
-            //    Piocher(p_plateau);
-            //}
+            for(int i = 0; i<6; i++)
+            {
+                Piocher(p_plateau, 1);
+            }
         }
 
 
@@ -51,9 +54,7 @@ namespace PlateauJeu.Class_Cartes
 
         public void Briser(Joueur joueur, OutilsBrises CarteOutilABriser)
         {
-            Outils OutilABriser = CarteOutilABriser.Outils;
-
-            switch (OutilABriser)
+            switch (CarteOutilABriser.Outils)
             {
                 case Outils.Chariot :
                     //Le chariot est cassé
@@ -70,7 +71,6 @@ namespace PlateauJeu.Class_Cartes
                     joueur.m_Pioche = false;
                     break;
             }
-
             joueur.m_cartesEntraveJoueur.Add(CarteOutilABriser);
         } 
 
@@ -117,6 +117,10 @@ namespace PlateauJeu.Class_Cartes
             m_mainJoueur.Remove(carte);
         }
 
+        public Bitmap getImageByPosition(int position)
+        {
+            return m_mainJoueur.ElementAt(position).ImgRecto;
+        }
 
         public string NomJoueur
         {

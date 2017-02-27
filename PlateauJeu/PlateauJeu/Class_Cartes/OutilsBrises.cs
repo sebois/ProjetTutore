@@ -30,7 +30,7 @@ namespace PlateauJeu.Class_Cartes
 
         public void Utiliser(Joueur joueur)
         {
-            joueur.Briser(Outils);
+            joueur.Briser(joueur, this);
         }
 
 

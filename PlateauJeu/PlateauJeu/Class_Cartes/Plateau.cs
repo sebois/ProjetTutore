@@ -15,6 +15,7 @@ namespace PlateauJeu.Class_Cartes
 
         public Plateau()
         {
+            Pioche = new List<Carte>();
             Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cc1.jpg"), p_l_GaucheDroite: true, p_l_HautGauche: true, p_l_HautDroite: true, p_Porte: new Porte(Position.Haut, Couleur.Vert)));
             Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cc2.jpg"), p_l_GaucheDroite: true, p_l_HautGauche: true, p_l_HautDroite: true, p_Troll: new Troll(1, Position.Droite)));
             Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cc3.jpg"), p_l_HautGauche: true));
@@ -26,7 +27,7 @@ namespace PlateauJeu.Class_Cartes
             Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cc9.jpg"), p_l_BasDroite: true, p_haut: true));
             Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cc10.jpg"), p_l_GaucheDroite: true, p_l_HautBas: true, p_Pepite : new Pepite(1, Position.Haut)));
             Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cc11.jpg"), p_l_HautDroite: true));
-            Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cc12.jpg"), p_l_HautGauche: true, p_Echelle : new Echelle(Couleur.Bleu)));
+            Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cc12.jpg"), p_l_HautGauche: true));
             Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cc13.jpg"), p_l_HautBas: true, p_l_GaucheDroite: true));
             Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cc14.jpg"), p_l_GaucheDroite: true, p_l_BasGauche: true, p_l_BasDroite: true, p_Pepite : new Pepite(1, Position.Haut)));
             Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cc15.jpg"), p_l_HautBas: true));
@@ -34,7 +35,7 @@ namespace PlateauJeu.Class_Cartes
             Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cc17.jpg"), p_l_HautGauche: true, p_l_BasDroite: true, p_Pepite: new Pepite(1, Position.Droite)));
             Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cc18.jpg"), p_l_HautBas: true, p_l_HautGauche: true, p_l_HautDroite: true, p_l_BasDroite: true, p_l_BasGauche: true, p_Troll: new Troll(1, Position.Bas)));
             Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cc19.jpg"), p_l_BasGauche: true, p_droite: true));
-            Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cc20.jpg"), p_l_BasGauche: true, p_Echelle : new Echelle(Couleur.Vert)));
+            Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cc20.jpg"), p_l_GaucheDroite: true));
             Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cc21.jpg"), p_l_HautBas: true, p_droite: true));
             Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cc22.jpg"), p_l_HautGauche: true, p_l_HautBas: true, p_l_BasGauche: true, p_Troll : new Troll(1, Position.Bas)));
             Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cc23.jpg"), p_l_HautDroite: true, p_l_BasGauche: true));
@@ -47,8 +48,7 @@ namespace PlateauJeu.Class_Cartes
             Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cc30.jpg"), p_l_HautBas: true, p_l_HautGauche: true, p_l_HautDroite: true, p_l_BasGauche: true, p_l_BasDroite: true, p_Porte : new Porte(Position.Bas, Couleur.Bleu)));
             Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cc31.jpg"), p_l_HautDroite: true, p_bas: true));
             Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cc32.jpg"), p_l_GaucheDroite: true));
-            Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cc33.jpg"), p_l_GaucheDroite: true));
-            Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cc34.jpg"), p_l_HautGauche: true));
+
             Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cd3.jpg"), p_l_HautGauche: true, p_Echelle : new Echelle(Couleur.Bleu)));
             Pioche.Add(new CarteChemin(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cd4.jpg"), p_l_BasGauche: true, p_Echelle : new Echelle(Couleur.Vert)));
 
@@ -71,9 +71,11 @@ namespace PlateauJeu.Class_Cartes
             Pioche.Add(new OutilsBrises(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteAction/ca17.jpg"), p_outils: Outils.Lampe));
             Pioche.Add(new Eboulement(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteAction/ca18.jpg")));
 
+            Departs = new List<Depart>();
             Departs.Add(new Depart(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cd1.jpg"), p_l_HautGauche: true, p_l_HautBas: true, p_l_HautDroite: true, p_l_BasGauche: true, p_l_BasDroite: true, p_l_GaucheDroite: true, p_couleurJoueur: Couleur.Bleu));
             Departs.Add(new Depart(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cd2.jpg"), p_l_HautGauche: true, p_l_HautBas: true, p_l_HautDroite: true, p_l_BasGauche: true, p_l_BasDroite: true, p_l_GaucheDroite: true, p_couleurJoueur: Couleur.Vert));
 
+            Objectifs = new List<CarteObjectif>();
             Objectifs.Add(new CarteObjectif(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteObjectif/co1.jpg"), p_l_GaucheDroite: true, p_l_HautDroite: true, p_l_HautGauche: true, p_Porte: new Porte(Position.Haut, Couleur.Bleu), p_Pepite: new Pepite(2, Position.Gauche)));
             Objectifs.Add(new CarteObjectif(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteObjectif/co2.jpg"), p_l_HautBas: true, p_l_HautGauche: true, p_l_BasGauche: true, p_Porte: new Porte(Position.Gauche, Couleur.Bleu), p_Pepite: new Pepite(1, Position.Bas)));
             Objectifs.Add(new CarteObjectif(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteObjectif/co3.jpg"), p_l_HautBas: true, p_gauche: true, p_droite: true, p_Pepite: new Pepite(1, Position.Bas)));

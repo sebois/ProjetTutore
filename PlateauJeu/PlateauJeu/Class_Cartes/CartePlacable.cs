@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -83,7 +84,8 @@ namespace PlateauJeu.Class_Cartes
 
         public void placer(TableLayoutPanel Panel, int x, int y)
         {
-            Panel.GetChildAtPoint();
+            PictureBox pic = (PictureBox) Panel.GetControlFromPosition(x, y);
+            pic.Image = new Bitmap(m_imgRecto);
         }
 
         public bool verifPlacement(int x, int y)

@@ -91,25 +91,26 @@ namespace PlateauJeu
             {
                 if ((txt_J1.Text != "") && (txt_J2.Text != ""))
                 {
+                    m_Plateau = new Plateau();
                     initJoueurs();
                     m_manche++;
-                    initPlateau();
+                    afficherElements();
                 }
             }
             else
             {
-                
+                switch (m_tourDe)
+                {
+                    case 1:
+                        m_tourDe = 2;
+                        break;
+                    case 2:
+                        m_tourDe = 1;
+                        break;
+                }
             }
-            lbl_manche.Text = "Manche " + m_manche + "/3";
-            lbl_pepite.Text = "Pépites restantes : " + m_nbPepite;
-            lbl_tourDe.Text = "Tour Joueur " + m_tourDe;
-            pnl_joueur.Visible = true;
-            tableLayoutPanel1.Visible = true;
-            lbl_manche.Visible = true;
-            lbl_pepite.Visible = true;
-            lbl_tourDe.Visible = true;
-            txt_J1.Enabled = false;
-            txt_J2.Enabled = false;
+            majCompteurs();
+            majCartes();
         }
 
         private void initJoueurs()
@@ -130,9 +131,37 @@ namespace PlateauJeu
 
         }
 
-        private void initPlateau()
+        private void majCompteurs()
         {
+            lbl_manche.Text = "Manche " + m_manche + "/3";
+            lbl_pepite.Text = "Pépites restantes : " + m_nbPepite;
+            lbl_tourDe.Text = "Tour Joueur " + m_tourDe;
+        }
 
+        private void afficherElements()
+        {
+            pnl_joueur.Visible = true;
+            tableLayoutPanel1.Visible = true;
+            lbl_manche.Visible = true;
+            lbl_pepite.Visible = true;
+            lbl_tourDe.Visible = true;
+            txt_J1.Enabled = false;
+            txt_J2.Enabled = false;
+        }
+
+        private void majCartes()
+        {
+            switch(m_tourDe)
+            {
+                case 1:
+                    for(int i=0; i<pnl_main.Controls.Count; i++)
+                    {
+                        PictureBox pic = (PictureBox)pnl_main.Controls[i];
+                        pic.Image = m_Joueur1.getImageByPosition(i);
+                    }
+                    break;
+            }
+            
         }
     }
 }
