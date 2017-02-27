@@ -9,6 +9,7 @@ namespace PlateauJeu.Class_Cartes
 {
     abstract class Carte
     {
+        private int m_id;
         protected Types m_type;
         protected System.Drawing.Bitmap m_imgRecto;
 
@@ -27,6 +28,19 @@ namespace PlateauJeu.Class_Cartes
             set
             {
                 m_imgRecto = value;
+            }
+        }
+
+        public int Id
+        {
+            get
+            {
+                return m_id;
+            }
+
+            set
+            {
+                m_id = value;
             }
         }
     }

@@ -13,6 +13,7 @@ namespace PlateauJeu.Class_Cartes
         private List<CarteObjectif> m_Objectifs;
         private List<Carte> m_Defausse;
         private int[,] m_TableauId;
+        private int m_id;
 
         public List<Depart> Departs
         {
@@ -37,6 +38,32 @@ namespace PlateauJeu.Class_Cartes
             set
             {
                 m_TableauId = value;
+            }
+        }
+
+        public int Id
+        {
+            get
+            {
+                return m_id;
+            }
+
+            set
+            {
+                m_id = value;
+            }
+        }
+
+        internal List<Carte> Defausse
+        {
+            get
+            {
+                return m_Defausse;
+            }
+
+            set
+            {
+                m_Defausse = value;
             }
         }
 
@@ -123,7 +150,9 @@ namespace PlateauJeu.Class_Cartes
             //Les chemins des images sont relatifs au répertoire de l'executable
             //Pioche.Add();
             //etc...
+            m_Defausse = new List<Carte>();
             m_TableauId = new int[11, 15];
+            m_id = 0;
         }
 
         public Carte PrendreCarte()
@@ -132,7 +161,6 @@ namespace PlateauJeu.Class_Cartes
             int nb_rnd = rnd.Next(m_Pioche.Count());
 
             Carte tmp = m_Pioche.ElementAt(nb_rnd);
-
             m_Pioche.Remove(tmp);
             return tmp;
         }

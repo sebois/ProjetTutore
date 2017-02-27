@@ -112,14 +112,15 @@ namespace PlateauJeu.Class_Cartes
         }
 
 
-        public void RetirerCarteDeLaMain(Carte carte)
+        public void RetirerCarteDeLaMain(Plateau p_plateau, Carte p_carte)
         {
-            m_mainJoueur.Remove(carte);
+            m_mainJoueur.Remove(p_carte);
+            p_plateau.Defausse.Add(p_carte);
         }
 
-        public Bitmap getImageByPosition(int position)
+        public Carte getCarteAtPosition(int position)
         {
-            return m_mainJoueur.ElementAt(position).ImgRecto;
+            return m_mainJoueur.ElementAt(position);
         }
 
         public string NomJoueur
@@ -132,6 +133,19 @@ namespace PlateauJeu.Class_Cartes
             set
             {
                 m_nomJoueur = value;
+            }
+        }
+
+        internal List<Carte> MainJoueur
+        {
+            get
+            {
+                return m_mainJoueur;
+            }
+
+            set
+            {
+                m_mainJoueur = value;
             }
         }
     }
