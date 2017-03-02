@@ -21,6 +21,8 @@ namespace PlateauJeu
         private Plateau m_Plateau;
         private Joueur m_Joueur1;
         private Joueur m_Joueur2;
+        private PictureBox m_picDest;
+        private PictureBox m_picSource;
 
         public Form1()
         {
@@ -77,13 +79,16 @@ namespace PlateauJeu
             {
                 PictureBox v_pic1 = (PictureBox)sender;
                 Type v_type = v_pic1.Tag.GetType();
-                if (v_type.IsSubclassOf(typeof(CartePlacable)) && v_pic1.DoDragDrop(v_pic1.Image, DragDropEffects.Move) == DragDropEffects.Move)
+                if (v_type.IsSubclassOf(typeof(CartePlacable)))
                 {
-                    CartePlacable v_carte = (CartePlacable)v_pic1.Tag;
-                    m_joueurActif.RetirerCarteDeLaMain(m_Plateau, v_carte);
-                    v_pic1.Image = null;
-                    v_pic1.Tag = null;
-                    m_mouseLeft = false;
+                    m_picSource = v_pic1;
+                    if (v_pic1.DoDragDrop(v_pic1.Image, DragDropEffects.Copy) == DragDropEffects.Copy && m_dragDropDone)
+                    {
+                        v_pic1.Image = null;
+                        m_picDest.Tag = v_pic1.Tag;
+                        v_pic1.Tag = null;
+                        m_mouseLeft = false;
+                    }
                 }
             }
         }
@@ -92,7 +97,7 @@ namespace PlateauJeu
         {
             if (e.Data.GetDataPresent(DataFormats.Bitmap))
             {
-                e.Effect = DragDropEffects.Move;
+                e.Effect = DragDropEffects.Copy;
             }
             else
             {
@@ -102,12 +107,14 @@ namespace PlateauJeu
 
         private void pictureBox_DragDrop(object sender, DragEventArgs e)
         {
-            PictureBox pic2 = (PictureBox)sender;
-            if ((e.Data.GetDataPresent(DataFormats.Bitmap)))
+            PictureBox v_pic2 = (PictureBox)sender;
+            if ((e.Data.GetDataPresent(DataFormats.Serializable)))
             {
-                if (pic2.Parent == tableLayoutPanel1)
+                if (v_pic2.Parent == tableLayoutPanel1 && v_pic2.Image == null)
                 {
-                    pic2.Image = (Bitmap)(e.Data.GetData(DataFormats.Bitmap));
+                    Bitmap v_pic1 = (Bitmap)(e.Data.GetData(DataFormats.Bitmap));
+                    v_pic2.Image = v_pic1;
+                    m_picDest = v_pic2;
                     m_dragDropDone = true;
                 }
             }
@@ -126,9 +133,11 @@ namespace PlateauJeu
                     placerDeparts();
                 }
             }
-            else
+            else if(m_dragDropDone)
             {
-                if(m_joueurActif == m_Joueur1)
+                CartePlacable v_carte = (CartePlacable)m_picSource.Tag;
+                m_joueurActif.RetirerCarteDeLaMain(m_Plateau, v_carte);
+                if (m_joueurActif == m_Joueur1)
                 {
                     m_joueurActif = m_Joueur2;
                 }
@@ -218,7 +227,10 @@ namespace PlateauJeu
         {
             if(m_dragDropDone)
             {
-
+                m_picDest.Image = null;
+                m_picDest.Tag = null;
+                m_dragDropDone = false;
+                majCartes();
             }
         }
     }
