@@ -12,7 +12,6 @@ namespace PlateauJeu.Class_Cartes
         private List<Depart> m_Departs;
         private List<CarteObjectif> m_Objectifs;
         private List<Carte> m_Defausse;
-        private int[,] m_TableauId;
         private int m_id;
 
         public List<Depart> Departs
@@ -151,7 +150,6 @@ namespace PlateauJeu.Class_Cartes
             //Pioche.Add();
             //etc...
             m_Defausse = new List<Carte>();
-            m_TableauId = new int[11, 15];
             m_id = 0;
         }
 

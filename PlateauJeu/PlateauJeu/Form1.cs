@@ -82,8 +82,7 @@ namespace PlateauJeu
                     CartePlacable v_carte = (CartePlacable)v_pic1.Tag;
                     m_joueurActif.RetirerCarteDeLaMain(m_Plateau, v_carte);
                     v_pic1.Image = null;
-                    v_pic1.MouseDown -= pictureBox_MouseDown;
-                    v_pic1.MouseMove -= pictureBox_MouseMove;
+                    v_pic1.Tag = null;
                     m_mouseLeft = false;
                 }
             }
@@ -140,7 +139,11 @@ namespace PlateauJeu
             }
             majCompteurs();
             majCartes();
-            m_dragDropDone = false;
+            if (m_dragDropDone == true)
+            {
+                m_joueurActif.Piocher(m_Plateau, 1);
+                m_dragDropDone = false;
+            }
         }
 
         private void initJoueurs()
@@ -203,13 +206,11 @@ namespace PlateauJeu
             PictureBox pic = (PictureBox)tableLayoutPanel1.GetControlFromPosition(2, 4);
             m_Plateau.Departs.ElementAt(0).Id = m_Plateau.Id++;
             pic.Image = m_Plateau.Departs.ElementAt(0).ImgRecto;
-            pic.Tag = m_Plateau.Id;
-            m_Plateau.TableauId[2, 4] = m_Plateau.Id++;
+            pic.Tag = m_Plateau.Departs.ElementAt(0);
             pic = (PictureBox)tableLayoutPanel1.GetControlFromPosition(2, 6);
             m_Plateau.Departs.ElementAt(1).Id = m_Plateau.Id++;
             pic.Image = m_Plateau.Departs.ElementAt(1).ImgRecto;
-            pic.Tag = m_Plateau.Id;
-            m_Plateau.TableauId[2, 6] = m_Plateau.Id++;
+            pic.Tag = m_Plateau.Departs.ElementAt(1);
         }
     }
 }
