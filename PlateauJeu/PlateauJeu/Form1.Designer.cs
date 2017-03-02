@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox165 = new System.Windows.Forms.PictureBox();
             this.pictureBox151 = new System.Windows.Forms.PictureBox();
@@ -212,13 +211,14 @@
             this.txt_J1 = new System.Windows.Forms.TextBox();
             this.txt_J2 = new System.Windows.Forms.TextBox();
             this.lbl_joueur2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_end = new System.Windows.Forms.Button();
             this.pnl_nomJoueur = new System.Windows.Forms.Panel();
             this.pnl_infos = new System.Windows.Forms.Panel();
             this.lbl_tourDe = new System.Windows.Forms.Label();
             this.lbl_pepite = new System.Windows.Forms.Label();
             this.lbl_manche = new System.Windows.Forms.Label();
             this.pnl_tableContainer = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox165)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox151)).BeginInit();
@@ -1928,7 +1928,6 @@
             // pic_test
             // 
             this.pic_test.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pic_test.Image = ((System.Drawing.Image)(resources.GetObject("pic_test.Image")));
             this.pic_test.Location = new System.Drawing.Point(102, 4);
             this.pic_test.Name = "pic_test";
             this.pic_test.Size = new System.Drawing.Size(42, 72);
@@ -2022,7 +2021,6 @@
             // pictureBox166
             // 
             this.pictureBox166.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox166.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox166.Image")));
             this.pictureBox166.Location = new System.Drawing.Point(249, 4);
             this.pictureBox166.Name = "pictureBox166";
             this.pictureBox166.Size = new System.Drawing.Size(47, 72);
@@ -2033,7 +2031,6 @@
             // pictureBox168
             // 
             this.pictureBox168.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox168.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox168.Image")));
             this.pictureBox168.Location = new System.Drawing.Point(151, 4);
             this.pictureBox168.Name = "pictureBox168";
             this.pictureBox168.Size = new System.Drawing.Size(42, 72);
@@ -2044,7 +2041,6 @@
             // pictureBox170
             // 
             this.pictureBox170.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox170.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox170.Image")));
             this.pictureBox170.Location = new System.Drawing.Point(200, 4);
             this.pictureBox170.Name = "pictureBox170";
             this.pictureBox170.Size = new System.Drawing.Size(42, 72);
@@ -2055,7 +2051,6 @@
             // pictureBox167
             // 
             this.pictureBox167.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox167.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox167.Image")));
             this.pictureBox167.Location = new System.Drawing.Point(4, 4);
             this.pictureBox167.Name = "pictureBox167";
             this.pictureBox167.Size = new System.Drawing.Size(42, 72);
@@ -2066,7 +2061,6 @@
             // pictureBox169
             // 
             this.pictureBox169.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox169.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox169.Image")));
             this.pictureBox169.Location = new System.Drawing.Point(53, 4);
             this.pictureBox169.Name = "pictureBox169";
             this.pictureBox169.Size = new System.Drawing.Size(42, 72);
@@ -2115,15 +2109,15 @@
             this.lbl_joueur2.TabIndex = 5;
             this.lbl_joueur2.Text = "J2";
             // 
-            // button1
+            // btn_end
             // 
-            this.button1.Location = new System.Drawing.Point(952, 550);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 51);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Terminer";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btn_end.Location = new System.Drawing.Point(952, 550);
+            this.btn_end.Name = "btn_end";
+            this.btn_end.Size = new System.Drawing.Size(100, 51);
+            this.btn_end.TabIndex = 7;
+            this.btn_end.Text = "Terminer";
+            this.btn_end.UseVisualStyleBackColor = true;
+            this.btn_end.Click += new System.EventHandler(this.btn_end_Click);
             // 
             // pnl_nomJoueur
             // 
@@ -2185,15 +2179,25 @@
             this.pnl_tableContainer.Size = new System.Drawing.Size(654, 433);
             this.pnl_tableContainer.TabIndex = 10;
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(951, 618);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(100, 51);
+            this.button2.TabIndex = 11;
+            this.button2.Text = "Terminer";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.pnl_tableContainer);
             this.Controls.Add(this.pnl_infos);
             this.Controls.Add(this.pnl_nomJoueur);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_end);
             this.Controls.Add(this.pnl_joueur);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -2548,7 +2552,7 @@
         private System.Windows.Forms.TextBox txt_J1;
         private System.Windows.Forms.TextBox txt_J2;
         private System.Windows.Forms.Label lbl_joueur2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_end;
         private System.Windows.Forms.Panel pnl_nomJoueur;
         private System.Windows.Forms.Panel pnl_infos;
         private System.Windows.Forms.Label lbl_tourDe;
@@ -2578,6 +2582,7 @@
         private System.Windows.Forms.Panel pnl_tableContainer;
         private System.Windows.Forms.TableLayoutPanel pnl_outilBrises;
         private System.Windows.Forms.TableLayoutPanel pnl_main;
+        private System.Windows.Forms.Button button2;
     }
 }
 
