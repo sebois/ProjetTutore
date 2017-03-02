@@ -10,7 +10,7 @@ namespace PlateauJeu.Class_Cartes
 {
     abstract class CartePlacable : Carte
     {
-        protected int id;
+        protected int m_id;
         protected bool m_l_HautBas;
         protected bool m_l_GaucheDroite;
         protected bool m_l_HautDroite;
@@ -131,12 +131,12 @@ namespace PlateauJeu.Class_Cartes
         {
             get
             {
-                return id;
+                return m_id;
             }
 
-            private set
+            set
             {
-                id = value;
+                m_id = value;
             }
         }
         #endregion

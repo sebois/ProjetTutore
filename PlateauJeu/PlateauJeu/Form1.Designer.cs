@@ -218,7 +218,7 @@
             this.lbl_pepite = new System.Windows.Forms.Label();
             this.lbl_manche = new System.Windows.Forms.Label();
             this.pnl_tableContainer = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btn_undo = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox165)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox151)).BeginInit();
@@ -2179,21 +2179,23 @@
             this.pnl_tableContainer.Size = new System.Drawing.Size(654, 433);
             this.pnl_tableContainer.TabIndex = 10;
             // 
-            // button2
+            // btn_undo
             // 
-            this.button2.Location = new System.Drawing.Point(951, 618);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(100, 51);
-            this.button2.TabIndex = 11;
-            this.button2.Text = "Terminer";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btn_undo.Location = new System.Drawing.Point(951, 618);
+            this.btn_undo.Name = "btn_undo";
+            this.btn_undo.Size = new System.Drawing.Size(100, 51);
+            this.btn_undo.TabIndex = 11;
+            this.btn_undo.Text = "Annuler";
+            this.btn_undo.UseVisualStyleBackColor = true;
+            this.btn_undo.Visible = false;
+            this.btn_undo.Click += new System.EventHandler(this.btn_undo_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 681);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btn_undo);
             this.Controls.Add(this.pnl_tableContainer);
             this.Controls.Add(this.pnl_infos);
             this.Controls.Add(this.pnl_nomJoueur);
@@ -2582,7 +2584,7 @@
         private System.Windows.Forms.Panel pnl_tableContainer;
         private System.Windows.Forms.TableLayoutPanel pnl_outilBrises;
         private System.Windows.Forms.TableLayoutPanel pnl_main;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btn_undo;
     }
 }
 

@@ -113,7 +113,7 @@ namespace PlateauJeu
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btn_end_Click(object sender, EventArgs e)
         {
             if(m_manche == 0)
             {
@@ -189,6 +189,7 @@ namespace PlateauJeu
             lbl_tourDe.Visible = true;
             txt_J1.Enabled = false;
             txt_J2.Enabled = false;
+            btn_undo.Visible = true;
         }
 
         private void majCartes()
@@ -211,6 +212,14 @@ namespace PlateauJeu
             m_Plateau.Departs.ElementAt(1).Id = m_Plateau.Id++;
             pic.Image = m_Plateau.Departs.ElementAt(1).ImgRecto;
             pic.Tag = m_Plateau.Departs.ElementAt(1);
+        }
+
+        private void btn_undo_Click(object sender, EventArgs e)
+        {
+            if(m_dragDropDone)
+            {
+
+            }
         }
     }
 }
