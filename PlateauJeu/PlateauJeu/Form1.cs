@@ -67,6 +67,9 @@ namespace PlateauJeu
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
+            /// <summary>
+            /// Evenement de clic déclenché si le DragAndDrop n'a pas encore été effectué
+            /// </summary>
             if (e.Button == MouseButtons.Left && !m_dragDropDone)
             { 
                 m_mouseLeft = true;
@@ -77,16 +80,27 @@ namespace PlateauJeu
         {
             if (m_mouseLeft)
             {
+                /*
+                 * Récupère le type de carte grâce au pointeur contenu dans le Tag de la PictureBox
+                 */
                 PictureBox v_pic1 = (PictureBox)sender;
                 Type v_type = v_pic1.Tag.GetType();
                 if (v_type.IsSubclassOf(typeof(CartePlacable)))
                 {
-                    m_picSource = v_pic1;
+                    /*
+                     * Lance et attend la fin du DragAndDrop
+                     */
                     if (v_pic1.DoDragDrop(v_pic1.Image, DragDropEffects.Copy) == DragDropEffects.Copy && m_dragDropDone)
                     {
+                        /*
+                         * Pointeur de la PictureBox source du DragAndDrop 
+                         */
+                        m_picSource = v_pic1;
+                        /*
+                         * Supprime l'image dans la PictureBox source et affecte le tag de la PictureBox destination avec la carte
+                         */
                         v_pic1.Image = null;
                         m_picDest.Tag = v_pic1.Tag;
-                        v_pic1.Tag = null;
                         m_mouseLeft = false;
                     }
                 }
@@ -108,12 +122,18 @@ namespace PlateauJeu
         private void pictureBox_DragDrop(object sender, DragEventArgs e)
         {
             PictureBox v_pic2 = (PictureBox)sender;
-            if ((e.Data.GetDataPresent(DataFormats.Serializable)))
+            if ((e.Data.GetDataPresent(DataFormats.Bitmap)))
             {
+                /*
+                 * Vérifie que la PictureBox de destination ne possède pas déjà une image
+                 */
                 if (v_pic2.Parent == tableLayoutPanel1 && v_pic2.Image == null)
                 {
-                    Bitmap v_pic1 = (Bitmap)(e.Data.GetData(DataFormats.Bitmap));
-                    v_pic2.Image = v_pic1;
+                    /*
+                     * Affecte l'image de la PictureBox de destination, pointeur vers la PictureBox de destination et flag
+                     */
+                    Bitmap v_bitmap = (Bitmap)(e.Data.GetData(DataFormats.Bitmap));
+                    v_pic2.Image = v_bitmap;
                     m_picDest = v_pic2;
                     m_dragDropDone = true;
                 }
@@ -124,8 +144,14 @@ namespace PlateauJeu
         {
             if(m_manche == 0)
             {
+                /*
+                 * Vérifie l'affectation des noms
+                 */
                 if ((txt_J1.Text != "") && (txt_J2.Text != ""))
                 {
+                    /*
+                     * Créé le Plateau, les joueurs, lance la manche 1, affiche les controles et place les cases départ
+                     */ 
                     m_Plateau = new Plateau();
                     initJoueurs();
                     m_manche++;
@@ -133,10 +159,25 @@ namespace PlateauJeu
                     placerDeparts();
                 }
             }
+            /*
+             * Vérifie si un DragAndDrop a été réalisé
+             */
             else if(m_dragDropDone)
             {
+                /*
+                 * Récupère la carte et la retire de la main du joueur
+                 * Réinitialise le pointeur de carte de la PictureBox source
+                 * Le joueur pioche 1 carte
+                 * flag baissé
+                 */
                 CartePlacable v_carte = (CartePlacable)m_picSource.Tag;
                 m_joueurActif.RetirerCarteDeLaMain(m_Plateau, v_carte);
+                m_picSource.Tag = null;
+                m_joueurActif.Piocher(m_Plateau, 1);
+                m_dragDropDone = false;
+                /*
+                 * Changement de joueur
+                 */
                 if (m_joueurActif == m_Joueur1)
                 {
                     m_joueurActif = m_Joueur2;
@@ -146,15 +187,15 @@ namespace PlateauJeu
                     m_joueurActif = m_Joueur1;
                 }
             }
+            /*
+             * Mise à jour de l'affichage des compteurs et de la main du joueur
+             */
             majCompteurs();
             majCartes();
-            if (m_dragDropDone == true)
-            {
-                m_joueurActif.Piocher(m_Plateau, 1);
-                m_dragDropDone = false;
-            }
         }
-
+        /// <summary>
+        /// Initialise les joueurs aléatoirement
+        /// </summary>
         private void initJoueurs()
         {
             Random rand = new Random();
@@ -172,9 +213,10 @@ namespace PlateauJeu
                     m_joueurActif = m_Joueur2;
                     break;
             }
-
         }
-
+        /// <summary>
+        /// Met à jour l'affichage des compteurs
+        /// </summary>
         private void majCompteurs()
         {
             lbl_manche.Text = "Manche " + m_manche + "/3";
@@ -188,7 +230,9 @@ namespace PlateauJeu
                 lbl_tourDe.Text = "Tour Joueur 2";
             }
         }
-
+        /// <summary>
+        /// Affiche les contrôles
+        /// </summary>
         private void afficherElements()
         {
             pnl_joueur.Visible = true;
@@ -200,7 +244,9 @@ namespace PlateauJeu
             txt_J2.Enabled = false;
             btn_undo.Visible = true;
         }
-
+        /// <summary>
+        /// Met à jour la main du joueur
+        /// </summary>
         private void majCartes()
         {
             for(int i=0; i<m_joueurActif.MainJoueur.Count; i++)
@@ -210,7 +256,9 @@ namespace PlateauJeu
                 pic.Tag = m_joueurActif.getCarteAtPosition(i);
             }
         }
-
+        /// <summary>
+        /// Place les cartes départ
+        /// </summary>
         private void placerDeparts()
         {
             PictureBox pic = (PictureBox)tableLayoutPanel1.GetControlFromPosition(2, 4);
@@ -225,6 +273,9 @@ namespace PlateauJeu
 
         private void btn_undo_Click(object sender, EventArgs e)
         {
+            /*
+             * Réinitialise la PictureBox de destination, baisse le flag et met à jour la main du joueur
+             */
             if(m_dragDropDone)
             {
                 m_picDest.Image = null;
