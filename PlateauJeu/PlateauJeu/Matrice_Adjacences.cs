@@ -66,11 +66,33 @@ namespace PlateauJeu.Matrice_Adjacences
 
         public void retirerCarte(Carte supprCarte, int x, int y)
         {
+            if (true) //getCarteById(TableauJeu[x,y+1] != null
+            {
+                matrice[x, y, x, y + 1] = 0;
+                matrice[x, y + 1, x, y] = 0;
+            }
 
+            if (true) //getCarteById(TableauJeu[x,y-1] !=null
+            {
+                matrice[x, y, x, y - 1] = 0;
+                matrice[x, y - 1, x, y] = 0;
+            }
+
+            if (true)//getCarteById(TableauJeu[x-1,y] != null
+            {
+                matrice[x, y, x - 1, y] = 0;
+                matrice[x - 1, y, x, y] = 0;
+            }
+            if (true)//getCarteById(TableauJeu[x+1,y] != null
+            {
+                matrice[x, y, x + 1, y] = 0;
+                matrice[x + 1, y, x, y] = 0;
+            }
         }
 
-        public Boolean VérifChemin(int x, int y)
+        public Boolean VérifChemin(int x, int y, int xD, int yD)
         {
+
             return false;
         }
     }
