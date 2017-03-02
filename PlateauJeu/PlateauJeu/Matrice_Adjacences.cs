@@ -28,12 +28,43 @@ namespace PlateauJeu.Matrice_Adjacences
             }
         }
 
-        public void ajoutCarte(int id_nouvCartes, int x, int y)
+        public void ajoutCarte(CartePlacable nouvCarte, int x, int y)
         {
-            
+            if (nouvCarte.M_hAut == true)
+            {
+                if (true) //getCarteById(TableauJeu[x,y+1] != null;
+                {
+                    matrice[x, y, x, y + 1] = 1;
+                    matrice[x, y + 1, x, y] = 1;
+                }
+            }
+
+            if (nouvCarte.M_bas == true)
+            {
+                if (true) //getCarteById(TableauJeu[x,y-1] != null;
+                {
+                    matrice[x, y, x, y - 1] = 1;
+                    matrice[x, y - 1, x, y] = 1;
+                }
+            }
+
+            if (nouvCarte.M_droite == true)
+                if (true) //getCarteById[x+1,y] != null;
+                {
+                    matrice[x, y, x + 1, y] = 1;
+                    matrice[x + 1, y, x, y] = 1;
+                }
+            if (nouvCarte.M_l_gauche == true)
+            {
+                if (true) //getCarteById(TableauJeu[x-1,y] != null;
+                {
+                    matrice[x, y, x - 1, y] = 1;
+                    matrice[x - 1, y, x, y] = 1;
+                }
+            }
         }
 
-        public void retirerCarte(int id_supprCarte, int x, int y)
+        public void retirerCarte(Carte supprCarte, int x, int y)
         {
 
         }
