@@ -8,6 +8,7 @@ namespace PlateauJeu.Class_Cartes
 {
     class CarteObjectif : CartePlacable
     {
+        private Pepite m_Pepite;
         private bool m_decouvert;
 
         public CarteObjectif(

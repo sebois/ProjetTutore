@@ -12,12 +12,25 @@ namespace PlateauJeu.Class_Cartes
 
         public OutilsBrises(System.Drawing.Bitmap p_imgRecto, Outils p_outils): base(p_imgRecto)
         {
-            m_outils = p_outils;
+            Outils = p_outils;
+        }
+
+        public Outils Outils
+        {
+            get
+            {
+                return m_outils;
+            }
+
+            set
+            {
+                m_outils = value;
+            }
         }
 
         public void Utiliser(Joueur joueur)
         {
-            joueur.Briser(m_outils);
+            joueur.Briser(joueur, this);
         }
 
 

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PlateauJeu.Class_Cartes
 {
@@ -68,13 +70,6 @@ namespace PlateauJeu.Class_Cartes
 
             #endregion
 
-            #region initialisation pepites
-            if (p_Pepite != null)
-            {
-                m_Pepite = p_Pepite;
-            }
-            #endregion
-
             #region initialisation du type
             if (((p_l_BasDroite && p_l_HautGauche) || (p_l_BasGauche && p_l_HautDroite)) && (!p_l_HautBas))
             {
@@ -87,9 +82,10 @@ namespace PlateauJeu.Class_Cartes
             #endregion
         }
 
-        public void placer(int x, int y)
+        public void placer(TableLayoutPanel Panel, int x, int y)
         {
-            new Exception("CarteChemin placée : non implémenté");
+            PictureBox pic = (PictureBox) Panel.GetControlFromPosition(x, y);
+            pic.Image = new Bitmap(m_imgRecto);
         }
 
         public bool verifPlacement(int x, int y)
