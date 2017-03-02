@@ -22,6 +22,125 @@ namespace PlateauJeu.Class_Cartes
         protected bool m_droite;
         protected bool m_gauche;
 
+        #region Accesseur
+        public bool M_l_HautBas
+        {
+            get
+            {
+                return m_l_HautBas;
+            }
+
+            private set
+            {
+                m_l_HautBas = value;
+            }
+        }
+
+        public bool M_l_GaucheDroite
+        {
+            get
+            {
+                return m_l_GaucheDroite;
+            }
+
+            private set
+            {
+                m_l_GaucheDroite = value;
+            }
+        }
+
+        public bool M_l_HautDroite
+        {
+            get
+            {
+                return m_l_HautDroite;
+            }
+
+            private set
+            {
+                m_l_HautDroite = value;
+            }
+        }
+
+        public bool M_l_BasDroite
+        {
+            get
+            {
+                return m_l_BasDroite;
+            }
+
+            private set
+            {
+                m_l_BasDroite = value;
+            }
+        }
+
+        public bool M_bas
+        {
+            get
+            {
+                return m_bas;
+            }
+
+            private set
+            {
+                m_bas = value;
+            }
+        }
+
+        public bool M_droite
+        {
+            get
+            {
+                return m_droite;
+            }
+
+            private set
+            {
+                m_droite = value;
+            }
+        }
+
+        public bool M_hAut
+        {
+            get
+            {
+                return m_haut;
+            }
+
+            private set
+            {
+                m_haut = value;
+            }
+        }
+
+        public bool M_l_gauche
+        {
+            get
+            {
+                return m_gauche;
+            }
+
+            private set
+            {
+                m_gauche = value;
+            }
+        }
+
+        public int Id
+        {
+            get
+            {
+                return id;
+            }
+
+            private set
+            {
+                id = value;
+            }
+        }
+        #endregion
+
         public CartePlacable(
             System.Drawing.Bitmap p_imgRecto,
             bool p_l_HautBas = false, bool p_l_GaucheDroite = false,
