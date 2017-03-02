@@ -27,19 +27,6 @@ namespace PlateauJeu.Class_Cartes
             }
         }
 
-        public int[,] TableauId
-        {
-            get
-            {
-                return m_TableauId;
-            }
-
-            set
-            {
-                m_TableauId = value;
-            }
-        }
-
         public int Id
         {
             get
