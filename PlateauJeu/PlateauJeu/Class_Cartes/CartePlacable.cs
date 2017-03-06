@@ -62,6 +62,19 @@ namespace PlateauJeu.Class_Cartes
             }
         }
 
+        public bool M_l_HautGauche
+        {
+            get
+            {
+                return m_l_HautGauche;
+            }
+
+            set
+            {
+                m_l_HautGauche = value;
+            }
+        }
+
         public bool M_l_BasDroite
         {
             get
@@ -72,6 +85,19 @@ namespace PlateauJeu.Class_Cartes
             private set
             {
                 m_l_BasDroite = value;
+            }
+        }
+
+        public bool M_l_BasGauche
+        {
+            get
+            {
+                return m_l_BasGauche;
+            }
+
+            private set
+            {
+                m_l_BasGauche = value;
             }
         }
 
@@ -101,7 +127,7 @@ namespace PlateauJeu.Class_Cartes
             }
         }
 
-        public bool M_hAut
+        public bool M_haut
         {
             get
             {
@@ -114,7 +140,7 @@ namespace PlateauJeu.Class_Cartes
             }
         }
 
-        public bool M_l_gauche
+        public bool M_gauche
         {
             get
             {

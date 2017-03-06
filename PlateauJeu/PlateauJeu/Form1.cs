@@ -23,6 +23,7 @@ namespace PlateauJeu
         private Joueur m_Joueur2;
         private PictureBox m_picDest;
         private PictureBox m_picSource;
+        private int m_test;
 
         public Form1()
         {
@@ -88,14 +89,14 @@ namespace PlateauJeu
                 if (v_type.IsSubclassOf(typeof(CartePlacable)))
                 {
                     /*
+                    * Pointeur de la PictureBox source du DragAndDrop 
+                    */
+                    m_picSource = v_pic1;
+                    /*
                      * Lance et attend la fin du DragAndDrop
-                     */
+                     */ 
                     if (v_pic1.DoDragDrop(v_pic1.Image, DragDropEffects.Copy) == DragDropEffects.Copy && m_dragDropDone)
                     {
-                        /*
-                         * Pointeur de la PictureBox source du DragAndDrop 
-                         */
-                        m_picSource = v_pic1;
                         /*
                          * Supprime l'image dans la PictureBox source et affecte le tag de la PictureBox destination avec la carte
                          */
@@ -121,21 +122,29 @@ namespace PlateauJeu
 
         private void pictureBox_DragDrop(object sender, DragEventArgs e)
         {
-            PictureBox v_pic2 = (PictureBox)sender;
             if ((e.Data.GetDataPresent(DataFormats.Bitmap)))
             {
+                m_mouseLeft = false;
+                PictureBox v_pic2 = (PictureBox)sender;
+                
                 /*
                  * Vérifie que la PictureBox de destination ne possède pas déjà une image
                  */
                 if (v_pic2.Parent == tableLayoutPanel1 && v_pic2.Image == null)
                 {
+                    TableLayoutPanelCellPosition v_cellPosition = tableLayoutPanel1.GetPositionFromControl(v_pic2);
+                    
+
                     /*
                      * Affecte l'image de la PictureBox de destination, pointeur vers la PictureBox de destination et flag
                      */
-                    Bitmap v_bitmap = (Bitmap)(e.Data.GetData(DataFormats.Bitmap));
-                    v_pic2.Image = v_bitmap;
-                    m_picDest = v_pic2;
-                    m_dragDropDone = true;
+                    if (isPlacableAtCell(v_cellPosition))
+                    { 
+                        Bitmap v_bitmap = (Bitmap)(e.Data.GetData(DataFormats.Bitmap));
+                        v_pic2.Image = v_bitmap;
+                        m_picDest = v_pic2;
+                        m_dragDropDone = true;
+                    }
                 }
             }
         }
@@ -283,6 +292,111 @@ namespace PlateauJeu
                 m_dragDropDone = false;
                 majCartes();
             }
+        }
+
+        /// <summary>
+        /// Teste si le placement est possible avec chaque cellule voisine
+        /// Ordre des tests: Haut, Droite, Bas, Gauche
+        /// Dans le cas où toutes les cellules voisines sont vides le test est faux
+        /// </summary>
+        /// <param name="p_cellPosition">Position de la Cellule cible du DragAndDrop</param>
+        /// <returns></returns>
+        private bool isPlacableAtCell(TableLayoutPanelCellPosition p_cellPosition)
+        {
+            int v_compteurException = 0, v_incrementX = 0, v_incrementY = -1;
+            if (!testPlacementVoisin(p_cellPosition, v_incrementX, v_incrementY, ref v_compteurException))
+                return false;
+            v_incrementX = 1 ; v_incrementY = 0;
+            if (!testPlacementVoisin(p_cellPosition, v_incrementX, v_incrementY, ref v_compteurException))
+                return false;
+            v_incrementX = 0; v_incrementY = 1;
+            if (!testPlacementVoisin(p_cellPosition, v_incrementX, v_incrementY, ref v_compteurException))
+                return false;
+            v_incrementX = -1; v_incrementY = 0;
+            if (!testPlacementVoisin(p_cellPosition, v_incrementX, v_incrementY, ref v_compteurException))
+                return false;
+            if (v_compteurException != 4)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
+        /// <summary>
+        /// Teste si le placement est possible avec la cellule sélectionnée
+        /// Récupère chaque carte et teste si les entrées et sorties de chacune sont compatibles
+        /// Dans le cas où la cellule est vide le test est vrai mais le compteur de cellules vides est incrémenté
+        /// </summary>
+        /// <param name="p_cellPosition">Position de la Cellule cible du DragAndDrop</param>
+        /// <param name="p_incrementX">Incrémentation de la colonne pour trouver la cellule voisine</param>
+        /// <param name="p_incrementY">Incrémentation de la ligne pour trouver la cellule voisine</param>
+        /// <param name="p_compteurException">Compteur du nombre de cellules voisines vides</param>
+        /// <returns></returns>
+        private bool testPlacementVoisin(TableLayoutPanelCellPosition p_cellPosition, int p_incrementX, 
+            int p_incrementY, ref int p_compteurException)
+        {
+            CartePlacable v_carte = (CartePlacable)m_picSource.Tag;
+            PictureBox v_picVoisin;
+            CartePlacable v_carteVoisin;
+            try
+            {
+                v_picVoisin = (PictureBox)tableLayoutPanel1.GetControlFromPosition(
+                    p_cellPosition.Column + p_incrementX, p_cellPosition.Row + p_incrementY);
+                v_carteVoisin = (CartePlacable)v_picVoisin.Tag;
+                if (p_incrementY == -1)
+                {
+                    if (v_carteVoisin.M_bas)
+                    {
+                        if (!v_carte.M_haut)
+                        {
+                            return false;
+                        }
+                        else
+                            return true;
+                    }
+                }
+                else if (p_incrementX == 1)
+                {
+                    if (v_carteVoisin.M_gauche)
+                    {
+                        if (!v_carte.M_droite)
+                        {
+                            return false;
+                        }
+                        else
+                            return true;
+                    }
+                }
+                else if (p_incrementY == 1)
+                {
+                    if (v_carteVoisin.M_haut)
+                    {
+                        if (!v_carte.M_bas)
+                        {
+                            return false;
+                        }
+                        else
+                            return true;
+                    }
+                }
+                else if (p_incrementX == -1)
+                {
+                    if (v_carteVoisin.M_droite)
+                    {
+                        if (!v_carte.M_gauche)
+                        {
+                            return false;
+                        }
+                        else
+                            return true;
+                    }
+                } 
+            }
+            catch (ArgumentException ex) { }
+            catch (NullReferenceException ex) { }
+            p_compteurException++;
+            return true;
         }
     }
 }
