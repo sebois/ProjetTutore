@@ -94,7 +94,7 @@ namespace PlateauJeu
                     m_picSource = v_pic1;
                     /*
                      * Lance et attend la fin du DragAndDrop
-                     */ 
+                     */
                     if (v_pic1.DoDragDrop(v_pic1.Image, DragDropEffects.Copy) == DragDropEffects.Copy && m_dragDropDone)
                     {
                         /*
@@ -102,8 +102,8 @@ namespace PlateauJeu
                          */
                         v_pic1.Image = null;
                         m_picDest.Tag = v_pic1.Tag;
-                        m_mouseLeft = false;
                     }
+                    m_mouseLeft = false;
                 }
             }
         }
@@ -124,7 +124,6 @@ namespace PlateauJeu
         {
             if ((e.Data.GetDataPresent(DataFormats.Bitmap)))
             {
-                m_mouseLeft = false;
                 PictureBox v_pic2 = (PictureBox)sender;
                 
                 /*
@@ -346,56 +345,36 @@ namespace PlateauJeu
                 v_carteVoisin = (CartePlacable)v_picVoisin.Tag;
                 if (p_incrementY == -1)
                 {
-                    if (v_carteVoisin.M_bas)
+                    if ((!v_carteVoisin.M_bas && v_carte.M_haut) || (v_carteVoisin.M_bas && !v_carte.M_haut))
                     {
-                        if (!v_carte.M_haut)
-                        {
-                            return false;
-                        }
-                        else
-                            return true;
+                        return false;
                     }
                 }
                 else if (p_incrementX == 1)
                 {
-                    if (v_carteVoisin.M_gauche)
+                    MessageBox.Show(v_carte.M_droite.ToString() + ' ' + v_carteVoisin.M_gauche.ToString());
+                    if ((!v_carteVoisin.M_gauche && v_carte.M_droite) || (v_carteVoisin.M_gauche && !v_carte.M_droite))
                     {
-                        if (!v_carte.M_droite)
-                        {
-                            return false;
-                        }
-                        else
-                            return true;
+                        return false;
                     }
                 }
                 else if (p_incrementY == 1)
                 {
-                    if (v_carteVoisin.M_haut)
+                    if ((!v_carteVoisin.M_haut && v_carte.M_bas) || (v_carteVoisin.M_haut && !v_carte.M_bas))
                     {
-                        if (!v_carte.M_bas)
-                        {
-                            return false;
-                        }
-                        else
-                            return true;
+                        return false;
                     }
                 }
                 else if (p_incrementX == -1)
                 {
-                    if (v_carteVoisin.M_droite)
+                    if ((!v_carteVoisin.M_droite && v_carte.M_gauche) || (v_carteVoisin.M_droite && !v_carte.M_gauche))
                     {
-                        if (!v_carte.M_gauche)
-                        {
-                            return false;
-                        }
-                        else
-                            return true;
+                        return false;
                     }
                 } 
             }
-            catch (ArgumentException ex) { }
-            catch (NullReferenceException ex) { }
-            p_compteurException++;
+            catch (ArgumentException ex) { p_compteurException++; }
+            catch (NullReferenceException ex) { p_compteurException++; }
             return true;
         }
     }
