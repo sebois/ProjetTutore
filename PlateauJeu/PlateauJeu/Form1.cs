@@ -352,7 +352,6 @@ namespace PlateauJeu
                 }
                 else if (p_incrementX == 1)
                 {
-                    MessageBox.Show(v_carte.M_droite.ToString() + ' ' + v_carteVoisin.M_gauche.ToString());
                     if ((!v_carteVoisin.M_gauche && v_carte.M_droite) || (v_carteVoisin.M_gauche && !v_carte.M_droite))
                     {
                         return false;
