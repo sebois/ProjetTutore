@@ -44,7 +44,7 @@ namespace PlateauJeu.Class_Cartes
             {
                 for ( int i = 1; i <=nbCarteAPiocher; i++)
                 {
-                    Carte tmp = p_plateau.PrendreCarte();
+                    Carte tmp = p_plateau.PrendreCarte(p_plateau.Pioche);
                     //La carte est déja retirer de la pioche 
                     m_mainJoueur.Add(tmp);
                 }

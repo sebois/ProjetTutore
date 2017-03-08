@@ -54,6 +54,32 @@ namespace PlateauJeu.Class_Cartes
             }
         }
 
+        internal List<Carte> Pioche
+        {
+            get
+            {
+                return m_Pioche;
+            }
+
+            set
+            {
+                m_Pioche = value;
+            }
+        }
+
+        internal List<CarteObjectif> Objectifs
+        {
+            get
+            {
+                return m_Objectifs;
+            }
+
+            set
+            {
+                m_Objectifs = value;
+            }
+        }
+
         public Plateau()
         {
             m_Pioche = new List<Carte>();
@@ -142,12 +168,12 @@ namespace PlateauJeu.Class_Cartes
             m_rnd = new Random();
         }
 
-        public Carte PrendreCarte()
+        public Carte PrendreCarte(List<Carte> p_liste)
         {
-            int nb_rnd = m_rnd.Next()% m_Pioche.Count();
+            int nb_rnd = m_rnd.Next() % p_liste.Count();
 
-            Carte tmp = m_Pioche.ElementAt(nb_rnd);
-            m_Pioche.Remove(tmp);
+            Carte tmp = p_liste.ElementAt(nb_rnd);
+            p_liste.Remove(tmp);
             return tmp;
         }
     }
