@@ -23,7 +23,7 @@ namespace PlateauJeu
         private Joueur m_Joueur2;
         private PictureBox m_picDest;
         private PictureBox m_picSource;
-        private int m_test;
+        private Random m_rnd = new Random();
 
         public Form1()
         {
@@ -165,6 +165,7 @@ namespace PlateauJeu
                     m_manche++;
                     afficherElements();
                     placerDeparts();
+                    placerObjectifsRetournes();
                 }
             }
             /*
@@ -206,16 +207,16 @@ namespace PlateauJeu
         /// </summary>
         private void initJoueurs()
         {
-            Random rand = new Random();
-            byte v_aleatoire = (byte)rand.Next(1, 2);
+            int v_aleatoire = m_rnd.Next()%2;
+            MessageBox.Show(v_aleatoire.ToString());
             switch (v_aleatoire)
             {
-                case 1:
+                case 0:
                     m_Joueur1 = new Joueur(txt_J1.Text, Couleur.Vert, m_Plateau);
                     m_Joueur2 = new Joueur(txt_J2.Text, Couleur.Bleu, m_Plateau);
                     m_joueurActif = m_Joueur1;
                     break;
-                case 2:
+                case 1:
                     m_Joueur1 = new Joueur(txt_J1.Text, Couleur.Bleu, m_Plateau);
                     m_Joueur2 = new Joueur(txt_J2.Text, Couleur.Vert, m_Plateau);
                     m_joueurActif = m_Joueur2;
@@ -231,11 +232,11 @@ namespace PlateauJeu
             lbl_pepite.Text = "Pépites restantes : " + m_nbPepite;
             if (m_joueurActif == m_Joueur1)
             {
-                lbl_tourDe.Text = "Tour Joueur 1";
+                lbl_tourDe.Text = "Tour Joueur 1 : Nain " + m_Joueur1.CouleurJoueur;
             }
             else
             {
-                lbl_tourDe.Text = "Tour Joueur 2";
+                lbl_tourDe.Text = "Tour Joueur 2 : Nain " + m_Joueur2.CouleurJoueur;
             }
         }
         /// <summary>
@@ -249,7 +250,9 @@ namespace PlateauJeu
             lbl_pepite.Visible = true;
             lbl_tourDe.Visible = true;
             txt_J1.Enabled = false;
+            txt_J1.BorderStyle = BorderStyle.FixedSingle;
             txt_J2.Enabled = false;
+            txt_J2.BorderStyle = BorderStyle.FixedSingle;
             btn_undo.Visible = true;
         }
         /// <summary>
@@ -277,6 +280,23 @@ namespace PlateauJeu
             m_Plateau.Departs.ElementAt(1).Id = m_Plateau.Id++;
             pic.Image = m_Plateau.Departs.ElementAt(1).ImgRecto;
             pic.Tag = m_Plateau.Departs.ElementAt(1);
+        }
+
+        private void placerObjectifsRetournes()
+        {
+            Bitmap picObjectifRetourne = new Bitmap("Cartes/CarteRetourneObjectif.jpg");
+            PictureBox pic = (PictureBox)tableLayoutPanel1.GetControlFromPosition(7, 3);
+            pic.Image = picObjectifRetourne;
+            pic = (PictureBox)tableLayoutPanel1.GetControlFromPosition(7, 5);
+            pic.Image = picObjectifRetourne;
+            pic = (PictureBox)tableLayoutPanel1.GetControlFromPosition(7, 7);
+            pic.Image = picObjectifRetourne;
+            pic = (PictureBox)tableLayoutPanel1.GetControlFromPosition(9, 4);
+            pic.Image = picObjectifRetourne;
+            pic = (PictureBox)tableLayoutPanel1.GetControlFromPosition(9, 6);
+            pic.Image = picObjectifRetourne;
+            pic = (PictureBox)tableLayoutPanel1.GetControlFromPosition(11, 5);
+            pic.Image = picObjectifRetourne;
         }
 
         private void btn_undo_Click(object sender, EventArgs e)

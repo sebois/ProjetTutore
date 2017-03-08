@@ -144,7 +144,7 @@ namespace PlateauJeu.Class_Cartes
 
         public Carte PrendreCarte()
         {
-            int nb_rnd = m_rnd.Next(m_Pioche.Count());
+            int nb_rnd = m_rnd.Next()% m_Pioche.Count();
 
             Carte tmp = m_Pioche.ElementAt(nb_rnd);
             m_Pioche.Remove(tmp);

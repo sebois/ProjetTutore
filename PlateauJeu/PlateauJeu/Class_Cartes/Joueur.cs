@@ -148,5 +148,18 @@ namespace PlateauJeu.Class_Cartes
                 m_mainJoueur = value;
             }
         }
+
+        public Couleur CouleurJoueur
+        {
+            get
+            {
+                return m_couleurJoueur;
+            }
+
+            set
+            {
+                m_couleurJoueur = value;
+            }
+        }
     }
 }
