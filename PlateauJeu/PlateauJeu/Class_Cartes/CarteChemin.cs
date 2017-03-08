@@ -102,6 +102,7 @@ namespace PlateauJeu.Class_Cartes
             #region Rotation180
             bool tempo;
 
+
             tempo = m_l_HautGauche;
             m_l_HautGauche = m_l_BasDroite;
             m_l_BasDroite = tempo;
@@ -118,7 +119,6 @@ namespace PlateauJeu.Class_Cartes
             m_gauche = m_droite;
             m_droite = tempo;
             #endregion
-
         }
 
         public void retirer()

@@ -39,6 +39,11 @@ namespace PlateauJeu
                 pic.SizeMode = PictureBoxSizeMode.StretchImage;
                 pic.Dock = DockStyle.Fill;
             }
+            foreach (PictureBox pic in pnl_defausse.Controls)
+            {
+                pic.DragEnter += new DragEventHandler(pictureBox_DragEnter);
+                pic.DragDrop += new DragEventHandler(pictureBox_DragDrop);
+            }
             /// <summary>
             /// Gestionnaire d'évènement du clic
             /// </summary>
@@ -62,8 +67,12 @@ namespace PlateauJeu
             {
                 pic.AllowDrop = true;
             }
-            txt_J1.Text = "Tomori";
-            txt_J2.Text = "Isla";
+            foreach (PictureBox pic in pnl_defausse.Controls)
+            {
+                pic.AllowDrop = true;
+            }
+            txt_J1.Text = "Seb";
+            txt_J2.Text = "Lili";
         }
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
@@ -74,6 +83,17 @@ namespace PlateauJeu
             if (e.Button == MouseButtons.Left && !m_dragDropDone)
             { 
                 m_mouseLeft = true;
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                PictureBox v_pic = (PictureBox)sender;
+                if (v_pic.Tag.GetType() == typeof(CarteChemin))
+                {
+                    CarteChemin v_carte = (CarteChemin)v_pic.Tag;
+                    v_carte.Rotation();
+                    v_pic.Image.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                    v_pic.Refresh();
+                }
             }
         }
 
@@ -208,7 +228,6 @@ namespace PlateauJeu
         private void initJoueurs()
         {
             int v_aleatoire = m_rnd.Next()%2;
-            MessageBox.Show(v_aleatoire.ToString());
             switch (v_aleatoire)
             {
                 case 0:
@@ -245,6 +264,7 @@ namespace PlateauJeu
         private void afficherElements()
         {
             pnl_joueur.Visible = true;
+            pnl_zoneDefausse.Visible = true;
             tableLayoutPanel1.Visible = true;
             lbl_manche.Visible = true;
             lbl_pepite.Visible = true;
@@ -285,18 +305,23 @@ namespace PlateauJeu
         private void placerObjectifsRetournes()
         {
             Bitmap picObjectifRetourne = new Bitmap("Cartes/CarteRetourneObjectif.jpg");
-            PictureBox pic = (PictureBox)tableLayoutPanel1.GetControlFromPosition(7, 3);
-            pic.Image = picObjectifRetourne;
-            pic = (PictureBox)tableLayoutPanel1.GetControlFromPosition(7, 5);
-            pic.Image = picObjectifRetourne;
-            pic = (PictureBox)tableLayoutPanel1.GetControlFromPosition(7, 7);
-            pic.Image = picObjectifRetourne;
-            pic = (PictureBox)tableLayoutPanel1.GetControlFromPosition(9, 4);
-            pic.Image = picObjectifRetourne;
-            pic = (PictureBox)tableLayoutPanel1.GetControlFromPosition(9, 6);
-            pic.Image = picObjectifRetourne;
-            pic = (PictureBox)tableLayoutPanel1.GetControlFromPosition(11, 5);
-            pic.Image = picObjectifRetourne;
+            List<PictureBox> listePic = new List<PictureBox>();
+            listePic.Add((PictureBox)tableLayoutPanel1.GetControlFromPosition(7, 3));
+            listePic.Add((PictureBox)tableLayoutPanel1.GetControlFromPosition(7, 5));
+            listePic.Add((PictureBox)tableLayoutPanel1.GetControlFromPosition(7, 7));
+            listePic.Add((PictureBox)tableLayoutPanel1.GetControlFromPosition(9, 4));
+            listePic.Add((PictureBox)tableLayoutPanel1.GetControlFromPosition(9, 6));
+            listePic.Add((PictureBox)tableLayoutPanel1.GetControlFromPosition(11, 5));
+            initObjectifsRetournes(listePic, picObjectifRetourne);
+        }
+
+        private void initObjectifsRetournes(List<PictureBox> p_listePic, Bitmap p_picObjectifRetourne)
+        {
+            foreach (PictureBox v_pic in p_listePic)
+            {
+                v_pic.Image = p_picObjectifRetourne;
+                v_pic.Tag = typeof(CarteObjectif);
+            }
         }
 
         private void btn_undo_Click(object sender, EventArgs e)
