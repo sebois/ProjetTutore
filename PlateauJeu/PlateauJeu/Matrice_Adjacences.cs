@@ -32,7 +32,7 @@ namespace PlateauJeu.Matrice_Adjacences
         public void ajoutCarte(CarteChemin nouvCarte, int x, int y)
         {
             matrice[x, y, x, y] = 1;
-            if (nouvCarte.M_hAut == true)
+            if (nouvCarte.M_haut == true)
             {
                 if (true) //getCarteById(TableauJeu[x,y+1] != null;
                 {
@@ -94,7 +94,7 @@ namespace PlateauJeu.Matrice_Adjacences
                     }
                 }
             }
-            if (nouvCarte.M_l_gauche == true)
+            if (nouvCarte.M_gauche == true)
             {
                 if (true) //getCarteById(TableauJeu[x-1,y] != null;
                 {

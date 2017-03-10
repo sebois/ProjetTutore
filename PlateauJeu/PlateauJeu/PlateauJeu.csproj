@@ -55,6 +55,7 @@
     <Compile Include="Class_Cartes\Eboulement.cs" />
     <Compile Include="Class_Cartes\Echelle.cs" />
     <Compile Include="Class_Cartes\Joueur.cs" />
+    <Compile Include="Matrice_Adjacences.cs" />
     <Compile Include="Class_Cartes\PlanSecret.cs" />
     <Compile Include="Class_Cartes\Plateau.cs" />
     <Compile Include="Class_Cartes\Position.cs" />

@@ -2280,7 +2280,6 @@
             this.label1.Size = new System.Drawing.Size(95, 19);
             this.label1.TabIndex = 13;
             this.label1.Text = "Main Joueur ";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // Form1
             // 

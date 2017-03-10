@@ -18,11 +18,18 @@ namespace PlateauJeu.Class_Cartes
                 m_outils.Add(outil);
         }
 
-        public void Utiliser(Joueur joueur)
+        override
+        public void Utiliser(object p_joueur)
         {
-            //On repare chaque outil qui est possible d'être réparé
-            foreach (Outils outil in m_outils)
-                joueur.Reparer(outil);
+            try
+            {
+                Joueur v_joueur = (Joueur)p_joueur;
+                //On repare chaque outil qui est possible d'être réparé
+                foreach (Outils outil in m_outils)
+                    v_joueur.Reparer(outil);
+            }
+            catch(InvalidCastException ex) { }
+            
         }
     }
 }
