@@ -8,14 +8,24 @@ namespace PlateauJeu.Class_Cartes
 {
     class CarteObjectif : CartePlacable
     {
+        private Pepite m_Pepite;
         private bool m_decouvert;
 
         public CarteObjectif(
-            string p_type,
-            bool p_l_HautBas, bool p_l_GaucheDroite, 
-            bool p_l_HautDroite, bool p_l_HautGauche, 
-            bool p_l_BasDroite, bool p_l_BasGauche,
-            Pepite p_Pepite = null) : base(p_l_HautBas, p_l_GaucheDroite, p_l_HautDroite, p_l_HautGauche, p_l_BasDroite, p_l_BasGauche, p_Pepite)
+            System.Drawing.Bitmap p_imgRecto,
+            bool p_l_HautBas = false, bool p_l_GaucheDroite = false,
+            bool p_l_HautDroite = false, bool p_l_HautGauche = false,
+            bool p_l_BasDroite = false, bool p_l_BasGauche = false,
+            bool p_haut = false, bool p_bas = false,
+            bool p_droite = false, bool p_gauche = false,
+            Pepite p_Pepite = null,
+            Porte p_Porte = null) : base(
+                p_imgRecto, 
+                p_l_HautBas, p_l_GaucheDroite, 
+                p_l_HautDroite, p_l_HautGauche, 
+                p_l_BasDroite, p_l_BasGauche, 
+                p_haut, p_bas,
+                p_droite, p_gauche)
         {
             m_decouvert = false;
         }

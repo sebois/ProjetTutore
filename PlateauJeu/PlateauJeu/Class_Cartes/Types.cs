@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PlateauJeu.Class_Cartes
+{
+    public enum Types
+    {
+        DoubleVirage,
+        Pont,
+        Porte,
+        Troll,
+        Echelle,
+        Depart
+    }
+}

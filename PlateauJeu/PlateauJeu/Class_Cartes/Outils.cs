@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PlateauJeu.Class_Cartes
 {
-    enum Outils
+    public enum Outils
     {
         Chariot,
         Lampe,

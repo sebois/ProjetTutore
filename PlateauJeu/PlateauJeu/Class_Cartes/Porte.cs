@@ -9,11 +9,11 @@ namespace PlateauJeu.Class_Cartes
 {
     class Porte
     {
-        private string m_pos;
-        private string m_couleurJoueur;
+        private Position m_pos;
+        private Couleur m_couleurJoueur;
         private bool m_ouvert;
 
-        public Porte(string p_pos, string p_couleurJoueur)
+        public Porte(Position p_pos, Couleur p_couleurJoueur)
         {
             m_pos = p_pos;
             m_couleurJoueur = p_couleurJoueur;

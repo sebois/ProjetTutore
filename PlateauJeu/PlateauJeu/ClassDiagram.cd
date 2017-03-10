@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PlateauJeu.Class_Cartes.Action" Collapsed="true">
+    <Position X="4" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Class_Cartes\Action.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlateauJeu.Class_Cartes.Carte" Collapsed="true">
+    <Position X="8.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Class_Cartes\Carte.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlateauJeu.Class_Cartes.CarteChemin" Collapsed="true">
+    <Position X="9.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAABIAACEAAEAAAAAAAEAAAAAAAABIAAAA=</HashCode>
+      <FileName>Class_Cartes\CarteChemin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlateauJeu.Class_Cartes.CarteObjectif" Collapsed="true">
+    <Position X="12.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Class_Cartes\CarteObjectif.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlateauJeu.Class_Cartes.CartePlacable" Collapsed="true">
+    <Position X="11" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQkAIAAAAAAAAAAAAEAAAFYBAAAAAIAAEAAgA=</HashCode>
+      <FileName>Class_Cartes\CartePlacable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlateauJeu.Class_Cartes.Cle" Collapsed="true">
+    <Position X="0.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Class_Cartes\Cle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlateauJeu.Class_Cartes.Depart" Collapsed="true">
+    <Position X="11" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Class_Cartes\Depart.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlateauJeu.Class_Cartes.Eboulement" Collapsed="true">
+    <Position X="2.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Class_Cartes\Eboulement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlateauJeu.Class_Cartes.Echelle" Collapsed="true">
+    <Position X="8.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Class_Cartes\Echelle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlateauJeu.Class_Cartes.Joueur" Collapsed="true">
+    <Position X="13.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAoAAAAAAECIAQCAAAAAgAAAAAAAAAAAE=</HashCode>
+      <FileName>Class_Cartes\Joueur.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlateauJeu.Class_Cartes.OutilsBrises" Collapsed="true">
+    <Position X="4" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Class_Cartes\OutilsBrises.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlateauJeu.Class_Cartes.Pepite" Collapsed="true">
+    <Position X="10.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Class_Cartes\Pepite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlateauJeu.Class_Cartes.PlanSecret" Collapsed="true">
+    <Position X="7.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Class_Cartes\PlanSecret.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlateauJeu.Class_Cartes.Plateau" Collapsed="true">
+    <Position X="11" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAIAEAAAAAAAAAAAAAAAAAAABAAAAAACA=</HashCode>
+      <FileName>Class_Cartes\Plateau.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlateauJeu.Class_Cartes.Porte" Collapsed="true">
+    <Position X="12" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAgAAAQCAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Class_Cartes\Porte.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlateauJeu.Class_Cartes.Reparer" Collapsed="true">
+    <Position X="5.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Class_Cartes\Reparer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlateauJeu.Class_Cartes.Troll" Collapsed="true">
+    <Position X="13.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAgAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Class_Cartes\Troll.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="PlateauJeu.Class_Cartes.Couleur" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Class_Cartes\Couleur.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="PlateauJeu.Class_Cartes.Outils" Collapsed="true">
+    <Position X="0.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAABAAAABAAAAAAAA=</HashCode>
+      <FileName>Class_Cartes\Outils.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="PlateauJeu.Class_Cartes.Position" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAIIAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Class_Cartes\Position.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

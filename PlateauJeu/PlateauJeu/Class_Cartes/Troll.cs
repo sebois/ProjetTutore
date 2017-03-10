@@ -9,10 +9,10 @@ namespace PlateauJeu.Class_Cartes
     class Troll
     {
         private byte m_prix;
-        private string m_pos;
+        private Position m_pos;
         private bool m_ouvert;
 
-        public Troll(byte p_prix, string p_pos)
+        public Troll(byte p_prix, Position p_pos)
         {
             m_prix = p_prix;
             m_pos = p_pos;

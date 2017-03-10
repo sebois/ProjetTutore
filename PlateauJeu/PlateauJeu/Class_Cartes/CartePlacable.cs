@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PlateauJeu.Class_Cartes
 {
     abstract class CartePlacable : Carte
     {
-        protected Pepite m_Pepite;
-        private int id;
-        private bool m_l_HautBas;
-        private bool m_l_GaucheDroite;
+        protected int m_id;
+        protected bool m_l_HautBas;
+        protected bool m_l_GaucheDroite;
         protected bool m_l_HautDroite;
         protected bool m_l_HautGauche;
         protected bool m_l_BasDroite;
@@ -130,22 +131,28 @@ namespace PlateauJeu.Class_Cartes
         {
             get
             {
-                return id;
+                return m_id;
             }
 
-            private set
+            set
             {
-                id = value;
+                m_id = value;
             }
         }
         #endregion
 
         public CartePlacable(
-            bool p_l_HautBas, bool p_l_GaucheDroite,
-            bool p_l_HautDroite, bool p_l_HautGauche,
-            bool p_l_BasDroite, bool p_l_BasGauche,
-            Pepite p_Pepite = null) 
+            System.Drawing.Bitmap p_imgRecto,
+            bool p_l_HautBas = false, bool p_l_GaucheDroite = false,
+            bool p_l_HautDroite = false, bool p_l_HautGauche = false,
+            bool p_l_BasDroite = false, bool p_l_BasGauche = false,
+            bool p_haut = false, bool p_bas = false,
+            bool p_droite = false, bool p_gauche = false) : base(p_imgRecto)
         {
+            #region Initialisation image recto
+            m_imgRecto = p_imgRecto;
+            #endregion
+
             #region Initialisation liaisons
             m_l_HautBas = p_l_HautBas;
             m_l_GaucheDroite = p_l_GaucheDroite;
@@ -156,65 +163,48 @@ namespace PlateauJeu.Class_Cartes
             #endregion
 
             #region Initialisation acces
+            m_haut = p_haut;
+            m_bas = p_bas;
+            m_droite = p_droite;
+            m_gauche = p_gauche;
             if (m_l_HautBas || m_l_HautDroite || m_l_HautGauche)
             {
                 m_haut = true;
-            }
-            else
-            {
-                m_haut = false;
             }
 
             if (m_l_HautBas || m_l_BasDroite || m_l_BasGauche)
             {
                 m_bas = true;
             }
-            else
-            {
-                m_bas = false;
-            }
 
             if (m_l_GaucheDroite || m_l_HautDroite || m_l_BasDroite)
             {
                 m_droite = true;
-            }
-            else
-            {
-                m_droite = false;
             }
 
             if (m_l_GaucheDroite || m_l_HautGauche || m_l_BasGauche)
             {
                 m_gauche = true;
             }
-            else
-            {
-                m_gauche = false;
-            }
-            #endregion
 
-            #region initialisation pepites
-            if (p_Pepite != null)
-            {
-                m_Pepite = p_Pepite;
-            }
             #endregion
 
             #region initialisation du type
             if (((p_l_BasDroite && p_l_HautGauche) || (p_l_BasGauche && p_l_HautDroite)) && (!p_l_HautBas))
             {
-                m_type = "Double-virage";
+                m_type = Types.DoubleVirage;
             }
             if (p_l_HautBas && p_l_GaucheDroite && !p_l_HautDroite)
             {
-                m_type = "Pont";
+                m_type = Types.Pont;
             }
             #endregion
         }
 
-        public void placer(int x, int y)
+        public void placer(TableLayoutPanel Panel, int x, int y)
         {
-            new Exception("CarteChemin placée : non implémenté");
+            PictureBox pic = (PictureBox) Panel.GetControlFromPosition(x, y);
+            pic.Image = new Bitmap(m_imgRecto);
         }
 
         public bool verifPlacement(int x, int y)

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace PlateauJeu.Class_Cartes
 {
-    class Cle
+    class Cle : Action
     {
-        public Cle()
+        public Cle(System.Drawing.Bitmap p_imgRecto): base(p_imgRecto)
         {
 
         }
