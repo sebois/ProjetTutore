@@ -8,13 +8,39 @@ namespace PlateauJeu.Class_Cartes
 {
     class Plateau
     {
+        #region Attributs
+        /// <summary>
+        /// Liste de Carte contenant la pioche (CarteChemin + CarteAction)
+        /// </summary>
         private List<Carte> m_Pioche;
-        private List<Depart> m_Departs;
-        private List<CarteObjectif> m_Objectifs;
-        private List<Carte> m_Defausse;
-        private int m_id;
-        private Random m_rnd;
 
+        /// <summary>
+        /// Liste de Depart contenant les deux cartes départ
+        /// </summary>
+        private List<Depart> m_Departs;
+
+        /// <summary>
+        /// Liste de CarteObjectif contenant toutes les cartes objectif
+        /// </summary>
+        private List<CarteObjectif> m_Objectifs;
+
+        /// <summary>
+        /// Liste de Carte contenant toutes les cartes défaussées (CarteChemin + CarteAction)
+        /// </summary>
+        private List<Carte> m_Defausse;
+
+        /// <summary>
+        /// Identifiant auto-incrémenté pour repérer les cartes
+        /// </summary>
+        private int m_id;
+
+        /// <summary>
+        /// Nombre aléatoire
+        /// </summary>
+        private Random m_rnd;
+        #endregion
+
+        #region Accesseurs
         public List<Depart> Departs
         {
             get
@@ -79,7 +105,12 @@ namespace PlateauJeu.Class_Cartes
                 m_Objectifs = value;
             }
         }
+        #endregion
 
+        #region Connstructeur
+        /// <summary>
+        /// Constructeur de Plateau (initialise les listes de carte, l'identifiant et le nombre aléatoire)
+        /// </summary>
         public Plateau()
         {
             m_Pioche = new List<Carte>();
@@ -159,22 +190,28 @@ namespace PlateauJeu.Class_Cartes
             m_Objectifs.Add(new CarteObjectif(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteObjectif/co14.jpg"), p_haut: true, p_droite: true, p_gauche: true, p_bas: true));
             m_Objectifs.Add(new CarteObjectif(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteObjectif/co15.jpg"), p_haut: true, p_gauche: true, p_droite: true));
             m_Objectifs.Add(new CarteObjectif(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteObjectif/co16.jpg"), p_l_GaucheDroite: true, p_l_HautDroite: true, p_l_HautGauche: true, p_Porte: new Porte(Position.Gauche, Couleur.Vert), p_Pepite: new Pepite(1, Position.Gauche)));
-            //On ajoute toute les cartes
-            //Les chemins des images sont relatifs au répertoire de l'executable
-            //Pioche.Add();
-            //etc...
+
             m_Defausse = new List<Carte>();
             m_id = 0;
             m_rnd = new Random();
         }
+        #endregion
 
+        #region Méthode
         public Carte PrendreCarte(List<Carte> p_liste)
         {
+            /*
+             * Récupère le nombre aléatoire
+             */
             int nb_rnd = m_rnd.Next() % p_liste.Count();
 
+            /*
+             * Retire la carte de la liste et renvoie la carte
+             */
             Carte tmp = p_liste.ElementAt(nb_rnd);
             p_liste.Remove(tmp);
             return tmp;
         }
+        #endregion
     }
 }

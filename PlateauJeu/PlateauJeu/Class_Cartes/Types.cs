@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace PlateauJeu.Class_Cartes
 {
+    /// <summary>
+    /// Enumération des types de CartePlacable
+    /// </summary>
     public enum Types
     {
         DoubleVirage,

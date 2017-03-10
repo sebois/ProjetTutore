@@ -7,17 +7,37 @@ using System.Threading.Tasks;
 
 namespace PlateauJeu.Class_Cartes
 {
+    /// <summary>
+    /// Classe abstraite Carte
+    /// </summary>
     abstract class Carte
     {
-        private int m_id;
+        #region Attributs
+        /// <summary>
+        /// Type de la carte
+        /// </summary>
         protected Types m_type;
-        protected System.Drawing.Bitmap m_imgRecto;
 
+        /// <summary>
+        /// Image de la carte
+        /// </summary>
+        protected System.Drawing.Bitmap m_imgRecto;
+        #endregion
+
+        #region Constructeur
+        /// <summary>
+        /// Constructeur de la Carte
+        /// </summary>
+        /// <param name="p_imgRecto">Image de la carte</param>
         public Carte(System.Drawing.Bitmap p_imgRecto)
         {
+            #region Initialisation image carte
             m_imgRecto = p_imgRecto;
+            #endregion
         }
+        #endregion
 
+        #region Accesseur
         public Bitmap ImgRecto
         {
             get
@@ -30,18 +50,6 @@ namespace PlateauJeu.Class_Cartes
                 m_imgRecto = value;
             }
         }
-
-        public int Id
-        {
-            get
-            {
-                return m_id;
-            }
-
-            set
-            {
-                m_id = value;
-            }
-        }
+        #endregion
     }
 }

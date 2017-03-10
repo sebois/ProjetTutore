@@ -6,13 +6,34 @@ using System.Threading.Tasks;
 
 namespace PlateauJeu.Class_Cartes
 {
+    /// <summary>
+    /// Classe CarteChemin héritant de CartePlacable
+    /// </summary>
     class CarteChemin : CartePlacable
     {
+        #region Attributs
+        /// <summary>
+        /// Objet Pepite si l'objet est présent
+        /// </summary>
         private Pepite m_Pepite;
-        private Porte m_Porte;
-        private Troll m_Troll;
-        private Echelle m_Echelle;
 
+        /// <summary>
+        /// Objet Porte si l'objet est présent
+        /// </summary>
+        private Porte m_Porte;
+
+        /// <summary>
+        /// Objet Troll si l'objet est présent
+        /// </summary>
+        private Troll m_Troll;
+
+        /// <summary>
+        /// Objet Echelle si l'objet est présent
+        /// </summary>
+        private Echelle m_Echelle;
+        #endregion
+
+        #region Accesseurs
         internal Porte Porte
         {
             get
@@ -51,7 +72,27 @@ namespace PlateauJeu.Class_Cartes
                 m_Echelle = value;
             }
         }
+        #endregion
 
+        #region Constructeur
+        /// <summary>
+        /// Constructeur de la CarteChemin (paramètres initialisés à false ou null sauf p_imgRecto)
+        /// </summary>
+        /// <param name="p_imgRecto">Image de la carte</param>
+        /// <param name="p_l_HautBas">Etat de la liaison HautBas</param>
+        /// <param name="p_l_GaucheDroite">Etat de la liaison GaucheDroite</param>
+        /// <param name="p_l_HautDroite">Etat de la liaison HautDroite</param>
+        /// <param name="p_l_HautGauche">Etat de la liaison HautGauche</param>
+        /// <param name="p_l_BasDroite">Etat de la liaison BasDroite</param>
+        /// <param name="p_l_BasGauche">Etat de la liaison BasGauche</param>
+        /// <param name="p_haut">Etat de l'entrée/sortie Haut</param>
+        /// <param name="p_bas">Etat de l'entrée/sortie Bas</param>
+        /// <param name="p_droite">Etat de l'entrée/sortie Droite</param>
+        /// <param name="p_gauche">Etat de l'entrée/sortie Gauche</param>
+        /// <param name="p_Pepite">Objet Pepite si l'objet est présent</param>
+        /// <param name="p_Porte">Objet Porte si l'objet est présent</param>
+        /// <param name="p_Troll">Objet Troll si l'objet est présent</param>
+        /// <param name="p_Echelle">Objet Echelle si l'objet est présent</param>
         public CarteChemin(
             System.Drawing.Bitmap p_imgRecto,
             bool p_l_HautBas = false, bool p_l_GaucheDroite = false,
@@ -96,25 +137,37 @@ namespace PlateauJeu.Class_Cartes
             #endregion
 
         }
+        #endregion
 
+        #region Méthodes
+        /// <summary>
+        /// Rotation de la carte
+        /// </summary>
         public void Rotation()
         {
-            #region Rotation180
+            #region Init tempo
             bool tempo;
+            #endregion
 
-
+            #region Inversement HautGauche BasDroite
             tempo = m_l_HautGauche;
             m_l_HautGauche = m_l_BasDroite;
             m_l_BasDroite = tempo;
+            #endregion
 
+            #region Inversement HautDroite BasGauche
             tempo = m_l_HautDroite;
             m_l_HautDroite = m_l_BasGauche;
             m_l_BasGauche = tempo;
+            #endregion
 
+            #region Inversement Haut Bas
             tempo = m_haut;
             m_haut = m_bas;
             m_bas = tempo;
+            #endregion
 
+            #region Inversement Gauche Droite
             tempo = m_gauche;
             m_gauche = m_droite;
             m_droite = tempo;
@@ -124,6 +177,7 @@ namespace PlateauJeu.Class_Cartes
         public void retirer()
         {
             new Exception("CarteChemin retirée : non implémenté");
-        }       
+        }
+        #endregion
     }
 }
