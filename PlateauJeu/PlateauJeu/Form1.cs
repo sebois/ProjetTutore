@@ -538,6 +538,7 @@ namespace PlateauJeu
             catch (NullReferenceException ex) { p_compteurException++; }
             return true;
         }
+
         #endregion
     }
 }
