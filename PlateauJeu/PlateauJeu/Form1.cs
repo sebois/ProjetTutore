@@ -449,5 +449,10 @@ namespace PlateauJeu
             catch (NullReferenceException ex) { p_compteurException++; }
             return true;
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -23,3 +23,5 @@ C:\Users\Sam\Desktop\Tutoré\PlateauJeu\PlateauJeu\obj\Debug\PlateauJeu.csprojRe
 C:\Users\Sam\Desktop\Tutoré\PlateauJeu\PlateauJeu\obj\Debug\PlateauJeu.Form1.resources
 C:\Users\Sam\Desktop\Tutoré\PlateauJeu\PlateauJeu\obj\Debug\PlateauJeu.Properties.Resources.resources
 C:\Users\Sam\Desktop\Tutoré\PlateauJeu\PlateauJeu\obj\Debug\PlateauJeu.csproj.GenerateResource.Cache
+C:\Users\Sam\Desktop\Tutoré\PlateauJeu\PlateauJeu\bin\Debug\PlateauJeu.exe
+C:\Users\Sam\Desktop\Tutoré\PlateauJeu\PlateauJeu\bin\Debug\PlateauJeu.pdb
