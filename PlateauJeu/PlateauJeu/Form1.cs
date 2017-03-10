@@ -540,5 +540,15 @@ namespace PlateauJeu
         }
 
         #endregion
+
+        private void pictureBox_DoubleClick(object sender, EventArgs e)
+        {
+            PictureBox pic = (PictureBox)sender;
+            if (pic.Tag.GetType().IsSubclassOf(typeof(Class_Cartes.Action)))
+            {
+                Class_Cartes.Action v_action = (Class_Cartes.Action)pic.Tag;
+                v_action.Utiliser();
+            }
+        }
     }
 }
