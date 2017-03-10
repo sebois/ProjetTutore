@@ -12,5 +12,11 @@ namespace PlateauJeu.Class_Cartes
         {
             //TO DO
         }
+
+        override
+        public void Utiliser(object p_pointeur)
+        {
+            //TO DO
+        }
     }
 }

@@ -219,6 +219,11 @@
             this.lbl_manche = new System.Windows.Forms.Label();
             this.pnl_tableContainer = new System.Windows.Forms.Panel();
             this.btn_undo = new System.Windows.Forms.Button();
+            this.pnl_defausse = new System.Windows.Forms.TableLayoutPanel();
+            this.pictureBox178 = new System.Windows.Forms.PictureBox();
+            this.pictureBox179 = new System.Windows.Forms.PictureBox();
+            this.lbl_defausse = new System.Windows.Forms.Label();
+            this.pnl_zoneDefausse = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox165)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox151)).BeginInit();
@@ -400,6 +405,10 @@
             this.pnl_nomJoueur.SuspendLayout();
             this.pnl_infos.SuspendLayout();
             this.pnl_tableContainer.SuspendLayout();
+            this.pnl_defausse.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox178)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox179)).BeginInit();
+            this.pnl_zoneDefausse.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -2190,11 +2199,67 @@
             this.btn_undo.Visible = false;
             this.btn_undo.Click += new System.EventHandler(this.btn_undo_Click);
             // 
+            // pnl_defausse
+            // 
+            this.pnl_defausse.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.pnl_defausse.ColumnCount = 2;
+            this.pnl_defausse.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.pnl_defausse.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.pnl_defausse.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.pnl_defausse.Controls.Add(this.pictureBox178, 1, 0);
+            this.pnl_defausse.Controls.Add(this.pictureBox179, 0, 0);
+            this.pnl_defausse.Location = new System.Drawing.Point(47, 43);
+            this.pnl_defausse.Name = "pnl_defausse";
+            this.pnl_defausse.RowCount = 1;
+            this.pnl_defausse.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.pnl_defausse.Size = new System.Drawing.Size(100, 80);
+            this.pnl_defausse.TabIndex = 13;
+            // 
+            // pictureBox178
+            // 
+            this.pictureBox178.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox178.Location = new System.Drawing.Point(53, 4);
+            this.pictureBox178.Name = "pictureBox178";
+            this.pictureBox178.Size = new System.Drawing.Size(43, 72);
+            this.pictureBox178.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox178.TabIndex = 7;
+            this.pictureBox178.TabStop = false;
+            // 
+            // pictureBox179
+            // 
+            this.pictureBox179.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox179.Location = new System.Drawing.Point(4, 4);
+            this.pictureBox179.Name = "pictureBox179";
+            this.pictureBox179.Size = new System.Drawing.Size(42, 72);
+            this.pictureBox179.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox179.TabIndex = 8;
+            this.pictureBox179.TabStop = false;
+            // 
+            // lbl_defausse
+            // 
+            this.lbl_defausse.AutoSize = true;
+            this.lbl_defausse.Location = new System.Drawing.Point(70, 19);
+            this.lbl_defausse.Name = "lbl_defausse";
+            this.lbl_defausse.Size = new System.Drawing.Size(52, 13);
+            this.lbl_defausse.TabIndex = 14;
+            this.lbl_defausse.Text = "Défausse";
+            // 
+            // pnl_zoneDefausse
+            // 
+            this.pnl_zoneDefausse.Controls.Add(this.lbl_defausse);
+            this.pnl_zoneDefausse.Controls.Add(this.pnl_defausse);
+            this.pnl_zoneDefausse.Location = new System.Drawing.Point(12, 550);
+            this.pnl_zoneDefausse.Name = "pnl_zoneDefausse";
+            this.pnl_zoneDefausse.Size = new System.Drawing.Size(200, 123);
+            this.pnl_zoneDefausse.TabIndex = 15;
+            this.pnl_zoneDefausse.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.pnl_zoneDefausse);
             this.Controls.Add(this.btn_undo);
             this.Controls.Add(this.pnl_tableContainer);
             this.Controls.Add(this.pnl_infos);
@@ -2388,6 +2453,11 @@
             this.pnl_infos.ResumeLayout(false);
             this.pnl_infos.PerformLayout();
             this.pnl_tableContainer.ResumeLayout(false);
+            this.pnl_defausse.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox178)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox179)).EndInit();
+            this.pnl_zoneDefausse.ResumeLayout(false);
+            this.pnl_zoneDefausse.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2585,6 +2655,11 @@
         private System.Windows.Forms.TableLayoutPanel pnl_outilBrises;
         private System.Windows.Forms.TableLayoutPanel pnl_main;
         private System.Windows.Forms.Button btn_undo;
+        private System.Windows.Forms.TableLayoutPanel pnl_defausse;
+        private System.Windows.Forms.PictureBox pictureBox178;
+        private System.Windows.Forms.PictureBox pictureBox179;
+        private System.Windows.Forms.Label lbl_defausse;
+        private System.Windows.Forms.Panel pnl_zoneDefausse;
     }
 }
 

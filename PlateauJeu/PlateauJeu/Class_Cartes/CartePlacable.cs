@@ -8,21 +8,69 @@ using System.Windows.Forms;
 
 namespace PlateauJeu.Class_Cartes
 {
+    /// <summary>
+    /// Classe abstraite CartePlacable héritant de Carte
+    /// </summary>
     abstract class CartePlacable : Carte
     {
+        #region Attributs
+        /// <summary>
+        /// Identifiant unique de la carte
+        /// </summary>
         protected int m_id;
-        protected bool m_l_HautBas;
-        protected bool m_l_GaucheDroite;
-        protected bool m_l_HautDroite;
-        protected bool m_l_HautGauche;
-        protected bool m_l_BasDroite;
-        protected bool m_l_BasGauche;
-        protected bool m_haut;
-        protected bool m_bas;
-        protected bool m_droite;
-        protected bool m_gauche;
 
-        #region Accesseur
+        /// <summary>
+        /// EtatEtat de la liaison HautBas
+        /// </summary>
+        protected bool m_l_HautBas;
+
+        /// <summary>
+        /// Etat de la liaison GaucheDroite
+        /// </summary>
+        protected bool m_l_GaucheDroite;
+
+        /// <summary>
+        /// Etat de la liaison HautDroite
+        /// </summary>
+        protected bool m_l_HautDroite;
+
+        /// <summary>
+        /// Etat de la liaison HautGauche
+        /// </summary>
+        protected bool m_l_HautGauche;
+
+        /// <summary>
+        /// Etat de la liaison BasDroite
+        /// </summary>
+        protected bool m_l_BasDroite;
+
+        /// <summary>
+        /// Etat de la liaison BasGauche
+        /// </summary>
+        protected bool m_l_BasGauche;
+
+        /// <summary>
+        /// Etat de l'entrée/sortie Haut
+        /// </summary>
+        protected bool m_haut;
+
+        /// <summary>
+        /// Etat de l'entrée/sortie Bas
+        /// </summary>
+        protected bool m_bas;
+
+        /// <summary>
+        /// Etat de l'entrée/sortie Droite
+        /// </summary>
+        protected bool m_droite;
+
+        /// <summary>
+        /// Etat de l'entrée/sortie Gauche
+        /// </summary>
+        protected bool m_gauche;
+        #endregion
+
+        #region Accesseurs
         public bool M_l_HautBas
         {
             get
@@ -62,6 +110,19 @@ namespace PlateauJeu.Class_Cartes
             }
         }
 
+        public bool M_l_HautGauche
+        {
+            get
+            {
+                return m_l_HautGauche;
+            }
+
+            set
+            {
+                m_l_HautGauche = value;
+            }
+        }
+
         public bool M_l_BasDroite
         {
             get
@@ -72,6 +133,19 @@ namespace PlateauJeu.Class_Cartes
             private set
             {
                 m_l_BasDroite = value;
+            }
+        }
+
+        public bool M_l_BasGauche
+        {
+            get
+            {
+                return m_l_BasGauche;
+            }
+
+            private set
+            {
+                m_l_BasGauche = value;
             }
         }
 
@@ -101,7 +175,7 @@ namespace PlateauJeu.Class_Cartes
             }
         }
 
-        public bool M_hAut
+        public bool M_haut
         {
             get
             {
@@ -114,7 +188,7 @@ namespace PlateauJeu.Class_Cartes
             }
         }
 
-        public bool M_l_gauche
+        public bool M_gauche
         {
             get
             {
@@ -141,6 +215,21 @@ namespace PlateauJeu.Class_Cartes
         }
         #endregion
 
+        #region Constructeur
+        /// <summary>
+        /// Constructeur de CartePlacable (paramètres initialisés à false sauf p_imgRecto)
+        /// </summary>
+        /// <param name="p_imgRecto">Image de la carte</param>
+        /// <param name="p_l_HautBas">Etat de la liaison HautBas</param>
+        /// <param name="p_l_GaucheDroite">Etat de la liaison GaucheDroite</param>
+        /// <param name="p_l_HautDroite">Etat de la liaison HautDroite</param>
+        /// <param name="p_l_HautGauche">Etat de la liaison HautGauche</param>
+        /// <param name="p_l_BasDroite">Etat de la liaison BasDroite</param>
+        /// <param name="p_l_BasGauche">Etat de la liaison BasGauche</param>
+        /// <param name="p_haut">Etat de l'entrée/sortie Haut</param>
+        /// <param name="p_bas">Etat de l'entrée/sortie Bas</param>
+        /// <param name="p_droite">Etat de l'entrée/sortie Droite</param>
+        /// <param name="p_gauche">Etat de l'entrée/sortie Gauche</param>
         public CartePlacable(
             System.Drawing.Bitmap p_imgRecto,
             bool p_l_HautBas = false, bool p_l_GaucheDroite = false,
@@ -200,7 +289,9 @@ namespace PlateauJeu.Class_Cartes
             }
             #endregion
         }
+        #endregion
 
+        #region Méthodes
         public void placer(TableLayoutPanel Panel, int x, int y)
         {
             PictureBox pic = (PictureBox) Panel.GetControlFromPosition(x, y);
@@ -212,5 +303,6 @@ namespace PlateauJeu.Class_Cartes
             new Exception("CarteChemin verifPlacement : non implémenté");
             return false;
         }
+        #endregion
     }
 }
