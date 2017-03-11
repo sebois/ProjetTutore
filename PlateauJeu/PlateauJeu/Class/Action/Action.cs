@@ -26,6 +26,10 @@ namespace PlateauJeu.Class_Cartes
         }
         //TODO
         #endregion
+
+        #region Methode
         abstract public void Utiliser(object p_Plateau);
+
+        #endregion
     }
 }

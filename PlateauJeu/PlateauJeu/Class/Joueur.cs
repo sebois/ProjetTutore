@@ -69,7 +69,7 @@ namespace PlateauJeu.Class_Cartes
             m_mainJoueur = new List<Carte>();
             m_cartesEntraveJoueur = new List<OutilsBrises>();
             m_nomJoueur = p_nomJoueur;
-            m_nbPepites = 0;
+            NbPepites = 0;
             m_couleurJoueur = p_couleurJoueur;
             #endregion
 
@@ -223,6 +223,19 @@ namespace PlateauJeu.Class_Cartes
             set
             {
                 m_couleurJoueur = value;
+            }
+        }
+
+        public int NbPepites
+        {
+            get
+            {
+                return m_nbPepites;
+            }
+
+            set
+            {
+                m_nbPepites = value;
             }
         }
         #endregion

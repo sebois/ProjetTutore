@@ -145,7 +145,7 @@ namespace PlateauJeu
              * Flag clic gauche levé si clic gauche et flag du Drag and Drop non levé
              */
             if (e.Button == MouseButtons.Left && !m_dragDropDone)
-            { 
+            {
                 m_mouseLeft = true;
             }
             /*
@@ -216,7 +216,7 @@ namespace PlateauJeu
             if ((e.Data.GetDataPresent(DataFormats.Bitmap)))
             {
                 PictureBox v_pic2 = (PictureBox)sender;
-                
+
                 /*
                  * Vérifie que la PictureBox de destination ne possède pas déjà une image
                  */
@@ -238,7 +238,7 @@ namespace PlateauJeu
                         v_pic2.Image = v_bitmap;
                         m_picDest.Add(v_pic2);
                     }
-                    if ( (v_panel.Equals(tableLayoutPanel1) && m_picDest.Count == 1) || (m_picDest.Count == 2))
+                    if ((v_panel.Equals(tableLayoutPanel1) && m_picDest.Count == 1) || (m_picDest.Count == 2))
                     {
                         m_dragDropDone = true;
                     }
@@ -248,7 +248,7 @@ namespace PlateauJeu
 
         private void btn_end_Click(object sender, EventArgs e)
         {
-            if(m_manche == 0)
+            if (m_manche == 0)
             {
                 /*
                  * Vérifie l'affectation des noms
@@ -257,7 +257,7 @@ namespace PlateauJeu
                 {
                     /*
                      * Créé le Plateau, les joueurs, lance la manche 1, affiche les controles et place les cases départ
-                     */ 
+                     */
                     m_Plateau = new Plateau();
                     initJoueurs();
                     m_manche++;
@@ -269,7 +269,7 @@ namespace PlateauJeu
             /*
              * Vérifie si un DragAndDrop a été réalisé
              */
-            else if(m_picDest.Count > 0)
+            else if (m_picDest.Count > 0)
             {
                 /*
                  * Récupère la carte et la retire de la main du joueur
@@ -278,14 +278,14 @@ namespace PlateauJeu
                  * flag baissé
                  */
                 int v_countPic = m_picSource.Count;
-                for(int i=0; i<v_countPic; i++)
+                for (int i = 0; i < v_countPic; i++)
                 {
                     Carte v_carte = (Carte)m_picSource.Last().Tag;
                     m_joueurActif.RetirerCarteDeLaMain(m_Plateau, v_carte);
                     m_picSource.Last().Tag = null;
                     m_joueurActif.Piocher(m_Plateau, 1);
                     m_picSource.Remove(m_picSource.Last());
-                    if(m_picDest.Last().Parent != tableLayoutPanel1)
+                    if (m_picDest.Last().Parent != tableLayoutPanel1)
                     {
                         m_picDest.Last().Image = null;
                         m_picDest.Last().Tag = null;
@@ -302,7 +302,7 @@ namespace PlateauJeu
                     m_joueurActif = m_Joueur2;
                 }
                 else
-                { 
+                {
                     m_joueurActif = m_Joueur1;
                 }
             }
@@ -334,12 +334,15 @@ namespace PlateauJeu
                 majCartes();
             }
         }
-        #endregion
-        #region Initialisation des joueurs
-        /// <summary>
-        /// Initialise les joueurs aléatoirement
-        /// </summary>
-        private void initJoueurs()
+
+    }
+
+    #endregion
+    #region Initialisation des joueurs
+    /// <summary>
+    /// Initialise les joueurs aléatoirement
+    /// </summary>
+    private void initJoueurs()
         {
             int v_aleatoire = m_rnd.Next()%2;
             switch (v_aleatoire)
@@ -539,16 +542,18 @@ namespace PlateauJeu
             return true;
         }
 
-        #endregion
+         #endregion
 
-        private void pictureBox_DoubleClick(object sender, EventArgs e)
+
+
+    //Doubleclick sur main du joueur 
+    private void pictureBox_DoubleClick(object sender, EventArgs e)
+    {
+        PictureBox pic = (PictureBox)sender;
+        if (pic.Tag.GetType().IsSubclassOf(typeof(Class_Cartes.Action)))
         {
-            PictureBox pic = (PictureBox)sender;
-            if (pic.Tag.GetType().IsSubclassOf(typeof(Class_Cartes.Action)))
-            {
-                Class_Cartes.Action v_action = (Class_Cartes.Action)pic.Tag;
-                v_action.Utiliser();
-            }
+            Class_Cartes.Action v_action = (Class_Cartes.Action)pic.Tag;
+            v_action.Utiliser(this);
         }
     }
 }

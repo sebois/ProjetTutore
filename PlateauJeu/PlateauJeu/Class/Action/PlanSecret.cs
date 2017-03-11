@@ -14,7 +14,7 @@ namespace PlateauJeu.Class_Cartes
         }
 
         override
-        public void Utiliser(object p_pointeur)
+        public void Utiliser(object p_CartePointeur)
         {
             //TO DO
         }
