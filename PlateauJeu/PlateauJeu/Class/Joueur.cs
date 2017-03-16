@@ -238,6 +238,19 @@ namespace PlateauJeu.Class_Cartes
                 m_nbPepites = value;
             }
         }
+
+        internal List<OutilsBrises> CartesEntraveJoueur
+        {
+            get
+            {
+                return m_cartesEntraveJoueur;
+            }
+
+            set
+            {
+                m_cartesEntraveJoueur = value;
+            }
+        }
         #endregion
     }
 }

@@ -24,7 +24,6 @@ namespace PlateauJeu.Class_Cartes
         {
             Del<object> handler = Utiliser;
         }
-        //TODO
         #endregion
 
         #region Methode

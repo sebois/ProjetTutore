@@ -204,10 +204,19 @@ namespace PlateauJeu
         private void pictureBox_DoubleClick(object sender, EventArgs e)
         {
             PictureBox pic = (PictureBox)sender;
-            if (pic.Tag.GetType().IsSubclassOf(typeof(Class_Cartes.Action)))
+            Carte carte = (Carte)pic.Tag;
+            if (carte.GetType().IsSubclassOf(typeof(Class_Cartes.Action)))
             {
-                Class_Cartes.Action v_action = (Class_Cartes.Action)pic.Tag;
-                v_action.Utiliser(this);
+                //Class_Cartes.Action v_action = (Class_Cartes.Action)pic.Tag;
+                Class_Cartes.Action carteAction = (Class_Cartes.Action) carte;
+                
+                if(m_Joueur1 == m_joueurActif)
+                {
+                    carteAction.Utiliser(m_Joueur2);
+                    Console.Out.WriteLine(m_Joueur2.CartesEntraveJoueur);
+                }
+                else { carteAction.Utiliser(m_Joueur1); }
+                m_joueurActif.RetirerCarteDeLaMain(m_Plateau, carteAction);
             }
         }
 
@@ -242,6 +251,7 @@ namespace PlateauJeu
                      */
                     if (((m_picSource.Last().Tag.GetType().IsSubclassOf(typeof(CartePlacable)))
                         && v_panel.Equals(tableLayoutPanel1)
+                        && m_joueurActif.CartesEntraveJoueur.Count == 0
                         && isPlacableAtCell(v_cellPosition)
                         && m_picDest.Count == 0)
                         || v_panel.Equals(pnl_defausse))
