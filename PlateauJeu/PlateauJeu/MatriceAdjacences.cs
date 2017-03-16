@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PlateauJeu.Matrice_Adjacences
+namespace PlateauJeu
 {
-    class Matrice_Adjacences
+    class MatriceAdjacences
     {
         private int[,,,] matrice = new int[11, 15, 11, 15];
         private List<CarteChemin> CarteVérifié;
 
-        public Matrice_Adjacences()
+        public MatriceAdjacences()
         {
             for(int x1=0; x1<11; x1++)
             {
@@ -32,6 +32,7 @@ namespace PlateauJeu.Matrice_Adjacences
         public void ajoutCarte(CarteChemin nouvCarte, int x, int y)
         {
             matrice[x, y, x, y] = 1;
+            /*
             if (nouvCarte.M_haut == true)
             {
                 if (true) //getCarteById(TableauJeu[x,y+1] != null;
@@ -114,6 +115,7 @@ namespace PlateauJeu.Matrice_Adjacences
                     }
                 }
             }
+            */
         }
 
         public void retirerCarte(CarteChemin supprCarte, int x, int y)

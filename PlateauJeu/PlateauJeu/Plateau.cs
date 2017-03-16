@@ -1,10 +1,11 @@
-﻿using System;
+﻿using PlateauJeu.Class_Cartes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PlateauJeu.Class_Cartes
+namespace PlateauJeu
 {
     class Plateau
     {
@@ -38,6 +39,11 @@ namespace PlateauJeu.Class_Cartes
         /// Nombre aléatoire
         /// </summary>
         private Random m_rnd;
+
+        /// <summary>
+        /// Matrice d'adjacence
+        /// </summary>
+        private MatriceAdjacences m_matrice;
         #endregion
 
         #region Accesseurs
@@ -103,6 +109,19 @@ namespace PlateauJeu.Class_Cartes
             set
             {
                 m_Objectifs = value;
+            }
+        }
+
+        internal MatriceAdjacences Matrice
+        {
+            get
+            {
+                return m_matrice;
+            }
+
+            set
+            {
+                m_matrice = value;
             }
         }
         #endregion
