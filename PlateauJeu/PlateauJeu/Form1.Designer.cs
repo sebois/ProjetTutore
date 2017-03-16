@@ -421,7 +421,6 @@
             this.pic_test.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pic_test.TabIndex = 1;
             this.pic_test.TabStop = false;
-            this.pic_test.DoubleClick += new System.EventHandler(this.pictureBox_DoubleClick);
             // 
             // pnl_joueur
             // 
@@ -528,7 +527,6 @@
             this.pictureBox166.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox166.TabIndex = 2;
             this.pictureBox166.TabStop = false;
-            this.pictureBox166.DoubleClick += new System.EventHandler(this.pictureBox_DoubleClick);
             // 
             // pictureBox168
             // 
@@ -539,7 +537,6 @@
             this.pictureBox168.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox168.TabIndex = 4;
             this.pictureBox168.TabStop = false;
-            this.pictureBox168.DoubleClick += new System.EventHandler(this.pictureBox_DoubleClick);
             // 
             // pictureBox170
             // 
@@ -550,7 +547,6 @@
             this.pictureBox170.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox170.TabIndex = 6;
             this.pictureBox170.TabStop = false;
-            this.pictureBox170.DoubleClick += new System.EventHandler(this.pictureBox_DoubleClick);
             // 
             // pictureBox167
             // 
@@ -561,7 +557,6 @@
             this.pictureBox167.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox167.TabIndex = 3;
             this.pictureBox167.TabStop = false;
-            this.pictureBox167.DoubleClick += new System.EventHandler(this.pictureBox_DoubleClick);
             // 
             // pictureBox169
             // 
@@ -572,7 +567,6 @@
             this.pictureBox169.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox169.TabIndex = 5;
             this.pictureBox169.TabStop = false;
-            this.pictureBox169.DoubleClick += new System.EventHandler(this.pictureBox_DoubleClick);
             // 
             // lbl_outilBrises
             // 

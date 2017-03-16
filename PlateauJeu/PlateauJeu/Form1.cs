@@ -100,6 +100,7 @@ namespace PlateauJeu
             {
                 pic.MouseDown += new MouseEventHandler(pictureBox_MouseDown);
                 pic.MouseMove += new MouseEventHandler(pictureBox_MouseMove);
+                pic.DoubleClick += new EventHandler(this.pictureBox_DoubleClick);
             }
             /*
              * Initialise les flag et les compteurs
@@ -196,6 +197,17 @@ namespace PlateauJeu
                     m_picSource.Remove(m_picSource.Last());
                 }
                 m_mouseLeft = false;
+            }
+        }
+
+        //Doubleclick sur main du joueur 
+        private void pictureBox_DoubleClick(object sender, EventArgs e)
+        {
+            PictureBox pic = (PictureBox)sender;
+            if (pic.Tag.GetType().IsSubclassOf(typeof(Class_Cartes.Action)))
+            {
+                Class_Cartes.Action v_action = (Class_Cartes.Action)pic.Tag;
+                v_action.Utiliser(this);
             }
         }
 
@@ -335,16 +347,14 @@ namespace PlateauJeu
             }
         }
 
-    }
-
-    #endregion
-    #region Initialisation des joueurs
-    /// <summary>
-    /// Initialise les joueurs aléatoirement
-    /// </summary>
-    private void initJoueurs()
+        #endregion
+        #region Initialisation des joueurs
+        /// <summary>
+        /// Initialise les joueurs aléatoirement
+        /// </summary>
+        private void initJoueurs()
         {
-            int v_aleatoire = m_rnd.Next()%2;
+            int v_aleatoire = m_rnd.Next() % 2;
             switch (v_aleatoire)
             {
                 case 0:
@@ -443,7 +453,7 @@ namespace PlateauJeu
                 v_pic.Image = picObjectifRetourne;
                 v_pic.Tag = typeof(CarteObjectif);
             }
-        }  
+        }
         #endregion
 
         /// <summary>
@@ -458,7 +468,7 @@ namespace PlateauJeu
             int v_compteurException = 0, v_incrementX = 0, v_incrementY = -1;
             if (!testPlacementVoisin(p_cellPosition, v_incrementX, v_incrementY, ref v_compteurException))
                 return false;
-            v_incrementX = 1 ; v_incrementY = 0;
+            v_incrementX = 1; v_incrementY = 0;
             if (!testPlacementVoisin(p_cellPosition, v_incrementX, v_incrementY, ref v_compteurException))
                 return false;
             v_incrementX = 0; v_incrementY = 1;
@@ -485,7 +495,7 @@ namespace PlateauJeu
         /// <param name="p_incrementY">Incrémentation de la ligne pour trouver la cellule voisine</param>
         /// <param name="p_compteurException">Compteur du nombre de cellules voisines vides</param>
         /// <returns></returns>
-        private bool testPlacementVoisin(TableLayoutPanelCellPosition p_cellPosition, int p_incrementX, 
+        private bool testPlacementVoisin(TableLayoutPanelCellPosition p_cellPosition, int p_incrementX,
             int p_incrementY, ref int p_compteurException)
         {
             CartePlacable v_carte = (CartePlacable)m_picSource.Last().Tag;
@@ -502,7 +512,7 @@ namespace PlateauJeu
                     v_picVoisin.Tag = m_Plateau.PrendreCarte(v_listeCartes);
                     CarteObjectif v_carteObjectif = (CarteObjectif)v_picVoisin.Tag;
                     v_picVoisin.Image = v_carteObjectif.ImgRecto;
-                    
+
                 }
                 else
                 {
@@ -542,18 +552,7 @@ namespace PlateauJeu
             return true;
         }
 
-         #endregion
+        #endregion
 
-
-
-    //Doubleclick sur main du joueur 
-    private void pictureBox_DoubleClick(object sender, EventArgs e)
-    {
-        PictureBox pic = (PictureBox)sender;
-        if (pic.Tag.GetType().IsSubclassOf(typeof(Class_Cartes.Action)))
-        {
-            Class_Cartes.Action v_action = (Class_Cartes.Action)pic.Tag;
-            v_action.Utiliser(this);
-        }
     }
 }
