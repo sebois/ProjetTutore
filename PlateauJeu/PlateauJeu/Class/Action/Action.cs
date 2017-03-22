@@ -11,10 +11,6 @@ namespace PlateauJeu.Class_Cartes
     /// </summary>
     abstract class Action : Carte
     {
-        #region Attribut
-        protected delegate void Del<T>(T p_pointeur);
-        #endregion
-
         #region Constructeur
         /// <summary>
         /// Constructeur de la carte Action
@@ -22,12 +18,15 @@ namespace PlateauJeu.Class_Cartes
         /// <param name="p_imgRecto">Image de la carte</param>
         public Action(System.Drawing.Bitmap p_imgRecto) : base(p_imgRecto)
         {
-            Del<object> handler = Utiliser;
+
         }
         #endregion
 
         #region Methode
-        abstract public void Utiliser(object p_Plateau);
+        virtual public void Utiliser(object p_pointeur)
+        {
+
+        }
 
         #endregion
     }

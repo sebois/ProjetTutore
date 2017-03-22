@@ -65,6 +65,11 @@ namespace PlateauJeu
         private List<PictureBox> m_picSource;
 
         /// <summary>
+        /// Outil à réparer
+        /// </summary>
+        private OutilsBrises m_outilDest;
+
+        /// <summary>
         /// Nombre aléatoire
         /// </summary>
         private Random m_rnd = new Random();
@@ -250,6 +255,65 @@ namespace PlateauJeu
                             m_dragDropDone = true;
                         }
                     }
+                    if (v_carte.GetType().Equals(typeof(Reparer)))
+                    {
+                        if (m_joueurActif.CartesEntraveJoueur.Count > 0)
+                        {
+                            Reparer v_carteAction = (Reparer)v_carte;
+                            List<Outils> v_outilsAReparer = v_carteAction.Outils;
+                            Outils v_outilAReparer = 0;
+                            bool v_flag = true;
+                            if (!m_joueurActif.Chariot && (v_outilsAReparer.ElementAt(0) == Outils.Chariot || v_outilsAReparer.ElementAt(1) == Outils.Chariot))
+                            {
+                                DialogResult dialogResultReparer = MessageBox.Show("Voulez-vous réparer votre chariot ?", "Validation", MessageBoxButtons.YesNo);
+                                if (dialogResultReparer == DialogResult.Yes)
+                                {
+                                    v_flag = false;
+                                    v_outilAReparer = Outils.Chariot;
+                                }
+                            }
+                            if (v_flag && !m_joueurActif.Lampe && (v_outilsAReparer.ElementAt(0) == Outils.Lampe || v_outilsAReparer.ElementAt(1) == Outils.Lampe))
+                            {
+                                DialogResult dialogResultReparer = MessageBox.Show("Voulez-vous réparer votre Lampe ?", "Validation", MessageBoxButtons.YesNo);
+                                if (dialogResultReparer == DialogResult.Yes)
+                                {
+                                    v_flag = false;
+                                    v_outilAReparer = Outils.Lampe;
+                                }
+                            }
+                            if (v_flag && !m_joueurActif.Pioche && (v_outilsAReparer.ElementAt(0) == Outils.Pioche || v_outilsAReparer.ElementAt(1) == Outils.Pioche))
+                            {
+                                DialogResult dialogResultReparer = MessageBox.Show("Voulez-vous réparer votre Pioche ?", "Validation", MessageBoxButtons.YesNo);
+                                if (dialogResultReparer == DialogResult.Yes)
+                                {
+                                    v_flag = false;
+                                    v_outilAReparer = Outils.Pioche;
+                                }
+                            }
+
+                            if (!v_flag)
+                            {
+                                m_outilDest = v_carteAction.Utiliser(m_joueurActif, v_outilAReparer);
+                                switch (m_outilDest.Outils)
+                                {
+                                    case Outils.Chariot:
+                                        m_joueurActif.Chariot = true;
+                                        break;
+                                    case Outils.Lampe:
+                                        m_joueurActif.Lampe = true;
+                                        break;
+                                    case Outils.Pioche:
+                                        m_joueurActif.Pioche = true;
+                                        break;
+                                }
+                                v_pic.Image = null;
+                                m_picSource.Add(v_pic);
+                                m_dragDropDone = true;
+                            }
+                        }
+                        else
+                            MessageBox.Show("Aucun outil brisé");
+                    }
                 }
             }
         }
@@ -341,6 +405,19 @@ namespace PlateauJeu
                     if (dialogResult == DialogResult.Yes)
                     {
                         v_flag++;
+                        Outils v_outilAReparer = ((OutilsBrises)m_joueurActif.CartesEntraveJoueur.Last()).Outils;
+                        switch(v_outilAReparer)
+                        {
+                            case Outils.Chariot:
+                                m_joueurActif.Chariot = true;
+                                break;
+                            case Outils.Lampe:
+                                m_joueurActif.Lampe = true;
+                                break;
+                            case Outils.Pioche:
+                                m_joueurActif.Pioche = true;
+                                break;
+                        }
                         m_joueurActif.CartesEntraveJoueur.Remove(m_joueurActif.CartesEntraveJoueur.Last());
                     }
                 }
@@ -404,7 +481,7 @@ namespace PlateauJeu
                         pic.Tag = null;
                         m_picDest.Remove(pic);
                     }
-                    else
+                    else if(m_picSource.Last().Tag.GetType().Equals(typeof(OutilsBrises)))
                     {
                         if(m_joueurActif == m_Joueur1)
                         {
@@ -414,6 +491,10 @@ namespace PlateauJeu
                         {
                             m_Joueur1.CartesEntraveJoueur.Remove(m_Joueur1.CartesEntraveJoueur.Last());
                         }
+                    }
+                    else if(m_picSource.Last().Tag.GetType().Equals(typeof(Reparer)))
+                    {
+                        m_joueurActif.CartesEntraveJoueur.Add(m_outilDest);
                     }
                     pic = m_picSource.ElementAt(0);
                     m_picSource.Remove(pic);
@@ -469,28 +550,27 @@ namespace PlateauJeu
         /// </summary>
         private void majCartes()
         {
+            foreach (PictureBox pic in pnl_main.Controls)
+            {
+                pic.Image = null;
+                pic.Tag = null;
+            }
             for (int i = 0; i < m_joueurActif.MainJoueur.Count; i++)
             {
                 PictureBox pic = (PictureBox)pnl_main.Controls[i];
                 pic.Image = m_joueurActif.getCarteAtPosition(m_joueurActif.MainJoueur, i).ImgRecto;
                 pic.Tag = m_joueurActif.getCarteAtPosition(m_joueurActif.MainJoueur, i);
             }
-            if (m_joueurActif.CartesEntraveJoueur.Count == 0)
+            foreach (PictureBox pic in pnl_outilBrises.Controls)
             {
-                foreach (PictureBox pic in pnl_outilBrises.Controls)
-                {
-                    pic.Image = null;
-                    pic.Tag = null;
-                }
+                pic.Image = null;
+                pic.Tag = null;
             }
-            else
+            for (int i = 0; i < m_joueurActif.CartesEntraveJoueur.Count; i++)
             {
-                for (int i = 0; i < m_joueurActif.CartesEntraveJoueur.Count; i++)
-                {
-                    PictureBox pic = (PictureBox)pnl_outilBrises.Controls[i];
-                    pic.Image = m_joueurActif.getCarteAtPosition(m_joueurActif.CartesEntraveJoueur, i).ImgRecto;
-                    pic.Tag = m_joueurActif.getCarteAtPosition(m_joueurActif.CartesEntraveJoueur, i);
-                }
+                PictureBox pic = (PictureBox)pnl_outilBrises.Controls[i];
+                pic.Image = m_joueurActif.getCarteAtPosition(m_joueurActif.CartesEntraveJoueur, i).ImgRecto;
+                pic.Tag = m_joueurActif.getCarteAtPosition(m_joueurActif.CartesEntraveJoueur, i);
             }
         }
         #endregion
