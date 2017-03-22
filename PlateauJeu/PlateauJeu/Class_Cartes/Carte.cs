@@ -50,6 +50,19 @@ namespace PlateauJeu.Class_Cartes
                 m_imgRecto = value;
             }
         }
+
+        public Types Type
+        {
+            get
+            {
+                return m_type;
+            }
+
+            set
+            {
+                m_type = value;
+            }
+        }
         #endregion
     }
 }

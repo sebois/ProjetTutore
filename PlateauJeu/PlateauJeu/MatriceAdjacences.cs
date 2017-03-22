@@ -9,133 +9,102 @@ namespace PlateauJeu
 {
     class MatriceAdjacences
     {
-        private int[,,,] matrice = new int[11, 15, 11, 15];
-        private List<CarteChemin> CarteVérifié;
+        /// <summary>
+        /// Matrice à 3 dimensions (42 cartes maximum, 2 joueurs)
+        /// </summary>
+        private int[,,] m_matriceAdjacence = new int[42, 42, 2];
+
+        private int[,,] m_matriceLiaison = new int[42, 42, 2];
 
         public MatriceAdjacences()
         {
-            for(int x1=0; x1<11; x1++)
+            for(int carteCoordX=0; carteCoordX<42; carteCoordX++)
             {
-                for(int y1=0; y1<15; y1++)
+                for(int carteCoordY=0; carteCoordY<42; carteCoordY++)
                 {
-                    for(int x2=0; x2<11; x2++)
+                    for(int accesJoueur=0; accesJoueur<2; accesJoueur++)
                     {
-                        for(int y2=0; y1<15; y2++)
-                        {
-                            matrice[x1, y1, x2, y2] = 0;
-                        }
+                        m_matriceAdjacence[carteCoordX, carteCoordY, accesJoueur] = 0;
+                        m_matriceLiaison[carteCoordX, carteCoordY, accesJoueur] = 0;
                     }
                 }
             }
         }
 
-        public void ajoutCarte(CarteChemin nouvCarte, int x, int y)
+        public int[,,] MatriceAdjacence
         {
-            matrice[x, y, x, y] = 1;
-            /*
-            if (nouvCarte.M_haut == true)
+            get
             {
-                if (true) //getCarteById(TableauJeu[x,y+1] != null;
-                {
-                    matrice[x, y, x, y + 1] = 1;
-                    matrice[x, y + 1, x, y] = 1;
-
-                    for (int i = 0; i < 11; i++)
-                    {
-                        for (int j = 0; j < 15; j++)
-                        {
-                            if (matrice[x, y + 1, i, j] > 0 && matrice[x, y, i, j] != 1)
-                            {
-                                matrice[x, y, i, j] = 2;
-                                matrice[i, j, x, y] = 2;
-                            }
-                        }
-                    }
-                }
+                return m_matriceAdjacence;
             }
 
-            if (nouvCarte.M_bas == true)
+            set
             {
-                if (true) //getCarteById(TableauJeu[x,y-1]) != null;
-                {
-                    matrice[x, y, x, y - 1] = 1;
-                    matrice[x, y - 1, x, y] = 1;
-
-                    for (int i = 0; i < 11; i++)
-                    {
-                        for (int j = 0; j < 15; j++)
-                        {
-                            if (matrice[x, y - 1, i, j] > 0 && matrice[x, y, i, j] != 1)
-                            {
-                                matrice[x, y, i, j] = 2;
-                                matrice[i, j, x, y] = 2;
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (nouvCarte.M_droite == true)
-            {
-                if (true) //getCarteById(TableauJeu[x+1,y]) != null;
-                {
-                    matrice[x, y, x + 1, y] = 1;
-                    matrice[x + 1, y, x, y] = 1;
-
-                    for (int i = 0; i < 11; i++)
-                    {
-                        for (int j = 0; j < 15; j++)
-                        {
-                            if (matrice[x + 1, y, i, j] > 0 && matrice[x, y, i, j] != 1)
-                            {
-                                matrice[x, y, i, j] = 2;
-                                matrice[i, j, x, y] = 2;
-                            }
-                        }
-                    }
-                }
-            }
-            if (nouvCarte.M_gauche == true)
-            {
-                if (true) //getCarteById(TableauJeu[x-1,y] != null;
-                {
-                    matrice[x, y, x - 1, y] = 1;
-                    matrice[x - 1, y, x, y] = 1;
-
-                    for (int i = 0; i < 11; i++)
-                    {
-                        for (int j = 0; j < 15; j++)
-                        {
-                            if (matrice[x - 1, y , i, j] > 0 && matrice[x, y, i, j] != 1)
-                            {
-                                matrice[x, y, i, j] = 2;
-                                matrice[i, j, x, y] = 2;
-                            }
-                        }
-                    }
-                }
-            }
-            */
-        }
-
-        public void retirerCarte(CarteChemin supprCarte, int x, int y)
-        {
-            for (int i = 0; i < 11; i++)
-            {
-                for (int j = 0; j < 15; j++)
-                {
-                    matrice[x, y, i, j] = 0;
-                    matrice[i, j, x, y] = 0;
-                }
+                m_matriceAdjacence = value;
             }
         }
 
-        public Boolean VérifChemin(int x, int y, int xD, int yD)
+        public int[,,] MatriceLiaison
         {
-            Boolean resultat;
-            if(matrice[x, y, xD, yD]>0) {resultat = true;}
-            else { resultat = false; }
-            return resultat;
+            get
+            {
+                return m_matriceLiaison;
+            }
+
+            set
+            {
+                m_matriceLiaison = value;
+            }
+        }
+
+        public void ajoutAdjacence(int p_carteCoordX, int p_carteCoordY, int p_accesJoueur)
+        {
+            m_matriceAdjacence.SetValue(1, p_carteCoordX, p_carteCoordY, p_accesJoueur);
+            m_matriceAdjacence.SetValue(1, p_carteCoordY, p_carteCoordX, p_accesJoueur);
+            m_matriceLiaison.SetValue(1, p_carteCoordX, p_carteCoordY, p_accesJoueur);
+            m_matriceLiaison.SetValue(1, p_carteCoordY, p_carteCoordX, p_accesJoueur);
+        }
+
+        public void retirerAdjacence(int p_carteCoordX, int p_carteCoordY, int p_accesJoueur)
+        {
+            m_matriceAdjacence.SetValue(0, p_carteCoordX, p_carteCoordY, p_accesJoueur);
+        }
+
+        public bool verifChemin(int p_carteCoordX, int p_carteCoordY, int p_accesJoueur)
+        {
+            bool v_flagChemin = false;
+            int x = p_carteCoordX;
+            int y = p_carteCoordY;
+            while (!v_flagChemin)
+            {
+                if(v_flagChemin = m_matriceAdjacence[p_carteCoordX, p_carteCoordY, p_accesJoueur] == 1)
+                {
+                    v_flagChemin = true;
+                }
+                else
+                {
+                    x = 0;
+                    while(m_matriceAdjacence[p_carteCoordX, p_carteCoordY, p_accesJoueur] != 1 || x< m_matriceAdjacence.GetLength(0))
+                    {
+                        x++;
+                    }
+                }
+            }
+            return v_flagChemin;
+        }
+
+        public void majMatriceLiaison(int p_carteDepart)
+        {
+
+            explorer(p_carteDepart);
+        }
+
+        private void explorer(int p_sommet)
+        {
+            if(m_matriceAdjacence[p_sommet, 0, 0] == 1)
+            {
+
+            }
         }
     }
 }

@@ -65,6 +65,11 @@ namespace PlateauJeu
         private List<PictureBox> m_picSource;
 
         /// <summary>
+        /// Liste des voisins de la carte à placer
+        /// </summary>
+        private List<PictureBox> m_picVoisins;
+
+        /// <summary>
         /// Liste de PictureBox contenant des objectifs à initialiser
         /// </summary>
         private List<PictureBox> m_listeObjectifsAPlacer;
@@ -73,6 +78,11 @@ namespace PlateauJeu
         /// Nombre aléatoire
         /// </summary>
         private Random m_rnd = new Random();
+
+        /// <summary>
+        /// Matrice d'adjacence
+        /// </summary>
+        private MatriceAdjacences m_matriceAjacences;
         #endregion
 
         #region Constructeur
@@ -89,6 +99,7 @@ namespace PlateauJeu
                 pic.DragDrop += new DragEventHandler(pictureBox_DragDrop);
                 pic.SizeMode = PictureBoxSizeMode.StretchImage;
                 pic.Dock = DockStyle.Fill;
+                pic.MouseDown += new MouseEventHandler(pictureBox_MouseDown);
             }
             /*
              * Gestionnaire d'évènements Drag and Drop de pnl_defausse
@@ -117,6 +128,7 @@ namespace PlateauJeu
              */
             m_picSource = new List<PictureBox>();
             m_picDest = new List<PictureBox>();
+            m_matriceAjacences = new MatriceAdjacences();
             m_listeObjectifsAPlacer = new List<PictureBox>();
         }
         #endregion
@@ -136,8 +148,6 @@ namespace PlateauJeu
             {
                 pic.AllowDrop = true;
             }
-            txt_J1.Text = "Seb";
-            txt_J2.Text = "Lili";
         }
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
@@ -228,6 +238,8 @@ namespace PlateauJeu
 
                     /*
                      * Affecte l'image de la PictureBox de destination, pointeur vers la PictureBox de destination et flag
+                     * Teste si la carte est plaçable, drop sur le plateau, n'obstrue aucun chemin autour et aucune carte déjà placée
+                     * OU carte envoyée dans la défausse
                      */
                     if (((m_picSource.Last().Tag.GetType().IsSubclassOf(typeof(CartePlacable)))
                         && v_panel.Equals(tableLayoutPanel1)
@@ -239,12 +251,19 @@ namespace PlateauJeu
                         v_pic2.Image = v_bitmap;
                         m_picDest.Add(v_pic2);
                     }
+
+                    /*
+                     * Si les conditions ne sont pas vérifiées, une erreur est déclenchée
+                     */
                     else
                     {
                         v_flagErreur = true;
                         e.Effect = DragDropEffects.None;
                     }
-                        
+                    
+                    /*
+                     * Bloque le Drag and Drop si une carte est posée sur le plateau ou 2 cartes sont dans la défausse (aucune erreur ne doit être présente)
+                     */  
                     if ( !v_flagErreur && ((v_panel.Equals(tableLayoutPanel1) && m_picDest.Count == 1) || (m_picDest.Count == 2)))
                     {
                         m_dragDropDone = true;
@@ -271,6 +290,11 @@ namespace PlateauJeu
                     afficherElements();
                     placerDeparts();
                     placerObjectifsRetournes();
+                    /*
+                     * Mise à jour de l'affichage des compteurs et de la main du joueur
+                     */
+                    majCompteurs();
+                    majCartes();
                 }
             }
             /*
@@ -287,16 +311,33 @@ namespace PlateauJeu
                 int v_countPic = m_picSource.Count;
                 for(int i=0; i<v_countPic; i++)
                 {
-                    Carte v_carte = (Carte)m_picSource.Last().Tag;
-                    m_joueurActif.RetirerCarteDeLaMain(m_Plateau, v_carte);
-                    m_picSource.Last().Tag = null;
-                    m_joueurActif.Piocher(m_Plateau, 1);
-                    m_picSource.Remove(m_picSource.Last());
-                    if(m_picDest.Last().Parent != tableLayoutPanel1)
+                    Carte v_carteSource = (Carte)m_picSource.Last().Tag;
+                    Carte v_carteDest = (Carte)m_picDest.Last().Tag;
+                    m_Plateau.Defausse.Add(v_carteDest);
+                    if (m_picDest.Last().Parent != tableLayoutPanel1)
                     {
                         m_picDest.Last().Image = null;
-                        m_picDest.Last().Tag = null;
+                        v_carteDest = null;
                     }
+                    else
+                    {
+                        switch (m_joueurActif.CouleurJoueur)
+                        {
+                            case Couleur.Vert:
+                                m_matriceAjacences.ajoutAdjacence(((CartePlacable)v_carteSource).Id,
+                            ((CartePlacable)v_carteDest).Id, 0);
+                                break;
+                            case Couleur.Bleu:
+                                m_matriceAjacences.ajoutAdjacence(((CartePlacable)v_carteSource).Id,
+                            ((CartePlacable)v_carteDest).Id, 1);
+                                break;
+                        }
+                        
+                    }
+                    m_joueurActif.RetirerCarteDeLaMain(m_Plateau, v_carteSource);
+                    v_carteSource = null;
+                    m_joueurActif.Piocher(m_Plateau, 1);
+                    m_picSource.Remove(m_picSource.Last());
                     m_picDest.Remove(m_picDest.Last());
                 }
                 m_dragDropDone = false;
@@ -327,12 +368,12 @@ namespace PlateauJeu
                 { 
                     m_joueurActif = m_Joueur1;
                 }
+                /*
+                 * Mise à jour de l'affichage des compteurs et de la main du joueur
+                 */
+                majCompteurs();
+                majCartes();
             }
-            /*
-             * Mise à jour de l'affichage des compteurs et de la main du joueur
-             */
-            majCompteurs();
-            majCartes();
         }
 
         private void btn_undo_Click(object sender, EventArgs e)
@@ -354,11 +395,7 @@ namespace PlateauJeu
                 }
                 if (m_listeObjectifsAPlacer.Count > 0)
                 {
-                    int v_CountListObjectif = m_listeObjectifsAPlacer.Count;
-                    for (int i = 0; i < v_CountListObjectif; i++)
-                    {
-                        m_listeObjectifsAPlacer.Remove(m_listeObjectifsAPlacer.Last());
-                    }
+                    m_listeObjectifsAPlacer.RemoveRange(0, m_listeObjectifsAPlacer.Count);
                 }
                 m_dragDropDone = false;
                 majCartes();
@@ -499,9 +536,17 @@ namespace PlateauJeu
             if (!testPlacementVoisin(p_cellPosition, v_incrementX, v_incrementY, 
                 ref v_compteurException, m_listeObjectifsAPlacer))
                 return false;
-            if (v_compteurException != 4 && m_listeObjectifsAPlacer.Count + v_compteurException != 4)
+            if (v_compteurException != 4)
             {
-                return true;
+                if(m_listeObjectifsAPlacer.Count + v_compteurException != 4)
+                {
+                    return true;
+                }
+                else
+                {
+                    m_listeObjectifsAPlacer.RemoveRange(0, m_listeObjectifsAPlacer.Count);
+                    return false;
+                }
             }
             else
                 return false;
@@ -534,11 +579,14 @@ namespace PlateauJeu
                 else
                 {
                     v_carteVoisin = (CartePlacable)v_picVoisin.Tag;
+                    if (v_carteVoisin.Type == Types.DoubleVirage || v_carteVoisin.Type == Types.DoubleVirage)
+                    {
+
+                    }
                     if (p_incrementY == -1)
                     {
                         if ((!v_carteVoisin.M_bas && v_carte.M_haut) || (v_carteVoisin.M_bas && !v_carte.M_haut))
                         {
-                            
                             return false;
                         }
                     }
