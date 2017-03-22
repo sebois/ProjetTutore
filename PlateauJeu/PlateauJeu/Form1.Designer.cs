@@ -2285,6 +2285,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackgroundImage = global::PlateauJeu.Properties.Resources.Back1;
             this.ClientSize = new System.Drawing.Size(1050, 761);
             this.Controls.Add(this.pnl_zoneDefausse);
@@ -2294,6 +2295,8 @@
             this.Controls.Add(this.pnl_nomJoueur);
             this.Controls.Add(this.btn_end);
             this.Controls.Add(this.pnl_joueur);
+            this.MaximumSize = new System.Drawing.Size(1066, 800);
+            this.MinimumSize = new System.Drawing.Size(1066, 800);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";

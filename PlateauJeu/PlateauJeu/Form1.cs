@@ -65,6 +65,11 @@ namespace PlateauJeu
         private List<PictureBox> m_picSource;
 
         /// <summary>
+        /// Outil à réparer
+        /// </summary>
+        private OutilsBrises m_outilDest;
+
+        /// <summary>
         /// Nombre aléatoire
         /// </summary>
         private Random m_rnd = new Random();
@@ -100,6 +105,7 @@ namespace PlateauJeu
             {
                 pic.MouseDown += new MouseEventHandler(pictureBox_MouseDown);
                 pic.MouseMove += new MouseEventHandler(pictureBox_MouseMove);
+                pic.DoubleClick += new EventHandler(this.pictureBox_DoubleClick);
             }
             /*
              * Initialise les flag et les compteurs
@@ -145,7 +151,7 @@ namespace PlateauJeu
              * Flag clic gauche levé si clic gauche et flag du Drag and Drop non levé
              */
             if (e.Button == MouseButtons.Left && !m_dragDropDone)
-            { 
+            {
                 m_mouseLeft = true;
             }
             /*
@@ -172,7 +178,6 @@ namespace PlateauJeu
                  * Récupère le type de carte grâce au pointeur contenu dans le Tag de la PictureBox
                  */
                 PictureBox v_pic1 = (PictureBox)sender;
-                Type v_type = v_pic1.Tag.GetType();
                 /*
                  * Pointeur de la PictureBox source du DragAndDrop 
                  */
@@ -199,6 +204,120 @@ namespace PlateauJeu
             }
         }
 
+        //Doubleclick sur main du joueur 
+        private void pictureBox_DoubleClick(object sender, EventArgs e)
+        {
+            PictureBox v_pic = (PictureBox)sender;
+            Carte v_carte = (Carte)v_pic.Tag;
+            if (v_carte.GetType().IsSubclassOf(typeof(Class_Cartes.Action)) && !m_dragDropDone)
+            {
+                DialogResult dialogResult = MessageBox.Show("Voulez-vous utiliser cette carte ?", "Validation", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    if (v_carte.GetType().Equals(typeof(OutilsBrises)))
+                    {
+                        Joueur v_joueurCible;
+                        OutilsBrises v_carteAction = (OutilsBrises)v_carte;
+                        Outils v_outilABriser = v_carteAction.Outils;
+                        bool v_flag = true;
+                        if (m_Joueur1 == m_joueurActif)
+                        {
+                            v_joueurCible = m_Joueur2;
+                        }
+                        else
+                            v_joueurCible = m_Joueur1;
+                        switch(v_outilABriser)
+                        {
+                            case Outils.Chariot:
+                                if(!v_joueurCible.Chariot)
+                                {
+                                    v_flag = false;
+                                }
+                                break;
+                            case Outils.Lampe:
+                                if(!v_joueurCible.Lampe)
+                                {
+                                    v_flag = false;
+                                }
+                                break;
+                            case Outils.Pioche:
+                                if (!v_joueurCible.Pioche)
+                                {
+                                    v_flag = false;
+                                }
+                                break;
+                        }
+                        if (v_flag)
+                        {
+                            v_carteAction.Utiliser(v_joueurCible);
+                            v_pic.Image = null;
+                            m_picSource.Add(v_pic);
+                            m_dragDropDone = true;
+                        }
+                    }
+                    if (v_carte.GetType().Equals(typeof(Reparer)))
+                    {
+                        if (m_joueurActif.CartesEntraveJoueur.Count > 0)
+                        {
+                            Reparer v_carteAction = (Reparer)v_carte;
+                            List<Outils> v_outilsAReparer = v_carteAction.Outils;
+                            Outils v_outilAReparer = 0;
+                            bool v_flag = true;
+                            if (!m_joueurActif.Chariot && (v_outilsAReparer.ElementAt(0) == Outils.Chariot || v_outilsAReparer.ElementAt(1) == Outils.Chariot))
+                            {
+                                DialogResult dialogResultReparer = MessageBox.Show("Voulez-vous réparer votre chariot ?", "Validation", MessageBoxButtons.YesNo);
+                                if (dialogResultReparer == DialogResult.Yes)
+                                {
+                                    v_flag = false;
+                                    v_outilAReparer = Outils.Chariot;
+                                }
+                            }
+                            if (v_flag && !m_joueurActif.Lampe && (v_outilsAReparer.ElementAt(0) == Outils.Lampe || v_outilsAReparer.ElementAt(1) == Outils.Lampe))
+                            {
+                                DialogResult dialogResultReparer = MessageBox.Show("Voulez-vous réparer votre Lampe ?", "Validation", MessageBoxButtons.YesNo);
+                                if (dialogResultReparer == DialogResult.Yes)
+                                {
+                                    v_flag = false;
+                                    v_outilAReparer = Outils.Lampe;
+                                }
+                            }
+                            if (v_flag && !m_joueurActif.Pioche && (v_outilsAReparer.ElementAt(0) == Outils.Pioche || v_outilsAReparer.ElementAt(1) == Outils.Pioche))
+                            {
+                                DialogResult dialogResultReparer = MessageBox.Show("Voulez-vous réparer votre Pioche ?", "Validation", MessageBoxButtons.YesNo);
+                                if (dialogResultReparer == DialogResult.Yes)
+                                {
+                                    v_flag = false;
+                                    v_outilAReparer = Outils.Pioche;
+                                }
+                            }
+
+                            if (!v_flag)
+                            {
+                                m_outilDest = v_carteAction.Utiliser(m_joueurActif, v_outilAReparer);
+                                switch (m_outilDest.Outils)
+                                {
+                                    case Outils.Chariot:
+                                        m_joueurActif.Chariot = true;
+                                        break;
+                                    case Outils.Lampe:
+                                        m_joueurActif.Lampe = true;
+                                        break;
+                                    case Outils.Pioche:
+                                        m_joueurActif.Pioche = true;
+                                        break;
+                                }
+                                v_pic.Image = null;
+                                m_picSource.Add(v_pic);
+                                m_dragDropDone = true;
+                            }
+                        }
+                        else
+                            MessageBox.Show("Aucun outil brisé");
+                    }
+                }
+            }
+        }
+
         private void pictureBox_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.Bitmap))
@@ -216,7 +335,7 @@ namespace PlateauJeu
             if ((e.Data.GetDataPresent(DataFormats.Bitmap)))
             {
                 PictureBox v_pic2 = (PictureBox)sender;
-                
+
                 /*
                  * Vérifie que la PictureBox de destination ne possède pas déjà une image
                  */
@@ -230,6 +349,7 @@ namespace PlateauJeu
                      */
                     if (((m_picSource.Last().Tag.GetType().IsSubclassOf(typeof(CartePlacable)))
                         && v_panel.Equals(tableLayoutPanel1)
+                        && m_joueurActif.CartesEntraveJoueur.Count == 0
                         && isPlacableAtCell(v_cellPosition)
                         && m_picDest.Count == 0)
                         || v_panel.Equals(pnl_defausse))
@@ -238,7 +358,7 @@ namespace PlateauJeu
                         v_pic2.Image = v_bitmap;
                         m_picDest.Add(v_pic2);
                     }
-                    if ( (v_panel.Equals(tableLayoutPanel1) && m_picDest.Count == 1) || (m_picDest.Count == 2))
+                    if ((v_panel.Equals(tableLayoutPanel1) && m_picDest.Count == 1) || (m_picDest.Count == 2))
                     {
                         m_dragDropDone = true;
                     }
@@ -248,7 +368,7 @@ namespace PlateauJeu
 
         private void btn_end_Click(object sender, EventArgs e)
         {
-            if(m_manche == 0)
+            if (m_manche == 0)
             {
                 /*
                  * Vérifie l'affectation des noms
@@ -257,7 +377,7 @@ namespace PlateauJeu
                 {
                     /*
                      * Créé le Plateau, les joueurs, lance la manche 1, affiche les controles et place les cases départ
-                     */ 
+                     */
                     m_Plateau = new Plateau();
                     initJoueurs();
                     m_manche++;
@@ -269,7 +389,7 @@ namespace PlateauJeu
             /*
              * Vérifie si un DragAndDrop a été réalisé
              */
-            else if(m_picDest.Count > 0)
+            else if (m_picSource.Count > 0)
             {
                 /*
                  * Récupère la carte et la retire de la main du joueur
@@ -278,19 +398,49 @@ namespace PlateauJeu
                  * flag baissé
                  */
                 int v_countPic = m_picSource.Count;
-                for(int i=0; i<v_countPic; i++)
+                byte v_flag = 0;
+                if (m_joueurActif.CartesEntraveJoueur.Count > 0 && v_countPic == 2 && m_picDest.Last().Parent == pnl_defausse)
+                {
+                    DialogResult dialogResult = MessageBox.Show("Voulez-vous supprimer une carte entrave ?", "Validation", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        v_flag++;
+                        Outils v_outilAReparer = ((OutilsBrises)m_joueurActif.CartesEntraveJoueur.Last()).Outils;
+                        switch(v_outilAReparer)
+                        {
+                            case Outils.Chariot:
+                                m_joueurActif.Chariot = true;
+                                break;
+                            case Outils.Lampe:
+                                m_joueurActif.Lampe = true;
+                                break;
+                            case Outils.Pioche:
+                                m_joueurActif.Pioche = true;
+                                break;
+                        }
+                        m_joueurActif.CartesEntraveJoueur.Remove(m_joueurActif.CartesEntraveJoueur.Last());
+                    }
+                }
+                for (int i = 0; i < v_countPic; i++)
                 {
                     Carte v_carte = (Carte)m_picSource.Last().Tag;
                     m_joueurActif.RetirerCarteDeLaMain(m_Plateau, v_carte);
                     m_picSource.Last().Tag = null;
-                    m_joueurActif.Piocher(m_Plateau, 1);
-                    m_picSource.Remove(m_picSource.Last());
-                    if(m_picDest.Last().Parent != tableLayoutPanel1)
+                    if (v_flag < 2)
                     {
-                        m_picDest.Last().Image = null;
-                        m_picDest.Last().Tag = null;
+                        v_flag++;
+                        m_joueurActif.Piocher(m_Plateau, 1);
                     }
-                    m_picDest.Remove(m_picDest.Last());
+                    m_picSource.Remove(m_picSource.Last());
+                    if (m_picDest.Count > 0)
+                    {
+                        if (m_picDest.Last().Parent == pnl_defausse)
+                        {
+                            m_picDest.Last().Image = null;
+                            m_picDest.Last().Tag = null;
+                        }
+                        m_picDest.Remove(m_picDest.Last());
+                    }
                 }
                 m_dragDropDone = false;
 
@@ -302,7 +452,7 @@ namespace PlateauJeu
                     m_joueurActif = m_Joueur2;
                 }
                 else
-                { 
+                {
                     m_joueurActif = m_Joueur1;
                 }
             }
@@ -318,15 +468,34 @@ namespace PlateauJeu
             /*
              * Réinitialise la PictureBox de destination, baisse le flag et met à jour la main du joueur
              */
-            if (m_picDest.Count > 0)
+            if (m_picSource.Count > 0)
             {
-                int v_CountList = m_picDest.Count;
+                int v_CountList = m_picSource.Count;
+                PictureBox pic;
                 for (int i = 0; i < v_CountList; i++)
                 {
-                    PictureBox pic = m_picDest.ElementAt(0);
-                    pic.Image = null;
-                    pic.Tag = null;
-                    m_picDest.Remove(pic);
+                    if(m_picDest.Count > 0)
+                    {
+                        pic = m_picDest.ElementAt(0);
+                        pic.Image = null;
+                        pic.Tag = null;
+                        m_picDest.Remove(pic);
+                    }
+                    else if(m_picSource.Last().Tag.GetType().Equals(typeof(OutilsBrises)))
+                    {
+                        if(m_joueurActif == m_Joueur1)
+                        {
+                            m_Joueur2.CartesEntraveJoueur.Remove(m_Joueur2.CartesEntraveJoueur.Last());
+                        }
+                        else
+                        {
+                            m_Joueur1.CartesEntraveJoueur.Remove(m_Joueur1.CartesEntraveJoueur.Last());
+                        }
+                    }
+                    else if(m_picSource.Last().Tag.GetType().Equals(typeof(Reparer)))
+                    {
+                        m_joueurActif.CartesEntraveJoueur.Add(m_outilDest);
+                    }
                     pic = m_picSource.ElementAt(0);
                     m_picSource.Remove(pic);
                 }
@@ -334,6 +503,7 @@ namespace PlateauJeu
                 majCartes();
             }
         }
+
         #endregion
         #region Initialisation des joueurs
         /// <summary>
@@ -341,7 +511,7 @@ namespace PlateauJeu
         /// </summary>
         private void initJoueurs()
         {
-            int v_aleatoire = m_rnd.Next()%2;
+            int v_aleatoire = m_rnd.Next() % 2;
             switch (v_aleatoire)
             {
                 case 0:
@@ -380,11 +550,27 @@ namespace PlateauJeu
         /// </summary>
         private void majCartes()
         {
+            foreach (PictureBox pic in pnl_main.Controls)
+            {
+                pic.Image = null;
+                pic.Tag = null;
+            }
             for (int i = 0; i < m_joueurActif.MainJoueur.Count; i++)
             {
                 PictureBox pic = (PictureBox)pnl_main.Controls[i];
-                pic.Image = m_joueurActif.getCarteAtPosition(i).ImgRecto;
-                pic.Tag = m_joueurActif.getCarteAtPosition(i);
+                pic.Image = m_joueurActif.getCarteAtPosition(m_joueurActif.MainJoueur, i).ImgRecto;
+                pic.Tag = m_joueurActif.getCarteAtPosition(m_joueurActif.MainJoueur, i);
+            }
+            foreach (PictureBox pic in pnl_outilBrises.Controls)
+            {
+                pic.Image = null;
+                pic.Tag = null;
+            }
+            for (int i = 0; i < m_joueurActif.CartesEntraveJoueur.Count; i++)
+            {
+                PictureBox pic = (PictureBox)pnl_outilBrises.Controls[i];
+                pic.Image = m_joueurActif.getCarteAtPosition(m_joueurActif.CartesEntraveJoueur, i).ImgRecto;
+                pic.Tag = m_joueurActif.getCarteAtPosition(m_joueurActif.CartesEntraveJoueur, i);
             }
         }
         #endregion
@@ -440,7 +626,7 @@ namespace PlateauJeu
                 v_pic.Image = picObjectifRetourne;
                 v_pic.Tag = typeof(CarteObjectif);
             }
-        }  
+        }
         #endregion
 
         /// <summary>
@@ -455,7 +641,7 @@ namespace PlateauJeu
             int v_compteurException = 0, v_incrementX = 0, v_incrementY = -1;
             if (!testPlacementVoisin(p_cellPosition, v_incrementX, v_incrementY, ref v_compteurException))
                 return false;
-            v_incrementX = 1 ; v_incrementY = 0;
+            v_incrementX = 1; v_incrementY = 0;
             if (!testPlacementVoisin(p_cellPosition, v_incrementX, v_incrementY, ref v_compteurException))
                 return false;
             v_incrementX = 0; v_incrementY = 1;
@@ -482,7 +668,7 @@ namespace PlateauJeu
         /// <param name="p_incrementY">Incrémentation de la ligne pour trouver la cellule voisine</param>
         /// <param name="p_compteurException">Compteur du nombre de cellules voisines vides</param>
         /// <returns></returns>
-        private bool testPlacementVoisin(TableLayoutPanelCellPosition p_cellPosition, int p_incrementX, 
+        private bool testPlacementVoisin(TableLayoutPanelCellPosition p_cellPosition, int p_incrementX,
             int p_incrementY, ref int p_compteurException)
         {
             CartePlacable v_carte = (CartePlacable)m_picSource.Last().Tag;
@@ -499,7 +685,7 @@ namespace PlateauJeu
                     v_picVoisin.Tag = m_Plateau.PrendreCarte(v_listeCartes);
                     CarteObjectif v_carteObjectif = (CarteObjectif)v_picVoisin.Tag;
                     v_picVoisin.Image = v_carteObjectif.ImgRecto;
-                    
+
                 }
                 else
                 {
@@ -540,5 +726,6 @@ namespace PlateauJeu
         }
 
         #endregion
+
     }
 }

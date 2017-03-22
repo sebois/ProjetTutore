@@ -44,36 +44,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class_Cartes\Action.cs" />
-    <Compile Include="Class_Cartes\Carte.cs" />
-    <Compile Include="Class_Cartes\CarteChemin.cs" />
-    <Compile Include="Class_Cartes\CarteObjectif.cs" />
-    <Compile Include="Class_Cartes\CartePlacable.cs" />
-    <Compile Include="Class_Cartes\Cle.cs" />
-    <Compile Include="Class_Cartes\Couleur.cs" />
-    <Compile Include="Class_Cartes\Depart.cs" />
-    <Compile Include="Class_Cartes\Eboulement.cs" />
-    <Compile Include="Class_Cartes\Echelle.cs" />
-    <Compile Include="Class_Cartes\Joueur.cs" />
+    <Compile Include="Class\Action\Action.cs" />
+    <Compile Include="Class\Carte.cs" />
+    <Compile Include="Class\Chemin\CarteChemin.cs" />
+    <Compile Include="Class\Chemin\CarteObjectif.cs" />
+    <Compile Include="Class\Chemin\CartePlacable.cs" />
+    <Compile Include="Class\Action\Cle.cs" />
+    <Compile Include="Class\Enum\Couleur.cs" />
+    <Compile Include="Class\Chemin\Depart.cs" />
+    <Compile Include="Class\Action\Eboulement.cs" />
+    <Compile Include="Class\Chemin\Echelle.cs" />
+    <Compile Include="Class\Joueur.cs" />
     <Compile Include="Matrice_Adjacences.cs" />
-    <Compile Include="Class_Cartes\PlanSecret.cs" />
-    <Compile Include="Class_Cartes\Plateau.cs" />
-    <Compile Include="Class_Cartes\Position.cs" />
-    <Compile Include="Class_Cartes\Types.cs" />
+    <Compile Include="Class\Action\PlanSecret.cs" />
+    <Compile Include="Class\Plateau.cs" />
+    <Compile Include="Class\Enum\Position.cs" />
+    <Compile Include="Class\Enum\Types.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Class_Cartes\Outils.cs" />
-    <Compile Include="Class_Cartes\OutilsBrises.cs" />
-    <Compile Include="Class_Cartes\Pepite.cs" />
-    <Compile Include="Class_Cartes\Porte.cs" />
+    <Compile Include="Class\Enum\Outils.cs" />
+    <Compile Include="Class\Action\OutilsBrises.cs" />
+    <Compile Include="Class\Chemin\Pepite.cs" />
+    <Compile Include="Class\Chemin\Porte.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Class_Cartes\Reparer.cs" />
-    <Compile Include="Class_Cartes\Troll.cs" />
+    <Compile Include="Class\Action\Reparer.cs" />
+    <Compile Include="Class\Chemin\Troll.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
