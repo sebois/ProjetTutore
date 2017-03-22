@@ -173,7 +173,6 @@ namespace PlateauJeu
                  * Récupère le type de carte grâce au pointeur contenu dans le Tag de la PictureBox
                  */
                 PictureBox v_pic1 = (PictureBox)sender;
-                Type v_type = v_pic1.Tag.GetType();
                 /*
                  * Pointeur de la PictureBox source du DragAndDrop 
                  */
@@ -203,20 +202,55 @@ namespace PlateauJeu
         //Doubleclick sur main du joueur 
         private void pictureBox_DoubleClick(object sender, EventArgs e)
         {
-            PictureBox pic = (PictureBox)sender;
-            Carte carte = (Carte)pic.Tag;
-            if (carte.GetType().IsSubclassOf(typeof(Class_Cartes.Action)))
+            PictureBox v_pic = (PictureBox)sender;
+            Carte v_carte = (Carte)v_pic.Tag;
+            if (v_carte.GetType().IsSubclassOf(typeof(Class_Cartes.Action)) && !m_dragDropDone)
             {
-                //Class_Cartes.Action v_action = (Class_Cartes.Action)pic.Tag;
-                Class_Cartes.Action carteAction = (Class_Cartes.Action) carte;
-                
-                if(m_Joueur1 == m_joueurActif)
+                DialogResult dialogResult = MessageBox.Show("Voulez-vous utiliser cette carte ?", "Validation", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
                 {
-                    carteAction.Utiliser(m_Joueur2);
-                    Console.Out.WriteLine(m_Joueur2.CartesEntraveJoueur);
+                    if (v_carte.GetType().Equals(typeof(OutilsBrises)))
+                    {
+                        Joueur v_joueurCible;
+                        OutilsBrises v_carteAction = (OutilsBrises)v_carte;
+                        Outils v_outilABriser = v_carteAction.Outils;
+                        bool v_flag = true;
+                        if (m_Joueur1 == m_joueurActif)
+                        {
+                            v_joueurCible = m_Joueur2;
+                        }
+                        else
+                            v_joueurCible = m_Joueur1;
+                        switch(v_outilABriser)
+                        {
+                            case Outils.Chariot:
+                                if(!v_joueurCible.Chariot)
+                                {
+                                    v_flag = false;
+                                }
+                                break;
+                            case Outils.Lampe:
+                                if(!v_joueurCible.Lampe)
+                                {
+                                    v_flag = false;
+                                }
+                                break;
+                            case Outils.Pioche:
+                                if (!v_joueurCible.Pioche)
+                                {
+                                    v_flag = false;
+                                }
+                                break;
+                        }
+                        if (v_flag)
+                        {
+                            v_carteAction.Utiliser(v_joueurCible);
+                            v_pic.Image = null;
+                            m_picSource.Add(v_pic);
+                            m_dragDropDone = true;
+                        }
+                    }
                 }
-                else { carteAction.Utiliser(m_Joueur1); }
-                m_joueurActif.RetirerCarteDeLaMain(m_Plateau, carteAction);
             }
         }
 
@@ -291,7 +325,7 @@ namespace PlateauJeu
             /*
              * Vérifie si un DragAndDrop a été réalisé
              */
-            else if (m_picDest.Count > 0)
+            else if (m_picSource.Count > 0)
             {
                 /*
                  * Récupère la carte et la retire de la main du joueur
@@ -300,19 +334,36 @@ namespace PlateauJeu
                  * flag baissé
                  */
                 int v_countPic = m_picSource.Count;
+                byte v_flag = 0;
+                if (m_joueurActif.CartesEntraveJoueur.Count > 0 && v_countPic == 2 && m_picDest.Last().Parent == pnl_defausse)
+                {
+                    DialogResult dialogResult = MessageBox.Show("Voulez-vous supprimer une carte entrave ?", "Validation", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        v_flag++;
+                        m_joueurActif.CartesEntraveJoueur.Remove(m_joueurActif.CartesEntraveJoueur.Last());
+                    }
+                }
                 for (int i = 0; i < v_countPic; i++)
                 {
                     Carte v_carte = (Carte)m_picSource.Last().Tag;
                     m_joueurActif.RetirerCarteDeLaMain(m_Plateau, v_carte);
                     m_picSource.Last().Tag = null;
-                    m_joueurActif.Piocher(m_Plateau, 1);
-                    m_picSource.Remove(m_picSource.Last());
-                    if (m_picDest.Last().Parent != tableLayoutPanel1)
+                    if (v_flag < 2)
                     {
-                        m_picDest.Last().Image = null;
-                        m_picDest.Last().Tag = null;
+                        v_flag++;
+                        m_joueurActif.Piocher(m_Plateau, 1);
                     }
-                    m_picDest.Remove(m_picDest.Last());
+                    m_picSource.Remove(m_picSource.Last());
+                    if (m_picDest.Count > 0)
+                    {
+                        if (m_picDest.Last().Parent == pnl_defausse)
+                        {
+                            m_picDest.Last().Image = null;
+                            m_picDest.Last().Tag = null;
+                        }
+                        m_picDest.Remove(m_picDest.Last());
+                    }
                 }
                 m_dragDropDone = false;
 
@@ -340,15 +391,30 @@ namespace PlateauJeu
             /*
              * Réinitialise la PictureBox de destination, baisse le flag et met à jour la main du joueur
              */
-            if (m_picDest.Count > 0)
+            if (m_picSource.Count > 0)
             {
-                int v_CountList = m_picDest.Count;
+                int v_CountList = m_picSource.Count;
+                PictureBox pic;
                 for (int i = 0; i < v_CountList; i++)
                 {
-                    PictureBox pic = m_picDest.ElementAt(0);
-                    pic.Image = null;
-                    pic.Tag = null;
-                    m_picDest.Remove(pic);
+                    if(m_picDest.Count > 0)
+                    {
+                        pic = m_picDest.ElementAt(0);
+                        pic.Image = null;
+                        pic.Tag = null;
+                        m_picDest.Remove(pic);
+                    }
+                    else
+                    {
+                        if(m_joueurActif == m_Joueur1)
+                        {
+                            m_Joueur2.CartesEntraveJoueur.Remove(m_Joueur2.CartesEntraveJoueur.Last());
+                        }
+                        else
+                        {
+                            m_Joueur1.CartesEntraveJoueur.Remove(m_Joueur1.CartesEntraveJoueur.Last());
+                        }
+                    }
                     pic = m_picSource.ElementAt(0);
                     m_picSource.Remove(pic);
                 }
@@ -406,8 +472,25 @@ namespace PlateauJeu
             for (int i = 0; i < m_joueurActif.MainJoueur.Count; i++)
             {
                 PictureBox pic = (PictureBox)pnl_main.Controls[i];
-                pic.Image = m_joueurActif.getCarteAtPosition(i).ImgRecto;
-                pic.Tag = m_joueurActif.getCarteAtPosition(i);
+                pic.Image = m_joueurActif.getCarteAtPosition(m_joueurActif.MainJoueur, i).ImgRecto;
+                pic.Tag = m_joueurActif.getCarteAtPosition(m_joueurActif.MainJoueur, i);
+            }
+            if (m_joueurActif.CartesEntraveJoueur.Count == 0)
+            {
+                foreach (PictureBox pic in pnl_outilBrises.Controls)
+                {
+                    pic.Image = null;
+                    pic.Tag = null;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < m_joueurActif.CartesEntraveJoueur.Count; i++)
+                {
+                    PictureBox pic = (PictureBox)pnl_outilBrises.Controls[i];
+                    pic.Image = m_joueurActif.getCarteAtPosition(m_joueurActif.CartesEntraveJoueur, i).ImgRecto;
+                    pic.Tag = m_joueurActif.getCarteAtPosition(m_joueurActif.CartesEntraveJoueur, i);
+                }
             }
         }
         #endregion

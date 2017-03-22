@@ -53,7 +53,7 @@ namespace PlateauJeu.Class_Cartes
         /// <summary>
         /// Liste d'OutilsBrises qui entravent le jeu de l'utilisateur
         /// </summary>
-        private List<OutilsBrises> m_cartesEntraveJoueur;
+        private List<Carte> m_cartesEntraveJoueur;
         #endregion
 
         #region Constructeur
@@ -67,7 +67,7 @@ namespace PlateauJeu.Class_Cartes
         {
             #region Initialisation des attributs
             m_mainJoueur = new List<Carte>();
-            m_cartesEntraveJoueur = new List<OutilsBrises>();
+            m_cartesEntraveJoueur = new List<Carte>();
             m_nomJoueur = p_nomJoueur;
             NbPepites = 0;
             m_couleurJoueur = p_couleurJoueur;
@@ -110,27 +110,43 @@ namespace PlateauJeu.Class_Cartes
         /// </summary>
         /// <param name="p_joueur">Pointeur du joueur qui subit</param>
         /// <param name="p_CarteOutilABriser">Pointeur de la carte OutilsBrises</param>
-        public void Briser(Joueur p_joueur, OutilsBrises p_CarteOutilABriser)
+        public bool Briser(Joueur p_joueur, OutilsBrises p_CarteOutilABriser)
         {
             switch (p_CarteOutilABriser.Outils)
             {
                 case Outils.Chariot :
                     //Le chariot est cassé
-                    p_joueur.m_Chariot = false;
+                    if (p_joueur.m_Chariot)
+                    {
+                        p_joueur.m_Chariot = false;
+                    }
+                    else
+                        return false;
                     break;
 
                 case Outils.Lampe :
                     //La lampe est cassée
-                    p_joueur.m_Lampe = false;
+                    if (p_joueur.m_Lampe)
+                    {
+                        p_joueur.m_Lampe = false;
+                    }
+                    else
+                        return false;
                     break;
 
                 case Outils.Pioche :
                     //La pioche est cassée
-                    p_joueur.m_Pioche = false;
+                    if (p_joueur.m_Pioche)
+                    {
+                        p_joueur.m_Pioche = false;
+                    }
+                    else
+                        return false;
                     break;
             }
             //Ajoute l'entrave au joueur
             p_joueur.m_cartesEntraveJoueur.Add(p_CarteOutilABriser);
+            return true;
         } 
 
         /// <summary>
@@ -143,31 +159,31 @@ namespace PlateauJeu.Class_Cartes
             {
                 case Outils.Chariot:
                     //Le chariot est cassé
-                    this.m_Chariot = true;
-                    foreach (OutilsBrises outilBrisé in m_cartesEntraveJoueur)
+                    m_Chariot = true;
+                    foreach (OutilsBrises outilBrise in m_cartesEntraveJoueur)
                     {
-                        if (outilBrisé.Outils == Outils.Chariot)
-                            m_cartesEntraveJoueur.Remove(outilBrisé);
+                        if (outilBrise.Outils == Outils.Chariot)
+                            m_cartesEntraveJoueur.Remove(outilBrise);
                     }
                     break;
 
                 case Outils.Lampe:
                     //La lampe est cassé
-                    this.m_Lampe = true;
-                    foreach (OutilsBrises outilBrisé in m_cartesEntraveJoueur)
+                    m_Lampe = true;
+                    foreach (OutilsBrises outilBrise in m_cartesEntraveJoueur)
                     {
-                        if (outilBrisé.Outils == Outils.Lampe)
-                            m_cartesEntraveJoueur.Remove(outilBrisé);
+                        if (outilBrise.Outils == Outils.Lampe)
+                            m_cartesEntraveJoueur.Remove(outilBrise);
                     }
                     break;
 
                 case Outils.Pioche:
                     //La pioche est cassé
-                    this.m_Pioche = true;
-                    foreach (OutilsBrises outilBrisé in m_cartesEntraveJoueur)
+                    m_Pioche = true;
+                    foreach (OutilsBrises outilBrise in m_cartesEntraveJoueur)
                     {
-                        if (outilBrisé.Outils == Outils.Pioche)
-                            m_cartesEntraveJoueur.Remove(outilBrisé);
+                        if (outilBrise.Outils == Outils.Pioche)
+                            m_cartesEntraveJoueur.Remove(outilBrise);
                     }
                     break;
             }
@@ -180,9 +196,9 @@ namespace PlateauJeu.Class_Cartes
             p_plateau.Defausse.Add(p_carte);
         }
 
-        public Carte getCarteAtPosition(int position)
+        public Carte getCarteAtPosition(List<Carte> liste, int position)
         {
-            return m_mainJoueur.ElementAt(position);
+            return liste.ElementAt(position);
         }
         #endregion
 
@@ -239,7 +255,7 @@ namespace PlateauJeu.Class_Cartes
             }
         }
 
-        internal List<OutilsBrises> CartesEntraveJoueur
+        internal List<Carte> CartesEntraveJoueur
         {
             get
             {
@@ -249,6 +265,45 @@ namespace PlateauJeu.Class_Cartes
             set
             {
                 m_cartesEntraveJoueur = value;
+            }
+        }
+
+        public bool Pioche
+        {
+            get
+            {
+                return m_Pioche;
+            }
+
+            set
+            {
+                m_Pioche = value;
+            }
+        }
+
+        public bool Chariot
+        {
+            get
+            {
+                return m_Chariot;
+            }
+
+            set
+            {
+                m_Chariot = value;
+            }
+        }
+
+        public bool Lampe
+        {
+            get
+            {
+                return m_Lampe;
+            }
+
+            set
+            {
+                m_Lampe = value;
             }
         }
         #endregion
