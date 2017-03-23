@@ -472,7 +472,7 @@ namespace PlateauJeu
                         }
                         m_picDest.Remove(m_picDest.Last());
                     }
-                    else
+                    /*else
                     {
                         switch (m_joueurActif.CouleurJoueur)
                         {
@@ -486,7 +486,7 @@ namespace PlateauJeu
                                 break;
                         }
                         
-                    }
+                    }*/
                 }
                 m_dragDropDone = false;
 

@@ -55,11 +55,11 @@
     <Compile Include="Class\Action\Eboulement.cs" />
     <Compile Include="Class\Chemin\Echelle.cs" />
     <Compile Include="Class\Joueur.cs" />
-    <Compile Include="Matrice_Adjacences.cs" />
     <Compile Include="Class\Action\PlanSecret.cs" />
-    <Compile Include="Class\Plateau.cs" />
+    <Compile Include="Class\MatriceAdjacences.cs" />
     <Compile Include="Class\Enum\Position.cs" />
     <Compile Include="Class\Enum\Types.cs" />
+    <Compile Include="Class\Plateau.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
