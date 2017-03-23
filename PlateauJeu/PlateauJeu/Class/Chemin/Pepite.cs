@@ -11,6 +11,7 @@ namespace PlateauJeu.Class_Cartes
     /// </summary>
     class Pepite
     {
+        #region Attributs
         /// <summary>
         /// Nombre de pépites
         /// </summary>
@@ -20,7 +21,9 @@ namespace PlateauJeu.Class_Cartes
         /// Position des pépites
         /// </summary>
         private Position m_posPepite;
+        #endregion
 
+        #region Constructeur
         /// <summary>
         /// Constructeur de Pépite
         /// </summary>
@@ -31,5 +34,6 @@ namespace PlateauJeu.Class_Cartes
             m_nbPepite = p_nbPepite;
             m_posPepite = p_posPepite;
         }
+        #endregion
     }
 }
