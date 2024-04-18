@@ -171,12 +171,15 @@ namespace PlateauJeu
             else if (e.Button == MouseButtons.Right)
             {
                 PictureBox v_pic = (PictureBox)sender;
-                if (v_pic.Tag.GetType() == typeof(CarteChemin))
+                if (v_pic.Tag != null)
                 {
-                    CarteChemin v_carte = (CarteChemin)v_pic.Tag;
-                    v_carte.Rotation();
-                    v_pic.Image.RotateFlip(RotateFlipType.Rotate180FlipNone);
-                    v_pic.Refresh();
+                    if (v_pic.Tag.GetType() == typeof(CarteChemin))
+                    {
+                        CarteChemin v_carte = (CarteChemin)v_pic.Tag;
+                        v_carte.Rotation();
+                        v_pic.Image.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                        v_pic.Refresh();
+                    }
                 }
             }
         }
