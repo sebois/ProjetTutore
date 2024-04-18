@@ -140,7 +140,7 @@ namespace PlateauJeu.Class_Cartes
             }
             //Ajoute l'entrave au joueur
             p_joueur.m_cartesEntraveJoueur.Add(p_CarteOutilABriser);
-        } 
+        }
 
         /// <summary>
         /// Répare l'outil ciblé
@@ -151,29 +151,32 @@ namespace PlateauJeu.Class_Cartes
             bool v_flag = true;
             int i = 0, taille = m_cartesEntraveJoueur.Count;
             OutilsBrises outilBrise = null;
-            while (v_flag && i<taille)
+            while (v_flag && i < taille)
             {
                 outilBrise = (OutilsBrises)m_cartesEntraveJoueur.ElementAt(i);
                 if (outilBrise.Outils == Outils.Chariot && OutilAReparer == Outils.Chariot)
                 {
                     m_Chariot = true;
                     m_cartesEntraveJoueur.Remove(outilBrise);
+                    v_flag = false;
                 }
                 else if (outilBrise.Outils == Outils.Lampe && OutilAReparer == Outils.Lampe)
                 {
                     m_Lampe = true;
                     m_cartesEntraveJoueur.Remove(outilBrise);
+                    v_flag = false;
                 }
                 else if (outilBrise.Outils == Outils.Pioche && OutilAReparer == Outils.Pioche)
                 {
                     m_Pioche = true;
                     m_cartesEntraveJoueur.Remove(outilBrise);
+                    v_flag = false;
                 }
                 i++;
             }
+
             return outilBrise;
         }
-
 
         public void RetirerCarteDeLaMain(Plateau p_plateau, Carte p_carte)
         {
