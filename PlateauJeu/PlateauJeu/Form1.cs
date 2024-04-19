@@ -240,16 +240,16 @@ namespace PlateauJeu
                         }
                         else
                             v_joueurCible = m_Joueur1;
-                        switch(v_outilABriser)
+                        switch (v_outilABriser)
                         {
                             case Outils.Chariot:
-                                if(!v_joueurCible.Chariot)
+                                if (!v_joueurCible.Chariot)
                                 {
                                     v_flag = false;
                                 }
                                 break;
                             case Outils.Lampe:
-                                if(!v_joueurCible.Lampe)
+                                if (!v_joueurCible.Lampe)
                                 {
                                     v_flag = false;
                                 }
@@ -383,11 +383,11 @@ namespace PlateauJeu
                         v_flagErreur = true;
                         e.Effect = DragDropEffects.None;
                     }
-                    
+
                     /*
                      * Bloque le Drag and Drop si une carte est posée sur le plateau ou 2 cartes sont dans la défausse (aucune erreur ne doit être présente)
-                     */  
-                    if ( !v_flagErreur && ((v_panel.Equals(tableLayoutPanel1) && m_picDest.Count == 1) || (m_picDest.Count == 2)))
+                     */
+                    if (!v_flagErreur && ((v_panel.Equals(tableLayoutPanel1) && m_picDest.Count == 1) || (m_picDest.Count == 2)))
                     {
                         m_dragDropDone = true;
                     }
@@ -432,27 +432,58 @@ namespace PlateauJeu
                  * flag baissé
                  */
                 int v_countPic = m_picSource.Count;
-                byte v_flag = 0;
+                byte v_nbCartesPiochees = 0;
                 if (m_joueurActif.CartesEntraveJoueur.Count > 0 && v_countPic == 2 && m_picDest.Last().Parent == pnl_defausse)
                 {
-                    DialogResult dialogResult = MessageBox.Show("Voulez-vous supprimer une carte entrave ?", "Validation", MessageBoxButtons.YesNo);
-                    if (dialogResult == DialogResult.Yes)
+                    bool v_flag = true;
+                    while (v_flag)
                     {
-                        v_flag++;
-                        Outils v_outilAReparer = ((OutilsBrises)m_joueurActif.CartesEntraveJoueur.Last()).Outils;
-                        switch(v_outilAReparer)
+                        DialogResult dialogResult = MessageBox.Show("Voulez-vous supprimer une carte entrave ?", "Validation", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
                         {
-                            case Outils.Chariot:
-                                m_joueurActif.Chariot = true;
-                                break;
-                            case Outils.Lampe:
-                                m_joueurActif.Lampe = true;
-                                break;
-                            case Outils.Pioche:
-                                m_joueurActif.Pioche = true;
-                                break;
+                            int i = 0;
+                            while (v_flag && i < m_joueurActif.CartesEntraveJoueur.Count)
+                            {
+                                Outils v_outilAReparer = ((OutilsBrises)m_joueurActif.CartesEntraveJoueur.ElementAt(i)).Outils;
+                                switch (v_outilAReparer)
+                                {
+                                    case Outils.Chariot:
+                                        DialogResult dialogResultReparer = MessageBox.Show("Voulez-vous réparer votre chariot ?", "Validation", MessageBoxButtons.YesNo);
+                                        if (dialogResultReparer == DialogResult.Yes)
+                                        {
+                                            v_flag = false;
+                                            m_joueurActif.Chariot = true;
+                                        }
+                                        break;
+                                    case Outils.Lampe:
+                                        dialogResultReparer = MessageBox.Show("Voulez-vous réparer votre lampe ?", "Validation", MessageBoxButtons.YesNo);
+                                        if (dialogResultReparer == DialogResult.Yes)
+                                        {
+                                            v_flag = false;
+                                            m_joueurActif.Lampe = true;
+                                        }
+                                        break;
+                                    case Outils.Pioche:
+                                        dialogResultReparer = MessageBox.Show("Voulez-vous réparer votre pioche ?", "Validation", MessageBoxButtons.YesNo);
+                                        if (dialogResultReparer == DialogResult.Yes)
+                                        {
+                                            v_flag = false;
+                                            m_joueurActif.Pioche = true;
+                                        }
+                                        break;
+                                }
+                                if (v_flag)
+                                {
+                                    i++;
+                                }
+                                else
+                                {
+                                    m_joueurActif.CartesEntraveJoueur.Remove(m_joueurActif.CartesEntraveJoueur.ElementAt(i));
+                                    v_nbCartesPiochees++;
+                                }
+                            }
                         }
-                        m_joueurActif.CartesEntraveJoueur.Remove(m_joueurActif.CartesEntraveJoueur.Last());
+                        else v_flag = false;
                     }
                 }
                 for (int i = 0; i < v_countPic; i++)
@@ -460,9 +491,9 @@ namespace PlateauJeu
                     Carte v_carte = (Carte)m_picSource.Last().Tag;
                     m_joueurActif.RetirerCarteDeLaMain(m_Plateau, v_carte);
                     m_picSource.Last().Tag = null;
-                    if (v_flag < 2)
+                    if (v_nbCartesPiochees < v_countPic)
                     {
-                        v_flag++;
+                        v_nbCartesPiochees++;
                         m_joueurActif.Piocher(m_Plateau, 1);
                     }
                     m_picSource.Remove(m_picSource.Last());
@@ -498,7 +529,7 @@ namespace PlateauJeu
                     //TODO with MatriceAdjacence
                     List<Carte> v_listeCartes = new List<Carte>(m_Plateau.Objectifs);
                     int v_tailleListe = m_listeObjectifsAPlacer.Count;
-                    for(int i=0; i<v_tailleListe; i++)
+                    for (int i = 0; i < v_tailleListe; i++)
                     {
                         PictureBox pic = m_listeObjectifsAPlacer.ElementAt(0);
                         pic.Tag = m_Plateau.PrendreCarte(v_listeCartes);
@@ -538,16 +569,16 @@ namespace PlateauJeu
                 PictureBox pic;
                 for (int i = 0; i < v_CountList; i++)
                 {
-                    if(m_picDest.Count > 0)
+                    if (m_picDest.Count > 0)
                     {
                         pic = m_picDest.ElementAt(0);
                         pic.Image = null;
                         pic.Tag = null;
                         m_picDest.Remove(pic);
                     }
-                    else if(m_picSource.Last().Tag.GetType().Equals(typeof(OutilsBrises)))
+                    else if (m_picSource.Last().Tag.GetType().Equals(typeof(OutilsBrises)))
                     {
-                        if(m_joueurActif == m_Joueur1)
+                        if (m_joueurActif == m_Joueur1)
                         {
                             m_Joueur2.CartesEntraveJoueur.Remove(m_Joueur2.CartesEntraveJoueur.Last());
                         }
@@ -556,7 +587,7 @@ namespace PlateauJeu
                             m_Joueur1.CartesEntraveJoueur.Remove(m_Joueur1.CartesEntraveJoueur.Last());
                         }
                     }
-                    else if(m_picSource.Last().Tag.GetType().Equals(typeof(Reparer)))
+                    else if (m_picSource.Last().Tag.GetType().Equals(typeof(Reparer)))
                     {
                         m_joueurActif.CartesEntraveJoueur.Add(m_outilDest);
                     }
@@ -708,24 +739,24 @@ namespace PlateauJeu
         private bool isPlacableAtCell(TableLayoutPanelCellPosition p_cellPosition)
         {
             int v_compteurException = 0, v_incrementX = 0, v_incrementY = -1;
-            if (!testPlacementVoisin(p_cellPosition, v_incrementX, v_incrementY, 
+            if (!testPlacementVoisin(p_cellPosition, v_incrementX, v_incrementY,
                 ref v_compteurException, m_listeObjectifsAPlacer))
                 return false;
-            v_incrementX = 1 ; v_incrementY = 0;
-            if (!testPlacementVoisin(p_cellPosition, v_incrementX, v_incrementY, 
+            v_incrementX = 1; v_incrementY = 0;
+            if (!testPlacementVoisin(p_cellPosition, v_incrementX, v_incrementY,
                 ref v_compteurException, m_listeObjectifsAPlacer))
                 return false;
             v_incrementX = 0; v_incrementY = 1;
-            if (!testPlacementVoisin(p_cellPosition, v_incrementX, v_incrementY, 
+            if (!testPlacementVoisin(p_cellPosition, v_incrementX, v_incrementY,
                 ref v_compteurException, m_listeObjectifsAPlacer))
                 return false;
             v_incrementX = -1; v_incrementY = 0;
-            if (!testPlacementVoisin(p_cellPosition, v_incrementX, v_incrementY, 
+            if (!testPlacementVoisin(p_cellPosition, v_incrementX, v_incrementY,
                 ref v_compteurException, m_listeObjectifsAPlacer))
                 return false;
             if (v_compteurException != 4)
             {
-                if(m_listeObjectifsAPlacer.Count + v_compteurException != 4)
+                if (m_listeObjectifsAPlacer.Count + v_compteurException != 4)
                 {
                     return true;
                 }
@@ -749,7 +780,7 @@ namespace PlateauJeu
         /// <param name="p_incrementY">Incrémentation de la ligne pour trouver la cellule voisine</param>
         /// <param name="p_compteurException">Compteur du nombre de cellules voisines vides</param>
         /// <returns></returns>
-        private bool testPlacementVoisin(TableLayoutPanelCellPosition p_cellPosition, int p_incrementX, 
+        private bool testPlacementVoisin(TableLayoutPanelCellPosition p_cellPosition, int p_incrementX,
             int p_incrementY, ref int p_compteurException, List<PictureBox> p_listeObjectifsAPlacer)
         {
             CartePlacable v_carte = (CartePlacable)m_picSource.Last().Tag;
