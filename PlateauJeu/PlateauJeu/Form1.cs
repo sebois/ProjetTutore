@@ -276,32 +276,59 @@ namespace PlateauJeu
                             Reparer v_carteAction = (Reparer)v_carte;
                             List<Outils> v_outilsAReparer = v_carteAction.Outils;
                             Outils v_outilAReparer = 0;
-                            bool v_flag = true;
-                            if (!m_joueurActif.Chariot && (v_outilsAReparer.ElementAt(0) == Outils.Chariot || v_outilsAReparer.ElementAt(1) == Outils.Chariot))
+                            bool v_flag = true, v_refusReparation = false;
+                            if (!m_joueurActif.Chariot)
                             {
-                                DialogResult dialogResultReparer = MessageBox.Show("Voulez-vous réparer votre chariot ?", "Validation", MessageBoxButtons.YesNo);
-                                if (dialogResultReparer == DialogResult.Yes)
+                                int i = 0;
+                                while (v_flag && i < v_outilsAReparer.Count)
                                 {
-                                    v_flag = false;
-                                    v_outilAReparer = Outils.Chariot;
+                                    if (v_outilsAReparer.ElementAt(i) == Outils.Chariot)
+                                    {
+                                        DialogResult dialogResultReparer = MessageBox.Show("Voulez-vous réparer votre chariot ?", "Validation", MessageBoxButtons.YesNo);
+                                        if (dialogResultReparer == DialogResult.Yes)
+                                        {
+                                            v_flag = false;
+                                            v_outilAReparer = Outils.Chariot;
+                                        }
+                                        else v_refusReparation = true;
+                                    }
+                                    i++;
                                 }
                             }
-                            if (v_flag && !m_joueurActif.Lampe && (v_outilsAReparer.ElementAt(0) == Outils.Lampe || v_outilsAReparer.ElementAt(1) == Outils.Lampe))
+                            if (v_flag && !m_joueurActif.Lampe)
                             {
-                                DialogResult dialogResultReparer = MessageBox.Show("Voulez-vous réparer votre Lampe ?", "Validation", MessageBoxButtons.YesNo);
-                                if (dialogResultReparer == DialogResult.Yes)
+                                int i = 0;
+                                while (v_flag && i < v_outilsAReparer.Count)
                                 {
-                                    v_flag = false;
-                                    v_outilAReparer = Outils.Lampe;
+                                    if (v_outilsAReparer.ElementAt(i) == Outils.Lampe)
+                                    {
+                                        DialogResult dialogResultReparer = MessageBox.Show("Voulez-vous réparer votre Lampe ?", "Validation", MessageBoxButtons.YesNo);
+                                        if (dialogResultReparer == DialogResult.Yes)
+                                        {
+                                            v_flag = false;
+                                            v_outilAReparer = Outils.Lampe;
+                                        }
+                                        else v_refusReparation = true;
+                                    }
+                                    i++;
                                 }
                             }
-                            if (v_flag && !m_joueurActif.Pioche && (v_outilsAReparer.ElementAt(0) == Outils.Pioche || v_outilsAReparer.ElementAt(1) == Outils.Pioche))
+                            if (v_flag && !m_joueurActif.Pioche)
                             {
-                                DialogResult dialogResultReparer = MessageBox.Show("Voulez-vous réparer votre Pioche ?", "Validation", MessageBoxButtons.YesNo);
-                                if (dialogResultReparer == DialogResult.Yes)
+                                int i = 0;
+                                while (v_flag && i < v_outilsAReparer.Count)
                                 {
-                                    v_flag = false;
-                                    v_outilAReparer = Outils.Pioche;
+                                    if (v_outilsAReparer.ElementAt(i) == Outils.Lampe)
+                                    {
+                                        DialogResult dialogResultReparer = MessageBox.Show("Voulez-vous réparer votre Pioche ?", "Validation", MessageBoxButtons.YesNo);
+                                        if (dialogResultReparer == DialogResult.Yes)
+                                        {
+                                            v_flag = false;
+                                            v_outilAReparer = Outils.Pioche;
+                                        }
+                                        else v_refusReparation = true;
+                                    }
+                                    i++;
                                 }
                             }
 
@@ -324,6 +351,12 @@ namespace PlateauJeu
                                 m_picSource.Add(v_pic);
                                 m_dragDropDone = true;
                             }
+                            else if (v_refusReparation)
+                            {
+                                MessageBox.Show("Aucune réparation n'a été choisie");
+                            } 
+                            else
+                                MessageBox.Show("Aucun outil réparable avec cette carte");
                         }
                         else
                             MessageBox.Show("Aucun outil brisé");
