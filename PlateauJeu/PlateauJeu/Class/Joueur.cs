@@ -149,9 +149,9 @@ namespace PlateauJeu.Class_Cartes
         public OutilsBrises Reparer(Outils OutilAReparer)
         {
             bool v_flag = true;
-            int i = 0, taille = m_cartesEntraveJoueur.Count;
+            int i = 0;
             OutilsBrises outilBrise = null;
-            while (v_flag && i < taille)
+            while (v_flag && i < m_cartesEntraveJoueur.Count)
             {
                 outilBrise = (OutilsBrises)m_cartesEntraveJoueur.ElementAt(i);
                 if (outilBrise.Outils == Outils.Chariot && OutilAReparer == Outils.Chariot)

@@ -50,7 +50,7 @@
             this.pnl_nomJoueur = new System.Windows.Forms.Panel();
             this.pnl_infos = new System.Windows.Forms.Panel();
             this.lbl_tourDe = new System.Windows.Forms.Label();
-            this.lbl_pepite = new System.Windows.Forms.Label();
+            this.lbl_jetonsNains = new System.Windows.Forms.Label();
             this.lbl_manche = new System.Windows.Forms.Label();
             this.btn_undo = new System.Windows.Forms.Button();
             this.pnl_defausse = new System.Windows.Forms.TableLayoutPanel();
@@ -225,6 +225,7 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnl_tableContainer = new System.Windows.Forms.Panel();
+            this.lbl_pepites = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pic_test)).BeginInit();
             this.pnl_joueur.SuspendLayout();
             this.pnl_outilBrises.SuspendLayout();
@@ -638,39 +639,40 @@
             // pnl_infos
             // 
             this.pnl_infos.BackColor = System.Drawing.Color.Transparent;
+            this.pnl_infos.Controls.Add(this.lbl_pepites);
             this.pnl_infos.Controls.Add(this.lbl_tourDe);
-            this.pnl_infos.Controls.Add(this.lbl_pepite);
+            this.pnl_infos.Controls.Add(this.lbl_jetonsNains);
             this.pnl_infos.Controls.Add(this.lbl_manche);
             this.pnl_infos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pnl_infos.Location = new System.Drawing.Point(467, 50);
             this.pnl_infos.Name = "pnl_infos";
-            this.pnl_infos.Size = new System.Drawing.Size(287, 89);
+            this.pnl_infos.Size = new System.Drawing.Size(287, 110);
             this.pnl_infos.TabIndex = 9;
             // 
             // lbl_tourDe
             // 
             this.lbl_tourDe.AutoSize = true;
-            this.lbl_tourDe.Location = new System.Drawing.Point(10, 61);
+            this.lbl_tourDe.Location = new System.Drawing.Point(10, 50);
             this.lbl_tourDe.Name = "lbl_tourDe";
             this.lbl_tourDe.Size = new System.Drawing.Size(118, 20);
             this.lbl_tourDe.TabIndex = 2;
             this.lbl_tourDe.Text = "Tour Joueur x";
             this.lbl_tourDe.Visible = false;
             // 
-            // lbl_pepite
+            // lbl_jetonsNains
             // 
-            this.lbl_pepite.AutoSize = true;
-            this.lbl_pepite.Location = new System.Drawing.Point(10, 33);
-            this.lbl_pepite.Name = "lbl_pepite";
-            this.lbl_pepite.Size = new System.Drawing.Size(173, 20);
-            this.lbl_pepite.TabIndex = 1;
-            this.lbl_pepite.Text = "Pepites restantes : x";
-            this.lbl_pepite.Visible = false;
+            this.lbl_jetonsNains.AutoSize = true;
+            this.lbl_jetonsNains.Location = new System.Drawing.Point(10, 25);
+            this.lbl_jetonsNains.Name = "lbl_jetonsNains";
+            this.lbl_jetonsNains.Size = new System.Drawing.Size(205, 20);
+            this.lbl_jetonsNains.TabIndex = 1;
+            this.lbl_jetonsNains.Text = "Jetons nains restants : x";
+            this.lbl_jetonsNains.Visible = false;
             // 
             // lbl_manche
             // 
             this.lbl_manche.AutoSize = true;
-            this.lbl_manche.Location = new System.Drawing.Point(10, 7);
+            this.lbl_manche.Location = new System.Drawing.Point(10, 0);
             this.lbl_manche.Name = "lbl_manche";
             this.lbl_manche.Size = new System.Drawing.Size(100, 20);
             this.lbl_manche.TabIndex = 0;
@@ -2281,6 +2283,16 @@
             this.pnl_tableContainer.Size = new System.Drawing.Size(954, 386);
             this.pnl_tableContainer.TabIndex = 10;
             // 
+            // lbl_pepites
+            // 
+            this.lbl_pepites.AutoSize = true;
+            this.lbl_pepites.Location = new System.Drawing.Point(10, 75);
+            this.lbl_pepites.Name = "lbl_pepites";
+            this.lbl_pepites.Size = new System.Drawing.Size(183, 20);
+            this.lbl_pepites.TabIndex = 3;
+            this.lbl_pepites.Text = "Pépites sécurisées : x";
+            this.lbl_pepites.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2505,7 +2517,7 @@
         private System.Windows.Forms.Panel pnl_nomJoueur;
         private System.Windows.Forms.Panel pnl_infos;
         private System.Windows.Forms.Label lbl_tourDe;
-        private System.Windows.Forms.Label lbl_pepite;
+        private System.Windows.Forms.Label lbl_jetonsNains;
         private System.Windows.Forms.Label lbl_manche;
         private System.Windows.Forms.PictureBox pictureBox170;
         private System.Windows.Forms.PictureBox pictureBox169;
@@ -2692,6 +2704,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel pnl_tableContainer;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbl_pepites;
     }
 }
 

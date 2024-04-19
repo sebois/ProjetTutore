@@ -20,7 +20,7 @@ namespace PlateauJeu
         private byte m_manche;
 
         /// <summary>
-        /// Nombre de pépites à collecter restantes (~jetons pépites)
+        /// Nombre de jetons nains restants (~jetons pépites)
         /// </summary>
         private byte m_nbPepite;
 
@@ -121,7 +121,7 @@ namespace PlateauJeu
             {
                 pic.MouseDown += new MouseEventHandler(pictureBox_MouseDown);
                 pic.MouseMove += new MouseEventHandler(pictureBox_MouseMove);
-                pic.DoubleClick += new EventHandler(this.pictureBox_DoubleClick);
+                pic.DoubleClick += new EventHandler(pictureBox_DoubleClick);
             }
             /*
              * Initialise les flag et les compteurs
@@ -141,11 +141,13 @@ namespace PlateauJeu
 
         #region Méthodes
         #region Evènements
+        /// <summary>
+        /// Autorise le Drag and Drop au chargement
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
-            /// <summary>
-            /// Autorise le Drag and Drop
-            /// </summary>
             foreach (PictureBox pic in tableLayoutPanel1.Controls)
             {
                 pic.AllowDrop = true;
@@ -156,6 +158,11 @@ namespace PlateauJeu
             }
         }
 
+        /// <summary>
+        /// Gestion des clics de la souris pour lancer le Drag & Drop ou retourner la carte Chemin
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
             /*
@@ -184,6 +191,11 @@ namespace PlateauJeu
             }
         }
 
+        /// <summary>
+        /// Gestion du déplacement de la souris après un clic gauche (Drag & Drop)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
         {
             if (m_mouseLeft)
@@ -218,7 +230,11 @@ namespace PlateauJeu
             }
         }
 
-        //Doubleclick sur main du joueur 
+        /// <summary>
+        /// Gestion du double clic sur une carte de la main du joueur, permet d'utiliser une carte action
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox_DoubleClick(object sender, EventArgs e)
         {
             PictureBox v_pic = (PictureBox)sender;
@@ -228,18 +244,28 @@ namespace PlateauJeu
                 DialogResult dialogResult = MessageBox.Show("Voulez-vous utiliser cette carte ?", "Validation", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
+                    /*
+                     * Utilisation d'une carte OutilsBrises
+                     */
                     if (v_carte.GetType().Equals(typeof(OutilsBrises)))
                     {
                         Joueur v_joueurCible;
                         OutilsBrises v_carteAction = (OutilsBrises)v_carte;
                         Outils v_outilABriser = v_carteAction.Outils;
                         bool v_flag = true;
+                        /*
+                         * Définition du joueur cible
+                         */
                         if (m_Joueur1 == m_joueurActif)
                         {
                             v_joueurCible = m_Joueur2;
                         }
                         else
                             v_joueurCible = m_Joueur1;
+
+                        /*
+                         * Vérifie si l'outil du joueur adverse est déjà brisé
+                         */
                         switch (v_outilABriser)
                         {
                             case Outils.Chariot:
@@ -261,6 +287,9 @@ namespace PlateauJeu
                                 }
                                 break;
                         }
+                        /*
+                         * Utilisation de la carte
+                         */
                         if (v_flag)
                         {
                             v_carteAction.Utiliser(v_joueurCible);
@@ -268,7 +297,12 @@ namespace PlateauJeu
                             m_picSource.Add(v_pic);
                             m_dragDropDone = true;
                         }
+                        else
+                            MessageBox.Show("L'outil du joueur adverse est déjà brisé");
                     }
+                    /*
+                     * Utilisation d'une carte Reparer
+                     */
                     if (v_carte.GetType().Equals(typeof(Reparer)))
                     {
                         if (m_joueurActif.CartesEntraveJoueur.Count > 0)
@@ -318,7 +352,7 @@ namespace PlateauJeu
                                 int i = 0;
                                 while (v_flag && i < v_outilsAReparer.Count)
                                 {
-                                    if (v_outilsAReparer.ElementAt(i) == Outils.Lampe)
+                                    if (v_outilsAReparer.ElementAt(i) == Outils.Pioche)
                                     {
                                         DialogResult dialogResultReparer = MessageBox.Show("Voulez-vous réparer votre Pioche ?", "Validation", MessageBoxButtons.YesNo);
                                         if (dialogResultReparer == DialogResult.Yes)
@@ -335,18 +369,6 @@ namespace PlateauJeu
                             if (!v_flag)
                             {
                                 m_outilDest = v_carteAction.Utiliser(m_joueurActif, v_outilAReparer);
-                                switch (m_outilDest.Outils)
-                                {
-                                    case Outils.Chariot:
-                                        m_joueurActif.Chariot = true;
-                                        break;
-                                    case Outils.Lampe:
-                                        m_joueurActif.Lampe = true;
-                                        break;
-                                    case Outils.Pioche:
-                                        m_joueurActif.Pioche = true;
-                                        break;
-                                }
                                 v_pic.Image = null;
                                 m_picSource.Add(v_pic);
                                 m_dragDropDone = true;
@@ -365,6 +387,11 @@ namespace PlateauJeu
             }
         }
 
+        /// <summary>
+        /// Ajoute l'effet de copie à l'entrée du Drag & Drop sur une pictureBox cible 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.Bitmap))
@@ -377,6 +404,11 @@ namespace PlateauJeu
             }
         }
 
+        /// <summary>
+        /// Gestion du Drag & Drop lorsque le clic est relâché
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox_DragDrop(object sender, DragEventArgs e)
         {
             if ((e.Data.GetDataPresent(DataFormats.Bitmap)))
@@ -428,6 +460,7 @@ namespace PlateauJeu
             }
         }
 
+        ///
         private void btn_end_Click(object sender, EventArgs e)
         {
             if (m_manche == 0)
@@ -591,6 +624,11 @@ namespace PlateauJeu
             }
         }
 
+        /// <summary>
+        /// Gestion du bouton d'annulation
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_undo_Click(object sender, EventArgs e)
         {
             /*
@@ -666,14 +704,16 @@ namespace PlateauJeu
         private void majCompteurs()
         {
             lbl_manche.Text = "Manche " + m_manche + "/3";
-            lbl_pepite.Text = "Pépites restantes : " + m_nbPepite;
+            lbl_jetonsNains.Text = "Jetons nains restants : " + m_nbPepite;
             if (m_joueurActif == m_Joueur1)
             {
-                lbl_tourDe.Text = "Tour Joueur 1 : Nain " + m_Joueur1.CouleurJoueur;
+                lbl_tourDe.Text = "Tour Joueur 1 : " + m_joueurActif.NomJoueur + " (Nain " + m_joueurActif.CouleurJoueur + ")";
+                lbl_pepites.Text = "Pépites sécurisées : " + m_joueurActif.NbPepites;
             }
             else
             {
-                lbl_tourDe.Text = "Tour Joueur 2 : Nain " + m_Joueur2.CouleurJoueur;
+                lbl_tourDe.Text = "Tour Joueur 2 : " + m_joueurActif.NomJoueur + " (Nain " + m_joueurActif.CouleurJoueur + ")";
+                lbl_pepites.Text = "Pépites sécurisées : " + m_joueurActif.NbPepites;
             }
         }
 
@@ -716,8 +756,9 @@ namespace PlateauJeu
             pnl_zoneDefausse.Visible = true;
             tableLayoutPanel1.Visible = true;
             lbl_manche.Visible = true;
-            lbl_pepite.Visible = true;
+            lbl_jetonsNains.Visible = true;
             lbl_tourDe.Visible = true;
+            lbl_pepites.Visible = true;
             txt_J1.Enabled = false;
             txt_J1.BorderStyle = BorderStyle.FixedSingle;
             txt_J2.Enabled = false;
