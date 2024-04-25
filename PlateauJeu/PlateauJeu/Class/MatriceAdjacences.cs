@@ -84,7 +84,7 @@ namespace PlateauJeu
             m_listeNouvellesAdjacences.Clear();
         }
 
-        public bool verifChemin(int p_accesJoueur, int p_carteCoordX, int p_carteCoordY)
+        public bool verifChemin(int p_numeroJoueur, int p_carteCoordX, int p_carteCoordY)
         {
             bool v_flagChemin = false;
             int x = p_carteCoordX;
@@ -97,7 +97,7 @@ namespace PlateauJeu
             {
                 int carteActuelle = file.Dequeue();
                 Console.WriteLine("Carte parcourue : " + carteActuelle);
-                List<int> voisins = listeVoisins(p_accesJoueur, carteActuelle);
+                List<int> voisins = listeVoisins(p_numeroJoueur, carteActuelle);
                 foreach (int carteVoisine in voisins)
                 {
                     if (carteVoisine == p_carteCoordY)

@@ -431,7 +431,7 @@ namespace PlateauJeu
                     if (((m_picSource.Last().Tag.GetType().IsSubclassOf(typeof(CartePlacable)))
                         && v_panel.Equals(tableLayoutPanel1)
                         && m_joueurActif.CartesEntraveJoueur.Count == 0
-                        && isPlacableAtCell(v_cellPosition)
+                        && testPlacementCellule(v_cellPosition)
                         && m_picDest.Count == 0)
                         || v_panel.Equals(pnl_defausse))
                     {
@@ -474,11 +474,11 @@ namespace PlateauJeu
                      * Créé le Plateau, les joueurs, lance la manche 1, affiche les controles et place les cases départ
                      */
                     m_Plateau = new Plateau();
+                    placerDeparts();
+                    placerObjectifsRetournes();
                     initJoueurs();
                     m_manche++;
                     afficherElements();
-                    placerDeparts();
-                    placerObjectifsRetournes();
                     /*
                      * Mise à jour de l'affichage des compteurs et de la main du joueur
                      */
@@ -671,6 +671,7 @@ namespace PlateauJeu
                 }
                 m_dragDropDone = false;
                 m_matriceAjacences.retirerNouvellesAdjacences(m_joueurActif.NumeroJoueur);
+                
                 majMainJoueur();
             }
         }
@@ -811,35 +812,56 @@ namespace PlateauJeu
         /// </summary>
         /// <param name="p_cellPosition">Position de la Cellule cible du DragAndDrop</param>
         /// <returns></returns>
-        private bool isPlacableAtCell(TableLayoutPanelCellPosition p_cellPosition)
+        private bool testPlacementCellule(TableLayoutPanelCellPosition p_cellPosition)
         {
+            CartePlacable v_carte = (CartePlacable)m_picSource.Last().Tag;
             List<KeyValuePair<int,int>> v_listeAdjacences = new List<KeyValuePair<int, int>>();
             int v_compteurException = 0, v_incrementX = 0, v_incrementY = -1;
-            if (!testPlacementVoisin(p_cellPosition, v_incrementX, v_incrementY,
+            if (!testPlacementVoisin(p_cellPosition, v_carte, v_incrementX, v_incrementY,
                 ref v_compteurException, m_listeObjectifsAPlacer, v_listeAdjacences))
                 return false;
             v_incrementX = 1; v_incrementY = 0;
-            if (!testPlacementVoisin(p_cellPosition, v_incrementX, v_incrementY,
+            if (!testPlacementVoisin(p_cellPosition, v_carte, v_incrementX, v_incrementY,
                 ref v_compteurException, m_listeObjectifsAPlacer, v_listeAdjacences))
                 return false;
             v_incrementX = 0; v_incrementY = 1;
-            if (!testPlacementVoisin(p_cellPosition, v_incrementX, v_incrementY,
+            if (!testPlacementVoisin(p_cellPosition, v_carte, v_incrementX, v_incrementY,
                 ref v_compteurException, m_listeObjectifsAPlacer, v_listeAdjacences))
                 return false;
             v_incrementX = -1; v_incrementY = 0;
-            if (!testPlacementVoisin(p_cellPosition, v_incrementX, v_incrementY,
+            if (!testPlacementVoisin(p_cellPosition, v_carte, v_incrementX, v_incrementY,
                 ref v_compteurException, m_listeObjectifsAPlacer, v_listeAdjacences))
                 return false;
             if (v_compteurException != 4)
             {
                 if (m_listeObjectifsAPlacer.Count + v_compteurException != 4)
                 {
-                    m_matriceAjacences.ListeNouvellesAdjacences = v_listeAdjacences;
+                    bool cheminExistant = false;
                     foreach (KeyValuePair<int, int> adjacence in v_listeAdjacences) {
                         m_matriceAjacences.setAdjacence(true, m_joueurActif.NumeroJoueur, adjacence.Key, adjacence.Value);
                     }
+                    List<Depart> listeDepart = m_Plateau.Departs;
+                    foreach (Depart depart in listeDepart)
+                    {
+                        if (m_joueurActif.CouleurJoueur == depart.CouleurJoueur)
+                        {
+                            cheminExistant = m_matriceAjacences.verifChemin(m_joueurActif.NumeroJoueur - 1, depart.Id, v_carte.Id);
+                        }
+                    }
                     m_matriceAjacences.afficherMatriceAdjacence();
-                    return true;
+                    if (cheminExistant)
+                    {
+                        m_matriceAjacences.ListeNouvellesAdjacences = v_listeAdjacences;
+                        return true;
+                    }
+                    else
+                    {
+                        foreach (KeyValuePair<int, int> adjacence in v_listeAdjacences)
+                        {
+                            m_matriceAjacences.setAdjacence(false, m_joueurActif.NumeroJoueur, adjacence.Key, adjacence.Value);
+                        }
+                        return false;
+                    }
                 }
                 else
                 {
@@ -861,11 +883,11 @@ namespace PlateauJeu
         /// <param name="p_incrementY">Incrémentation de la ligne pour trouver la cellule voisine</param>
         /// <param name="p_compteurException">Compteur du nombre de cellules voisines vides</param>
         /// <returns></returns>
-        private bool testPlacementVoisin(TableLayoutPanelCellPosition p_cellPosition, int p_incrementX,
+        private bool testPlacementVoisin(TableLayoutPanelCellPosition p_cellPosition, CartePlacable p_carte, int p_incrementX,
             int p_incrementY, ref int p_compteurException, List<PictureBox> p_listeObjectifsAPlacer, List<KeyValuePair<int,int>> p_listeAdjacences)
         {
             bool returnValue = true;
-            CartePlacable v_carte = (CartePlacable)m_picSource.Last().Tag, v_carteVoisin;
+            CartePlacable v_carteVoisin;
             PictureBox v_picVoisin;
             try
             {
@@ -886,46 +908,46 @@ namespace PlateauJeu
                     */
                     if (p_incrementY == -1)
                     {
-                        if ((!v_carteVoisin.M_bas && v_carte.M_haut) || (v_carteVoisin.M_bas && !v_carte.M_haut))
+                        if ((!v_carteVoisin.M_bas && p_carte.M_haut) || (v_carteVoisin.M_bas && !p_carte.M_haut))
                         {
                             returnValue = false;
                         } 
-                        else if (v_carteVoisin.M_bas && v_carte.M_haut)
+                        else if (v_carteVoisin.M_bas && p_carte.M_haut)
                         {
-                            p_listeAdjacences.Add(new KeyValuePair<int, int>(v_carte.Id, v_carteVoisin.Id));
+                            p_listeAdjacences.Add(new KeyValuePair<int, int>(p_carte.Id, v_carteVoisin.Id));
                         }
                     }
                     else if (p_incrementX == 1)
                     {
-                        if ((!v_carteVoisin.M_gauche && v_carte.M_droite) || (v_carteVoisin.M_gauche && !v_carte.M_droite))
+                        if ((!v_carteVoisin.M_gauche && p_carte.M_droite) || (v_carteVoisin.M_gauche && !p_carte.M_droite))
                         {
                             returnValue = false;
                         }
-                        else if (v_carteVoisin.M_gauche && v_carte.M_droite)
+                        else if (v_carteVoisin.M_gauche && p_carte.M_droite)
                         {
-                            p_listeAdjacences.Add(new KeyValuePair<int, int>(v_carte.Id, v_carteVoisin.Id));
+                            p_listeAdjacences.Add(new KeyValuePair<int, int>(p_carte.Id, v_carteVoisin.Id));
                         }
                     }
                     else if (p_incrementY == 1)
                     {
-                        if ((!v_carteVoisin.M_haut && v_carte.M_bas) || (v_carteVoisin.M_haut && !v_carte.M_bas))
+                        if ((!v_carteVoisin.M_haut && p_carte.M_bas) || (v_carteVoisin.M_haut && !p_carte.M_bas))
                         {
                             returnValue = false;
                         }
-                        else if (v_carteVoisin.M_haut && v_carte.M_bas)
+                        else if (v_carteVoisin.M_haut && p_carte.M_bas)
                         {
-                            p_listeAdjacences.Add(new KeyValuePair<int, int>(v_carte.Id, v_carteVoisin.Id));
+                            p_listeAdjacences.Add(new KeyValuePair<int, int>(p_carte.Id, v_carteVoisin.Id));
                         }
                     }
                     else if (p_incrementX == -1)
                     {
-                        if ((!v_carteVoisin.M_droite && v_carte.M_gauche) || (v_carteVoisin.M_droite && !v_carte.M_gauche))
+                        if ((!v_carteVoisin.M_droite && p_carte.M_gauche) || (v_carteVoisin.M_droite && !p_carte.M_gauche))
                         {
                             returnValue = false;
                         }
-                        else if (v_carteVoisin.M_droite && v_carte.M_gauche)
+                        else if (v_carteVoisin.M_droite && p_carte.M_gauche)
                         {
-                            p_listeAdjacences.Add(new KeyValuePair<int, int>(v_carte.Id, v_carteVoisin.Id));
+                            p_listeAdjacences.Add(new KeyValuePair<int, int>(p_carte.Id, v_carteVoisin.Id));
                         }
                     }
                 }
