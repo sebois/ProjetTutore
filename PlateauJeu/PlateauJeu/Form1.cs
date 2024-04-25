@@ -838,14 +838,14 @@ namespace PlateauJeu
                 {
                     bool cheminExistant = false;
                     foreach (KeyValuePair<int, int> adjacence in v_listeAdjacences) {
-                        m_matriceAjacences.setAdjacence(true, m_joueurActif.NumeroJoueur, adjacence.Key, adjacence.Value);
+                        m_matriceAjacences.setAdjacence(true, adjacence.Key, adjacence.Value);
                     }
                     List<Depart> listeDepart = m_Plateau.Departs;
                     foreach (Depart depart in listeDepart)
                     {
                         if (m_joueurActif.CouleurJoueur == depart.CouleurJoueur)
                         {
-                            cheminExistant = m_matriceAjacences.verifChemin(m_joueurActif.NumeroJoueur - 1, depart.Id, v_carte.Id);
+                            cheminExistant = m_matriceAjacences.verifChemin(depart.Id, v_carte.Id);
                         }
                     }
                     m_matriceAjacences.afficherMatriceAdjacence();
@@ -858,7 +858,7 @@ namespace PlateauJeu
                     {
                         foreach (KeyValuePair<int, int> adjacence in v_listeAdjacences)
                         {
-                            m_matriceAjacences.setAdjacence(false, m_joueurActif.NumeroJoueur, adjacence.Key, adjacence.Value);
+                            m_matriceAjacences.setAdjacence(false, adjacence.Key, adjacence.Value);
                         }
                         return false;
                     }

@@ -10,9 +10,9 @@ namespace PlateauJeu
     class MatriceAdjacences
     {
         /// <summary>
-        /// Matrice à 3 dimensions (42 cartes maximum, 2 joueurs)
+        /// Matrice à 2 dimensions (42 cartes maximum)
         /// </summary>
-        private bool[,,] m_matrice = new bool[2, 42, 42];
+        private bool[,] m_matrice = new bool[42, 42];
         /// <summary>
         /// Liste des dernières adjacences ajoutées (permet de les supprimer en cas d'annulation)
         /// </summary>
@@ -22,21 +22,20 @@ namespace PlateauJeu
 
         public MatriceAdjacences()
         {
-            for(int numeroJoueur = 0; numeroJoueur < 2; numeroJoueur++)
-            {
+
                 for(int carteCoordX = 0; carteCoordX < 42; carteCoordX++)
                 {
                     for(int carteCoordY = 0; carteCoordY < 42; carteCoordY++)
                     {
-                        m_matrice[numeroJoueur, carteCoordX, carteCoordY] = false;
+                        m_matrice[carteCoordX, carteCoordY] = false;
                         //m_matriceLiaison[carteCoordX, carteCoordY, accesJoueur] = 0;
                     }
                 }
-            }
+            
             List<KeyValuePair<int, int>> v_listeAdjacences = new List<KeyValuePair<int, int>>();
         }
 
-        public bool[,,] Matrice { get => m_matrice; set => m_matrice = value; }
+        public bool[,] Matrice { get => m_matrice; set => m_matrice = value; }
 
         public List<KeyValuePair<int, int>> ListeNouvellesAdjacences { get => m_listeNouvellesAdjacences; set => m_listeNouvellesAdjacences = value; }
 
@@ -55,22 +54,22 @@ namespace PlateauJeu
         }
         */
 
-        public List<int> listeVoisins(int p_accesJoueur, int p_carteCoordX)
+        public List<int> listeVoisins(int p_carteCoordX)
         {
             List<int> voisins = new List<int>();
-            for(int i = 0; i< m_matrice.GetLength(2); i++)
+            for(int i = 0; i< m_matrice.GetLength(1); i++)
             {
-                bool adjacence = m_matrice[p_accesJoueur, p_carteCoordX, i];
+                bool adjacence = m_matrice[p_carteCoordX, i];
                 if (adjacence)
                     voisins.Add(i);
             }
             return voisins;
         }
 
-        public void setAdjacence(bool p_adjacence, int p_numeroJoueur, int p_carteCoordX, int p_carteCoordY)
+        public void setAdjacence(bool p_adjacence, int p_carteCoordX, int p_carteCoordY)
         {
-            m_matrice.SetValue(p_adjacence, p_numeroJoueur - 1, p_carteCoordX, p_carteCoordY);
-            m_matrice.SetValue(p_adjacence, p_numeroJoueur - 1, p_carteCoordY, p_carteCoordX);
+            m_matrice.SetValue(p_adjacence, p_carteCoordX, p_carteCoordY);
+            m_matrice.SetValue(p_adjacence, p_carteCoordY, p_carteCoordX);
             //m_matriceLiaison.SetValue(1, p_carteCoordX, p_carteCoordY, p_accesJoueur);
             //m_matriceLiaison.SetValue(1, p_carteCoordY, p_carteCoordX, p_accesJoueur);
         }
@@ -79,12 +78,12 @@ namespace PlateauJeu
         {
             foreach (KeyValuePair<int, int> adjacence in m_listeNouvellesAdjacences)
             {
-                setAdjacence(false, p_numeroJoueur, adjacence.Key, adjacence.Value);
+                setAdjacence(false, adjacence.Key, adjacence.Value);
             }
             m_listeNouvellesAdjacences.Clear();
         }
 
-        public bool verifChemin(int p_numeroJoueur, int p_carteCoordX, int p_carteCoordY)
+        public bool verifChemin(int p_carteCoordX, int p_carteCoordY)
         {
             bool v_flagChemin = false;
             int x = p_carteCoordX;
@@ -97,7 +96,7 @@ namespace PlateauJeu
             {
                 int carteActuelle = file.Dequeue();
                 Console.WriteLine("Carte parcourue : " + carteActuelle);
-                List<int> voisins = listeVoisins(p_numeroJoueur, carteActuelle);
+                List<int> voisins = listeVoisins(carteActuelle);
                 foreach (int carteVoisine in voisins)
                 {
                     if (carteVoisine == p_carteCoordY)
@@ -131,20 +130,18 @@ namespace PlateauJeu
 
         public void afficherMatriceAdjacence ()
         {
-            for (int numeroJoueur = 0; numeroJoueur < 2; numeroJoueur++)
-            {
-                Console.WriteLine("Joueur " + (numeroJoueur + 1) + " : ");
+            Console.WriteLine();
                 for (int carteCoordX = 0; carteCoordX < 42; carteCoordX++)
                 {
                     Console.Write("[ ");
                     for (int carteCoordY = 0; carteCoordY < 42; carteCoordY++)
                     {
-                        Console.Write(Matrice[numeroJoueur, carteCoordX, carteCoordY] ? "1 " : "0 ");
+                        Console.Write(Matrice[carteCoordX, carteCoordY] ? "1 " : "0 ");
                         //m_matriceLiaison[carteCoordX, carteCoordY, accesJoueur] = 0;
                     }
                     Console.Write("] (ligne " + carteCoordX + ")\n");
                 }
-            }
+
         }
 
         public void majMatriceLiaison(int p_carteDepart)
@@ -155,7 +152,7 @@ namespace PlateauJeu
 
         private void explorer(int p_sommet)
         {
-            if(m_matrice[p_sommet, 0, 0])
+            if(m_matrice[0, 0])
             {
 
             }
