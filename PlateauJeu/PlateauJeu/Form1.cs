@@ -256,7 +256,7 @@ namespace PlateauJeu
                         /*
                          * Définition du joueur cible
                          */
-                        if (m_Joueur1 == m_joueurActif)
+                        if (m_joueurActif.NumeroJoueur == 1)
                         {
                             v_joueurCible = m_Joueur2;
                         }
@@ -483,7 +483,7 @@ namespace PlateauJeu
                      * Mise à jour de l'affichage des compteurs et de la main du joueur
                      */
                     majCompteurs();
-                    majCartes();
+                    majMainJoueur();
                 }
             }
             /*
@@ -608,7 +608,7 @@ namespace PlateauJeu
                 /*
                  * Changement de joueur
                  */
-                if (m_joueurActif == m_Joueur1)
+                if (m_joueurActif.NumeroJoueur == 1)
                 {
                     m_joueurActif = m_Joueur2;
                 }
@@ -620,7 +620,7 @@ namespace PlateauJeu
                  * Mise à jour de l'affichage des compteurs et de la main du joueur
                  */
                 majCompteurs();
-                majCartes();
+                majMainJoueur();
             }
         }
 
@@ -632,7 +632,7 @@ namespace PlateauJeu
         private void btn_undo_Click(object sender, EventArgs e)
         {
             /*
-             * Réinitialise la PictureBox de destination, baisse le flag et met à jour la main du joueur
+             * Réinitialise la PictureBox de destination, baisse le flag, enlève les dernières adjacences ajoutées à la matrice et met à jour la main du joueur
              */
             if (m_picSource.Count > 0)
             {
@@ -649,7 +649,7 @@ namespace PlateauJeu
                     }
                     else if (m_picSource.Last().Tag.GetType().Equals(typeof(OutilsBrises)))
                     {
-                        if (m_joueurActif == m_Joueur1)
+                        if (m_joueurActif.NumeroJoueur == 1)
                         {
                             m_Joueur2.CartesEntraveJoueur.Remove(m_Joueur2.CartesEntraveJoueur.Last());
                         }
@@ -670,7 +670,8 @@ namespace PlateauJeu
                     m_listeObjectifsAPlacer.RemoveRange(0, m_listeObjectifsAPlacer.Count);
                 }
                 m_dragDropDone = false;
-                majCartes();
+                m_matriceAjacences.retirerNouvellesAdjacences(m_joueurActif.NumeroJoueur);
+                majMainJoueur();
             }
         }
 
@@ -685,13 +686,13 @@ namespace PlateauJeu
             switch (v_aleatoire)
             {
                 case 0:
-                    m_Joueur1 = new Joueur(txt_J1.Text, Couleur.Vert, m_Plateau);
-                    m_Joueur2 = new Joueur(txt_J2.Text, Couleur.Bleu, m_Plateau);
+                    m_Joueur1 = new Joueur(1, txt_J1.Text, Couleur.Vert, m_Plateau);
+                    m_Joueur2 = new Joueur(2, txt_J2.Text, Couleur.Bleu, m_Plateau);
                     m_joueurActif = m_Joueur1;
                     break;
                 case 1:
-                    m_Joueur1 = new Joueur(txt_J1.Text, Couleur.Bleu, m_Plateau);
-                    m_Joueur2 = new Joueur(txt_J2.Text, Couleur.Vert, m_Plateau);
+                    m_Joueur1 = new Joueur(1, txt_J1.Text, Couleur.Bleu, m_Plateau);
+                    m_Joueur2 = new Joueur(2, txt_J2.Text, Couleur.Vert, m_Plateau);
                     m_joueurActif = m_Joueur2;
                     break;
             }
@@ -705,7 +706,7 @@ namespace PlateauJeu
         {
             lbl_manche.Text = "Manche " + m_manche + "/3";
             lbl_jetonsNains.Text = "Jetons nains restants : " + m_nbPepite;
-            if (m_joueurActif == m_Joueur1)
+            if (m_joueurActif.NumeroJoueur == 1)
             {
                 lbl_tourDe.Text = "Tour Joueur 1 : " + m_joueurActif.NomJoueur + " (Nain " + m_joueurActif.CouleurJoueur + ")";
                 lbl_pepites.Text = "Pépites sécurisées : " + m_joueurActif.NbPepites;
@@ -720,7 +721,7 @@ namespace PlateauJeu
         /// <summary>
         /// Met à jour la main du joueur
         /// </summary>
-        private void majCartes()
+        private void majMainJoueur()
         {
             foreach (PictureBox pic in pnl_main.Controls)
             {
@@ -812,26 +813,32 @@ namespace PlateauJeu
         /// <returns></returns>
         private bool isPlacableAtCell(TableLayoutPanelCellPosition p_cellPosition)
         {
+            List<KeyValuePair<int,int>> v_listeAdjacences = new List<KeyValuePair<int, int>>();
             int v_compteurException = 0, v_incrementX = 0, v_incrementY = -1;
             if (!testPlacementVoisin(p_cellPosition, v_incrementX, v_incrementY,
-                ref v_compteurException, m_listeObjectifsAPlacer))
+                ref v_compteurException, m_listeObjectifsAPlacer, v_listeAdjacences))
                 return false;
             v_incrementX = 1; v_incrementY = 0;
             if (!testPlacementVoisin(p_cellPosition, v_incrementX, v_incrementY,
-                ref v_compteurException, m_listeObjectifsAPlacer))
+                ref v_compteurException, m_listeObjectifsAPlacer, v_listeAdjacences))
                 return false;
             v_incrementX = 0; v_incrementY = 1;
             if (!testPlacementVoisin(p_cellPosition, v_incrementX, v_incrementY,
-                ref v_compteurException, m_listeObjectifsAPlacer))
+                ref v_compteurException, m_listeObjectifsAPlacer, v_listeAdjacences))
                 return false;
             v_incrementX = -1; v_incrementY = 0;
             if (!testPlacementVoisin(p_cellPosition, v_incrementX, v_incrementY,
-                ref v_compteurException, m_listeObjectifsAPlacer))
+                ref v_compteurException, m_listeObjectifsAPlacer, v_listeAdjacences))
                 return false;
             if (v_compteurException != 4)
             {
                 if (m_listeObjectifsAPlacer.Count + v_compteurException != 4)
                 {
+                    m_matriceAjacences.ListeNouvellesAdjacences = v_listeAdjacences;
+                    foreach (KeyValuePair<int, int> adjacence in v_listeAdjacences) {
+                        m_matriceAjacences.setAdjacence(true, m_joueurActif.NumeroJoueur, adjacence.Key, adjacence.Value);
+                    }
+                    m_matriceAjacences.afficherMatriceAdjacence();
                     return true;
                 }
                 else
@@ -855,11 +862,11 @@ namespace PlateauJeu
         /// <param name="p_compteurException">Compteur du nombre de cellules voisines vides</param>
         /// <returns></returns>
         private bool testPlacementVoisin(TableLayoutPanelCellPosition p_cellPosition, int p_incrementX,
-            int p_incrementY, ref int p_compteurException, List<PictureBox> p_listeObjectifsAPlacer)
+            int p_incrementY, ref int p_compteurException, List<PictureBox> p_listeObjectifsAPlacer, List<KeyValuePair<int,int>> p_listeAdjacences)
         {
-            CartePlacable v_carte = (CartePlacable)m_picSource.Last().Tag;
+            bool returnValue = true;
+            CartePlacable v_carte = (CartePlacable)m_picSource.Last().Tag, v_carteVoisin;
             PictureBox v_picVoisin;
-            CartePlacable v_carteVoisin;
             try
             {
                 v_picVoisin = (PictureBox)tableLayoutPanel1.GetControlFromPosition(
@@ -871,43 +878,61 @@ namespace PlateauJeu
                 else
                 {
                     v_carteVoisin = (CartePlacable)v_picVoisin.Tag;
+                    /*
                     if (v_carteVoisin.Type == Types.DoubleVirage || v_carteVoisin.Type == Types.DoubleVirage)
                     {
 
                     }
+                    */
                     if (p_incrementY == -1)
                     {
                         if ((!v_carteVoisin.M_bas && v_carte.M_haut) || (v_carteVoisin.M_bas && !v_carte.M_haut))
                         {
-                            return false;
+                            returnValue = false;
+                        } 
+                        else if (v_carteVoisin.M_bas && v_carte.M_haut)
+                        {
+                            p_listeAdjacences.Add(new KeyValuePair<int, int>(v_carte.Id, v_carteVoisin.Id));
                         }
                     }
                     else if (p_incrementX == 1)
                     {
                         if ((!v_carteVoisin.M_gauche && v_carte.M_droite) || (v_carteVoisin.M_gauche && !v_carte.M_droite))
                         {
-                            return false;
+                            returnValue = false;
+                        }
+                        else if (v_carteVoisin.M_gauche && v_carte.M_droite)
+                        {
+                            p_listeAdjacences.Add(new KeyValuePair<int, int>(v_carte.Id, v_carteVoisin.Id));
                         }
                     }
                     else if (p_incrementY == 1)
                     {
                         if ((!v_carteVoisin.M_haut && v_carte.M_bas) || (v_carteVoisin.M_haut && !v_carte.M_bas))
                         {
-                            return false;
+                            returnValue = false;
+                        }
+                        else if (v_carteVoisin.M_haut && v_carte.M_bas)
+                        {
+                            p_listeAdjacences.Add(new KeyValuePair<int, int>(v_carte.Id, v_carteVoisin.Id));
                         }
                     }
                     else if (p_incrementX == -1)
                     {
                         if ((!v_carteVoisin.M_droite && v_carte.M_gauche) || (v_carteVoisin.M_droite && !v_carte.M_gauche))
                         {
-                            return false;
+                            returnValue = false;
+                        }
+                        else if (v_carteVoisin.M_droite && v_carte.M_gauche)
+                        {
+                            p_listeAdjacences.Add(new KeyValuePair<int, int>(v_carte.Id, v_carteVoisin.Id));
                         }
                     }
                 }
             }
             catch (ArgumentException ex) { p_compteurException++; }
             catch (NullReferenceException ex) { p_compteurException++; }
-            return true;
+            return returnValue;
         }
         #endregion
 

@@ -231,6 +231,11 @@ namespace PlateauJeu
              */
             Carte tmp = p_liste.ElementAt(nb_rnd);
             p_liste.Remove(tmp);
+            if (tmp.GetType().IsSubclassOf(typeof(CartePlacable)))
+            {
+                CartePlacable cartePlacable = (CartePlacable)tmp;
+                cartePlacable.Id = m_id++;
+            }
             return tmp;
         }
         #endregion

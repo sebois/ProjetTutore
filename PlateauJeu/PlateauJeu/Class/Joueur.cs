@@ -16,6 +16,11 @@ namespace PlateauJeu.Class_Cartes
         /// <summary>
         /// Nom du joueur
         /// </summary>
+        private int m_numeroJoueur;
+
+        /// <summary>
+        /// Nom du joueur
+        /// </summary>
         private string m_nomJoueur;
 
         /// <summary>
@@ -60,15 +65,17 @@ namespace PlateauJeu.Class_Cartes
         /// <summary>
         /// Constructeur de Joueur
         /// </summary>
+        /// <param name="p_numeroJoueur">Numéro du joueur</param>
         /// <param name="p_nomJoueur">Nom du joueur</param>
         /// <param name="p_couleurJoueur">Couleur du joueur</param>
         /// <param name="p_plateau">Pointeur de Plateau</param>
-        public Joueur(string p_nomJoueur, Couleur p_couleurJoueur, Plateau p_plateau)
+        public Joueur(int p_numeroJoueur, string p_nomJoueur, Couleur p_couleurJoueur, Plateau p_plateau)
         {
             #region Initialisation des attributs
             m_mainJoueur = new List<Carte>();
             m_cartesEntraveJoueur = new List<Carte>();
-            m_nomJoueur = p_nomJoueur;
+            NumeroJoueur = p_numeroJoueur;
+            NomJoueur = p_nomJoueur;
             NbPepites = 0;
             m_couleurJoueur = p_couleurJoueur;
             #endregion
@@ -191,109 +198,23 @@ namespace PlateauJeu.Class_Cartes
         #endregion
 
         #region Accesseurs
-        public string NomJoueur
-        {
-            get
-            {
-                return m_nomJoueur;
-            }
+        public int NumeroJoueur { get => m_numeroJoueur; set => m_numeroJoueur = value; }
 
-            set
-            {
-                m_nomJoueur = value;
-            }
-        }
+        public string NomJoueur { get => m_nomJoueur; set => m_nomJoueur = value; }
 
-        internal List<Carte> MainJoueur
-        {
-            get
-            {
-                return m_mainJoueur;
-            }
+        internal List<Carte> MainJoueur { get => m_mainJoueur; set => m_mainJoueur = value; }
 
-            set
-            {
-                m_mainJoueur = value;
-            }
-        }
+        public Couleur CouleurJoueur { get => m_couleurJoueur; set => m_couleurJoueur = value; }
 
-        public Couleur CouleurJoueur
-        {
-            get
-            {
-                return m_couleurJoueur;
-            }
+        public int NbPepites { get => m_nbPepites; set => m_nbPepites = value; }
 
-            set
-            {
-                m_couleurJoueur = value;
-            }
-        }
+        internal List<Carte> CartesEntraveJoueur { get => m_cartesEntraveJoueur; set => m_cartesEntraveJoueur = value; }
 
-        public int NbPepites
-        {
-            get
-            {
-                return m_nbPepites;
-            }
+        public bool Pioche { get => m_Pioche; set => m_Pioche = value; }
 
-            set
-            {
-                m_nbPepites = value;
-            }
-        }
+        public bool Chariot { get => m_Chariot; set => m_Chariot = value; }
 
-        internal List<Carte> CartesEntraveJoueur
-        {
-            get
-            {
-                return m_cartesEntraveJoueur;
-            }
-
-            set
-            {
-                m_cartesEntraveJoueur = value;
-            }
-        }
-
-        public bool Pioche
-        {
-            get
-            {
-                return m_Pioche;
-            }
-
-            set
-            {
-                m_Pioche = value;
-            }
-        }
-
-        public bool Chariot
-        {
-            get
-            {
-                return m_Chariot;
-            }
-
-            set
-            {
-                m_Chariot = value;
-            }
-        }
-
-        public bool Lampe
-        {
-            get
-            {
-                return m_Lampe;
-            }
-
-            set
-            {
-                m_Lampe = value;
-            }
-        }
+        public bool Lampe { get => m_Lampe; set => m_Lampe = value; }
         #endregion
     }
 }
