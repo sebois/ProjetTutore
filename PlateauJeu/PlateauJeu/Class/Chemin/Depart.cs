@@ -50,10 +50,12 @@ namespace PlateauJeu.Class_Cartes
                 p_droite, p_gauche)
         {
             #region Initialisation m_couleurJoueur et m_type
-            m_couleurJoueur = p_couleurJoueur;
+            CouleurJoueur = p_couleurJoueur;
             m_type = Types.Depart;
             #endregion
         }
+
+        public Couleur CouleurJoueur { get => m_couleurJoueur; set => m_couleurJoueur = value; }
         #endregion
     }
 }

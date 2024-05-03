@@ -188,9 +188,9 @@ namespace PlateauJeu
             m_Pioche.Add(new OutilsBrises(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteAction/ca17.jpg"), p_outils: Outils.Lampe));
             m_Pioche.Add(new Eboulement(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteAction/ca18.jpg")));
 
-            Departs = new List<Depart>();
-            Departs.Add(new Depart(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cd1.jpg"), p_l_HautGauche: true, p_l_HautBas: true, p_l_HautDroite: true, p_l_BasGauche: true, p_l_BasDroite: true, p_l_GaucheDroite: true, p_couleurJoueur: Couleur.Bleu));
-            Departs.Add(new Depart(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cd2.jpg"), p_l_HautGauche: true, p_l_HautBas: true, p_l_HautDroite: true, p_l_BasGauche: true, p_l_BasDroite: true, p_l_GaucheDroite: true, p_couleurJoueur: Couleur.Vert));
+            m_Departs = new List<Depart>();
+            m_Departs.Add(new Depart(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cd1.jpg"), p_l_HautGauche: true, p_l_HautBas: true, p_l_HautDroite: true, p_l_BasGauche: true, p_l_BasDroite: true, p_l_GaucheDroite: true, p_couleurJoueur: Couleur.Bleu));
+            m_Departs.Add(new Depart(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteChemin/cd2.jpg"), p_l_HautGauche: true, p_l_HautBas: true, p_l_HautDroite: true, p_l_BasGauche: true, p_l_BasDroite: true, p_l_GaucheDroite: true, p_couleurJoueur: Couleur.Vert));
 
             m_Objectifs = new List<CarteObjectif>();
             m_Objectifs.Add(new CarteObjectif(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteObjectif/co1.jpg"), p_l_GaucheDroite: true, p_l_HautDroite: true, p_l_HautGauche: true, p_Porte: new Porte(Position.Haut, Couleur.Bleu), p_Pepite: new Pepite(2, Position.Gauche)));
@@ -231,6 +231,11 @@ namespace PlateauJeu
              */
             Carte tmp = p_liste.ElementAt(nb_rnd);
             p_liste.Remove(tmp);
+            if (tmp.GetType().IsSubclassOf(typeof(CartePlacable)))
+            {
+                CartePlacable cartePlacable = (CartePlacable)tmp;
+                cartePlacable.Id = m_id++;
+            }
             return tmp;
         }
         #endregion
