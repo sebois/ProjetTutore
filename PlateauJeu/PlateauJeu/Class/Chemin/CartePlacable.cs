@@ -20,6 +20,16 @@ namespace PlateauJeu.Class_Cartes
         protected int m_id;
 
         /// <summary>
+        /// Numéro de colonne de la carte sur le plateau
+        /// </summary>
+        protected int m_colonnePlateau;
+
+        /// <summary>
+        /// Numéro de ligne de la carte sur le plateau
+        /// </summary>
+        protected int m_lignePlateau;
+
+        /// <summary>
         /// EtatEtat de la liaison HautBas
         /// </summary>
         protected bool m_l_HautBas;
@@ -69,8 +79,32 @@ namespace PlateauJeu.Class_Cartes
         /// </summary>
         protected bool m_gauche;
         #endregion
-
         #region Accesseurs
+        public int M_colonnePlateau
+        {
+            get
+            {
+                return m_colonnePlateau;
+            }
+
+            set
+            {
+                m_colonnePlateau = value;
+            }
+        }
+        public int M_lignePlateau
+        {
+            get
+            {
+                return m_lignePlateau;
+            }
+
+            set
+            {
+                m_lignePlateau = value;
+            }
+        }
+
         public bool M_l_HautBas
         {
             get
