@@ -13,11 +13,6 @@ namespace PlateauJeu.Class_Cartes
     {
         #region Attributs
         /// <summary>
-        /// Objet Pepite si présent
-        /// </summary>
-        private Pepite m_Pepite;
-
-        /// <summary>
         /// Flag levé si la carte Objectif est découverte
         /// </summary>
         private bool m_decouvert;
@@ -54,7 +49,9 @@ namespace PlateauJeu.Class_Cartes
                 p_l_HautDroite, p_l_HautGauche, 
                 p_l_BasDroite, p_l_BasGauche, 
                 p_haut, p_bas,
-                p_droite, p_gauche)
+                p_droite, p_gauche,
+                p_Pepite,
+                p_Porte)
         {
             #region initialisation flag découverte
             m_decouvert = false;

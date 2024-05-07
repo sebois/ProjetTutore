@@ -34,6 +34,9 @@ namespace PlateauJeu.Class_Cartes
             m_nbPepite = p_nbPepite;
             m_posPepite = p_posPepite;
         }
+
+        public byte NbPepite { get => m_nbPepite; set => m_nbPepite = value; }
+        public Position PosPepite { get => m_posPepite; set => m_posPepite = value; }
         #endregion
     }
 }

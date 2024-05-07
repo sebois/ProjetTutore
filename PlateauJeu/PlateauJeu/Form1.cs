@@ -865,16 +865,20 @@ namespace PlateauJeu
                         if (m_joueurActif.CouleurJoueur == depart.CouleurJoueur)
                         {
                             //cheminExistant = m_matriceAjacences.verifCheminLargeur(depart.Id, v_cartePlacable.Id);
-                            List<int> cartesVisitees = new List<int>();
+                            List<CartePlacable> cartesVisitees = new List<CartePlacable>();
                             cheminExistant = m_matriceAjacences.explorerCartes(depart, null, v_cartePlacable, cartesVisitees);
                             if (cheminExistant)
                             {
                                 Console.WriteLine("Carte trouvée !");
                             }
                             Console.WriteLine("Cartes visitées : ");
-                            foreach (int carte in cartesVisitees)
+                            foreach (CartePlacable carte in cartesVisitees)
                             {
-                                Console.Write(carte + " ");
+                                Console.Write(carte.Id + " ");
+                                if(carte.Pepite != null)
+                                {
+                                    Console.Write("(" + carte.Pepite.NbPepite + " pépites !) ");
+                                }
                             }
                         }
                     }

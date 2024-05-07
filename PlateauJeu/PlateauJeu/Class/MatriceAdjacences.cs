@@ -248,12 +248,12 @@ namespace PlateauJeu
         /// <param name="p_carteFinale"></param>
         /// <param name="p_cartesMarquees"></param>
         /// <returns></returns>
-        public bool explorerCartes(CartePlacable p_carte, CartePlacable p_carteParent, CartePlacable p_carteFinale, List<int> p_cartesMarquees)
+        public bool explorerCartes(CartePlacable p_carte, CartePlacable p_carteParent, CartePlacable p_carteFinale, List<CartePlacable> p_cartesMarquees)
         {
             int v_carteId = p_carte.Id;
             //int v_carteParentId = p_carteParent.Id;
             int v_carteFinaleId = p_carteFinale.Id;
-            p_cartesMarquees.Add(v_carteId);
+            p_cartesMarquees.Add(p_carte);
             Console.WriteLine(v_carteId);
             bool carteFinaleTrouvee = (v_carteId == v_carteFinaleId);
             if (!carteFinaleTrouvee)
@@ -270,7 +270,7 @@ namespace PlateauJeu
                     //On vérifie que la carte n'a pas déjà été parcourue
                     while (!estMarquee && indiceCarte < p_cartesMarquees.Count)
                     {
-                        int carteParcourueId = p_cartesMarquees.ElementAt(indiceCarte);
+                        int carteParcourueId = p_cartesMarquees.ElementAt(indiceCarte).Id;
                         if (carteVoisineId == carteParcourueId)
                         {
                             estMarquee = true;

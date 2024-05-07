@@ -78,6 +78,16 @@ namespace PlateauJeu.Class_Cartes
         /// Etat de l'entrée/sortie Gauche
         /// </summary>
         protected bool m_gauche;
+
+        /// <summary>
+        /// Objet Pepite si présent
+        /// </summary>
+        protected Pepite m_Pepite;
+
+        /// <summary>
+        /// Objet Porte si l'objet est présent
+        /// </summary>
+        protected Porte m_Porte;
         #endregion
         #region Accesseurs
         public int M_colonnePlateau
@@ -247,6 +257,9 @@ namespace PlateauJeu.Class_Cartes
                 m_id = value;
             }
         }
+
+        public Pepite Pepite { get => m_Pepite; set => m_Pepite = value; }
+        public Porte Porte { get => m_Porte; set => m_Porte = value; }
         #endregion
 
         #region Constructeur
@@ -270,7 +283,9 @@ namespace PlateauJeu.Class_Cartes
             bool p_l_HautDroite = false, bool p_l_HautGauche = false,
             bool p_l_BasDroite = false, bool p_l_BasGauche = false,
             bool p_haut = false, bool p_bas = false,
-            bool p_droite = false, bool p_gauche = false) : base(p_imgRecto)
+            bool p_droite = false, bool p_gauche = false,
+            Pepite p_Pepite = null,
+            Porte p_Porte = null) : base(p_imgRecto)
         {
             #region Initialisation image recto
             m_imgRecto = p_imgRecto;
@@ -320,6 +335,20 @@ namespace PlateauJeu.Class_Cartes
             if (p_l_HautBas && p_l_GaucheDroite && !p_l_HautDroite)
             {
                 m_type = Types.Pont;
+            }
+            #endregion
+
+            #region initialisation pepites
+            if (p_Pepite != null)
+            {
+                m_Pepite = p_Pepite;
+            }
+            #endregion
+
+            #region initialisation porte
+            if (p_Porte != null)
+            {
+                m_Porte = p_Porte;
             }
             #endregion
         }

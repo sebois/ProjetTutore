@@ -13,16 +13,6 @@ namespace PlateauJeu.Class_Cartes
     {
         #region Attributs
         /// <summary>
-        /// Objet Pepite si l'objet est présent
-        /// </summary>
-        private Pepite m_Pepite;
-
-        /// <summary>
-        /// Objet Porte si l'objet est présent
-        /// </summary>
-        private Porte m_Porte;
-
-        /// <summary>
         /// Objet Troll si l'objet est présent
         /// </summary>
         private Troll m_Troll;
@@ -109,15 +99,10 @@ namespace PlateauJeu.Class_Cartes
                 p_l_HautDroite, p_l_HautGauche, 
                 p_l_BasDroite, p_l_BasGauche,
                 p_haut, p_bas,
-                p_droite, p_gauche)
+                p_droite, p_gauche,
+                p_Pepite,
+                p_Porte)
         {
-            #region initialisation pepites
-            if (p_Pepite != null)
-            {
-                m_Pepite = p_Pepite;
-            }
-            #endregion
-
             #region initialisation du type
             if (p_Porte != null)
             {
