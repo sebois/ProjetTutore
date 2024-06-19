@@ -16,7 +16,7 @@ namespace PlateauJeu.Class_Cartes
         /// <summary>
         /// Position de la porte
         /// </summary>
-        private Position m_pos;
+        private Position m_position;
 
         /// <summary>
         /// Couleur de la porte
@@ -29,6 +29,12 @@ namespace PlateauJeu.Class_Cartes
         private bool m_ouvert;
         #endregion
 
+        #region Accesseurs
+        public Position Position { get => m_position; set => m_position = value; }
+        public Couleur CouleurJoueur { get => m_couleurJoueur; set => m_couleurJoueur = value; }
+        public bool Ouvert { get => m_ouvert; set => m_ouvert = value; }
+        #endregion
+
         #region Constructeur
         /// <summary>
         /// Constructeur de Porte 
@@ -37,7 +43,7 @@ namespace PlateauJeu.Class_Cartes
         /// <param name="p_couleurJoueur">Couleur de la porte</param>
         public Porte(Position p_pos, Couleur p_couleurJoueur)
         {
-            m_pos = p_pos;
+            m_position = p_pos;
             m_couleurJoueur = p_couleurJoueur;
             /*
              * Porte fermée

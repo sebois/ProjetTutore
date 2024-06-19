@@ -15,12 +15,17 @@ namespace PlateauJeu.Class_Cartes
         /// <summary>
         /// Nombre de pépites
         /// </summary>
-        private byte m_nbPepite;
+        private byte m_nombre;
 
         /// <summary>
         /// Position des pépites
         /// </summary>
-        private Position m_posPepite;
+        private Position m_position;
+
+        /// <summary>
+        /// Propriétaire de la pépite
+        /// </summary>
+        private Joueur m_proprietaire;
         #endregion
 
         #region Constructeur
@@ -31,12 +36,13 @@ namespace PlateauJeu.Class_Cartes
         /// <param name="p_posPepite">Position des pépites</param>
         public Pepite(byte p_nbPepite, Position p_posPepite)
         {
-            m_nbPepite = p_nbPepite;
-            m_posPepite = p_posPepite;
+            m_nombre = p_nbPepite;
+            m_position = p_posPepite;
         }
 
-        public byte NbPepite { get => m_nbPepite; set => m_nbPepite = value; }
-        public Position PosPepite { get => m_posPepite; set => m_posPepite = value; }
+        public byte Nombre { get => m_nombre; set => m_nombre = value; }
+        public Position Position { get => m_position; set => m_position = value; }
+        public Joueur Proprietaire { get => m_proprietaire; set => m_proprietaire = value; }
         #endregion
     }
 }

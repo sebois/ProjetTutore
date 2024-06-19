@@ -33,7 +33,7 @@ namespace PlateauJeu
         /// <summary>
         /// Identifiant auto-incrémenté pour repérer les cartes
         /// </summary>
-        private int m_id;
+        private int m_dernierId;
 
         /// <summary>
         /// Nombre aléatoire
@@ -64,12 +64,12 @@ namespace PlateauJeu
         {
             get
             {
-                return m_id;
+                return m_dernierId;
             }
 
             set
             {
-                m_id = value;
+                m_dernierId = value;
             }
         }
 
@@ -213,7 +213,7 @@ namespace PlateauJeu
             m_Objectifs.Add(new CarteObjectif(p_imgRecto: new System.Drawing.Bitmap("Cartes/CarteObjectif/co18.jpg"), p_haut: true, p_bas: true, p_droite: true, p_gauche: true));
 
             m_Defausse = new List<Carte>();
-            m_id = 0;
+            m_dernierId = 0;
             m_rnd = new Random();
         }
         #endregion
@@ -234,7 +234,7 @@ namespace PlateauJeu
             if (tmp.GetType().IsSubclassOf(typeof(CartePlacable)))
             {
                 CartePlacable cartePlacable = (CartePlacable)tmp;
-                cartePlacable.Id = m_id++;
+                cartePlacable.Id = m_dernierId++;
             }
             return tmp;
         }

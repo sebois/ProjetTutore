@@ -18,7 +18,6 @@ namespace PlateauJeu
         /// Liste des dernières adjacences ajoutées (permet de les supprimer en cas d'annulation)
         /// </summary>
         private List<CartePlacable[]> m_listeNouvellesAdjacences;
-
         #endregion
 
         #region Constructeur
@@ -42,12 +41,16 @@ namespace PlateauJeu
         /// <returns></returns>
         public List<CartePlacable> listeCartesVoisines(int p_carteId)
         {
+            Console.WriteLine("Liste des voisins de la carte : " + p_carteId);
             List<CartePlacable> voisins = new List<CartePlacable>();
             for(int i = 0; i< m_matrice.GetLength(1); i++)
             {
                 CartePlacable[] adjacence = m_matrice[p_carteId, i];
                 if (!(adjacence == null))
+                {
                     voisins.Add(adjacence[1]);
+                    Console.Write(adjacence[1] + " / ");
+                }
             }
             return voisins;
         }
@@ -62,8 +65,6 @@ namespace PlateauJeu
         {
             m_matrice.SetValue(p_adjacence, p_carteCoordX, p_carteCoordY);
             m_matrice.SetValue(p_adjacence != null ? (new CartePlacable[] { p_adjacence[1], p_adjacence[0] }) : p_adjacence, p_carteCoordY, p_carteCoordX);
-            //m_matriceLiaison.SetValue(1, p_carteCoordX, p_carteCoordY, p_accesJoueur);
-            //m_matriceLiaison.SetValue(1, p_carteCoordY, p_carteCoordX, p_accesJoueur);
         }
 
         /// <summary>
@@ -77,84 +78,6 @@ namespace PlateauJeu
             }
             m_listeNouvellesAdjacences.Clear();
         }
-
-
-        /* 
-         * Méthode obsolète
-         * 
-        public bool verifCheminLargeur(int p_carteCoordX, int p_carteCoordY)
-        {
-            Console.WriteLine("Parcours en largeur");
-            bool v_flagChemin = false;
-            int x = p_carteCoordX;
-            int y = p_carteCoordY;
-            int nbVoisins = 0;
-
-            //Création de la file et ajout de la première carte
-            Queue<int> file = new Queue<int>();
-            file.Enqueue(x);
-            //Marquage de la première carte
-            List<int> cartesMarquees = new List<int>();
-            cartesMarquees.Add(x);
-            //Liste de chemins
-
-            //Tant que la file n'est pas vide et qu'on n'a pas atteint la carte à atteindre on parcoure la file
-            while (!v_flagChemin && file.Count != 0)
-            {
-                int carteActuelle = file.Dequeue();
-                Console.WriteLine("Carte actuelle : " + carteActuelle);
-                List<int> voisins = listeVoisins(carteActuelle);
-                nbVoisins = voisins.Count();
-                Console.Write("Voisins de la carte " + carteActuelle + " : [");
-                //List<List<int>> niveauPrecedent = listeChemins.ElementAt(0);
-                for (int j = 0; j < voisins.Count; j++)
-                {
-                    int voisin = voisins.ElementAt(j);
-                    Console.Write(voisin + " ");
-                    j++;
-                }
-                Console.WriteLine("]");
-                foreach (int carteVoisine in voisins)
-                {
-                    if (carteVoisine == p_carteCoordY)
-                    {
-                        v_flagChemin = true;
-                        Console.WriteLine("Carte de fin trouvée : " + p_carteCoordY);
-                        cartesMarquees.Add(carteVoisine);
-                    } 
-                    else
-                    {
-                        bool estMarquee = false;
-                        int indiceCarte = 0;
-
-                        //On vérifie que la carte n'a pas déjà été parcourue
-                        while (!estMarquee && indiceCarte < cartesMarquees.Count)
-                        {
-                            int carteParcourue = cartesMarquees.ElementAt(indiceCarte);
-                            if (carteVoisine == carteParcourue)
-                            {
-                                estMarquee = true;
-                            }
-                            indiceCarte++;
-                        }
-                        //Si ce n'est pas le cas on marque la carte comme parcourue et on l'ajoute à la file
-                        if (!estMarquee)
-                        {
-                            file.Enqueue(carteVoisine);
-                            cartesMarquees.Add(carteVoisine);
-                        }
-                    }
-                    Console.Write("Cartes marquées : [");
-                    foreach (int carteParcourue in cartesMarquees)
-                    {
-                        Console.Write(carteParcourue + " ");
-                    }
-                    Console.WriteLine("]");
-                }
-            }
-            return v_flagChemin;
-        }
-        */
 
         /// <summary>
         /// Affiche le contenu de la matrice d'adjacence
@@ -188,67 +111,18 @@ namespace PlateauJeu
             }
         }
 
-        /*
-         * Méthode obsolète
-         * 
-        public void majMatriceLiaison(int p_carteDepart)
-        {
-
-            //explorer(p_carteDepart);
-        }
-        */
-
-        /*
-         * Méthode obsolète
-         * 
-        public bool explorer(CartePlacable p_carte, CartePlacable p_carteFinale, List<int> p_cartesMarquees)
-        {
-            int v_carteId = p_carte.Id;
-            int v_carteFinaleId = p_carteFinale.Id;
-            p_cartesMarquees.Add(v_carteId);
-            Console.WriteLine(v_carteId);
-            bool carteFinaleTrouvee = (v_carteId == v_carteFinaleId);
-            if (!carteFinaleTrouvee)
-            {
-                List<CartePlacable> cartesVoisines = listeCartesVoisines(v_carteId);
-                int i = 0;
-                while (!carteFinaleTrouvee && (i < cartesVoisines.Count))
-                {
-                    int voisin = cartesVoisines.ElementAt(i).Id;
-                    bool estMarquee = false;
-                    int indiceCarte = 0;
-
-                    //On vérifie que la carte n'a pas déjà été parcourue
-                    while (!estMarquee && indiceCarte < p_cartesMarquees.Count)
-                    {
-                        int carteParcourue = p_cartesMarquees.ElementAt(indiceCarte);
-                        if (voisin == carteParcourue)
-                        {
-                            estMarquee = true;
-                        }
-                        indiceCarte++;
-                    }
-                    //Si ce n'est pas le cas on marque la carte comme parcourue et on l'ajoute à la file
-                    if (!estMarquee)
-                    {
-                        carteFinaleTrouvee = explorer(cartesVoisines.ElementAt(i), p_carteFinale, p_cartesMarquees);
-                    }
-                    i++;
-                }
-            }
-            return carteFinaleTrouvee;
-        }
-        */
-
         /// <summary>
-        /// Parcours en profondeur des cartes contenues dans la matrice d'adjacence pour vérifier l'existence d'un chemin vers la carte finale
+        /// Parcours en profondeur des cartes contenues dans la matrice d'adjacence
+        /// --> Vérification de l'existence d'un chemin vers la carte finale
+        /// --> Capture des pepites libres sur le chemin
         /// </summary>
+        /// <param name="p_joueur"></param>
         /// <param name="p_carte"></param>
         /// <param name="p_carteParent"></param>
         /// <param name="p_carteFinale"></param>
         /// <param name="p_cartesMarquees"></param>
         /// <returns></returns>
-        public bool explorerCartes(CartePlacable p_carte, CartePlacable p_carteParent, CartePlacable p_carteFinale, List<CartePlacable> p_cartesMarquees)
+        public bool explorerCartes(Joueur p_joueur, CartePlacable p_carte, CartePlacable p_carteParent, CartePlacable p_carteFinale, List<CartePlacable> p_cartesMarquees, List<Pepite> p_pepitesCollectees)
         {
             int v_carteId = p_carte.Id;
             //int v_carteParentId = p_carteParent.Id;
@@ -281,12 +155,28 @@ namespace PlateauJeu
                     if (!estMarquee)
                     {
                         bool cheminExistant = true;
+
+                        Pepite pepite = carteVoisine.Pepite;
+                        
+                        //Si une pépite est sur la carte voisine on essaye de la récupérer
+                        if (pepite != null && pepite.Proprietaire == null)
+                        {
+                            if(testAccesPepite(p_carte, carteVoisine))
+                            {
+                                pepite.Proprietaire = p_joueur;
+                                Console.WriteLine("Le joueur " + p_joueur.NumeroJoueur + " a récupéré une pépite !");
+                                p_joueur.NbPepites++;
+                            } else
+                            {
+                                Console.WriteLine("Le joueur " + p_joueur.NumeroJoueur + " a trouvé une pépite mais ne peut pas la prendre !");
+                            }
+                        }
                         if (p_carteParent != null)
                         {
                             cheminExistant = testCheminCartes(p_carte, p_carteParent, carteVoisine);
                         }
                         if (cheminExistant)
-                            carteFinaleTrouvee = explorerCartes(cartesVoisines.ElementAt(i), p_carte, p_carteFinale, p_cartesMarquees);
+                            carteFinaleTrouvee = explorerCartes(p_joueur, cartesVoisines.ElementAt(i), p_carte, p_carteFinale, p_cartesMarquees, p_pepitesCollectees);
                         //S'il n'y a pas de chemin sur la carte actuelle, on ne peut pas trouver un chemin vers la carte finale
                         else
                             carteFinaleTrouvee = false;
@@ -401,6 +291,95 @@ namespace PlateauJeu
                     break;
             }
             return cheminExistant;
+        }
+
+        public bool testAccesPepite (CartePlacable p_carte, CartePlacable p_carteVoisine)
+        {
+            Pepite pepite = p_carteVoisine.Pepite;
+            bool pepiteCapturable = false;
+            int colonneVoisinDiff = p_carteVoisine.M_colonnePlateau - p_carte.M_colonnePlateau;
+            int ligneVoisinDiff = p_carteVoisine.M_lignePlateau - p_carte.M_lignePlateau;
+            switch (colonneVoisinDiff)
+            {
+                //Carte parent sur la même colonne
+                case 0:
+                    //Carte parent au-dessus
+                    if (ligneVoisinDiff == 1)
+                    {
+                        switch (pepite.Position)
+                        {
+                            case Position.Haut:
+                                pepiteCapturable = p_carteVoisine.M_haut;
+                                break;
+                            case Position.Droite:
+                                pepiteCapturable = p_carteVoisine.M_l_HautDroite;
+                                break;
+                            case Position.Bas:
+                                pepiteCapturable = p_carteVoisine.M_l_HautBas;
+                                break;
+                            case Position.Gauche:
+                                pepiteCapturable = p_carteVoisine.M_l_HautGauche;
+                                break;
+                        }
+                    }
+                    //Carte parent en-dessous
+                    else
+                    {
+                        switch (pepite.Position)
+                        {
+                            case Position.Haut:
+                                pepiteCapturable = p_carteVoisine.M_l_HautBas;
+                                break;
+                            case Position.Droite:
+                                pepiteCapturable = p_carteVoisine.M_l_BasDroite;
+                                break;
+                            case Position.Bas:
+                                pepiteCapturable = p_carteVoisine.M_bas;
+                                break;
+                            case Position.Gauche:
+                                pepiteCapturable = p_carteVoisine.M_l_BasGauche;
+                                break;
+                        }
+                    }
+                    break;
+                //Carte parent à droite
+                case -1:
+                    switch (pepite.Position)
+                    {
+                        case Position.Haut:
+                            pepiteCapturable = p_carteVoisine.M_l_HautDroite;
+                            break;
+                        case Position.Droite:
+                            pepiteCapturable = p_carteVoisine.M_droite;
+                            break;
+                        case Position.Bas:
+                            pepiteCapturable = p_carteVoisine.M_l_BasDroite;
+                            break;
+                        case Position.Gauche:
+                            pepiteCapturable = p_carteVoisine.M_l_GaucheDroite;
+                            break;
+                    }
+                    break;
+                //Carte parent à gauche
+                case 1:
+                    switch (pepite.Position)
+                    {
+                        case Position.Haut:
+                            pepiteCapturable = p_carteVoisine.M_l_HautGauche;
+                            break;
+                        case Position.Droite:
+                            pepiteCapturable = p_carteVoisine.M_l_GaucheDroite;
+                            break;
+                        case Position.Bas:
+                            pepiteCapturable = p_carteVoisine.M_l_BasGauche;
+                            break;
+                        case Position.Gauche:
+                            pepiteCapturable = p_carteVoisine.M_gauche;
+                            break;
+                    }
+                    break;
+            }
+            return pepiteCapturable;
         }
         #endregion
     }

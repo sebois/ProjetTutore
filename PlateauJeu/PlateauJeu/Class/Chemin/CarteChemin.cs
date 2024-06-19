@@ -157,6 +157,48 @@ namespace PlateauJeu.Class_Cartes
             m_gauche = m_droite;
             m_droite = tempo;
             #endregion
+
+            #region Changement position Porte
+            if (m_Porte != null)
+            {
+                switch (m_Porte.Position)
+                {
+                    case Position.Haut:
+                        m_Porte.Position = Position.Bas;
+                        break;
+                    case Position.Droite:
+                        m_Porte.Position = Position.Gauche;
+                        break;
+                    case Position.Bas:
+                        m_Porte.Position = Position.Haut;
+                        break;
+                    case Position.Gauche:
+                        m_Porte.Position = Position.Droite;
+                        break;
+                }
+            }
+            #endregion
+
+            #region Changement position Pepite
+            if (m_Pepite != null)
+            {
+                switch (m_Pepite.Position)
+                {
+                    case Position.Haut:
+                        m_Pepite.Position = Position.Bas;
+                        break;
+                    case Position.Droite:
+                        m_Pepite.Position = Position.Gauche;
+                        break;
+                    case Position.Bas:
+                        m_Pepite.Position = Position.Haut;
+                        break;
+                    case Position.Gauche:
+                        m_Pepite.Position = Position.Droite;
+                        break;
+                }
+            }
+            #endregion
         }
 
         public void retirer()

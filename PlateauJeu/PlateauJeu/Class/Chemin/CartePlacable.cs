@@ -277,6 +277,8 @@ namespace PlateauJeu.Class_Cartes
         /// <param name="p_bas">Etat de l'entrée/sortie Bas</param>
         /// <param name="p_droite">Etat de l'entrée/sortie Droite</param>
         /// <param name="p_gauche">Etat de l'entrée/sortie Gauche</param>
+        /// <param name="p_Pepite">Objet Pepite si l'objet est présent</param>
+        /// <param name="p_Porte">Objet Porte si l'objet est présent</param>
         public CartePlacable(
             System.Drawing.Bitmap p_imgRecto,
             bool p_l_HautBas = false, bool p_l_GaucheDroite = false,

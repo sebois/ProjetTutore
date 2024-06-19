@@ -70,11 +70,6 @@ namespace PlateauJeu
         private OutilsBrises m_outilDest;
 
         /// <summary>
-        /// Liste des voisins de la carte à placer
-        /// </summary>
-        private List<PictureBox> m_picVoisins;
-
-        /// <summary>
         /// Liste de PictureBox contenant des objectifs à initialiser
         /// </summary>
         private List<PictureBox> m_listeObjectifsAPlacer;
@@ -859,27 +854,23 @@ namespace PlateauJeu
                     foreach (CartePlacable[] adjacence in v_listeAdjacences) {
                         m_matriceAjacences.setAdjacence(adjacence, adjacence[0].Id, adjacence[1].Id);
                     }
-                    List<Depart> listeDepart = m_Plateau.Departs;
-                    foreach (Depart depart in listeDepart)
+                    Depart depart = m_Plateau.Departs.Find(x => x.CouleurJoueur == m_joueurActif.CouleurJoueur);
+
+                    List<CartePlacable> v_cartesVisitees = new List<CartePlacable>();
+                    List<Pepite> v_pepitesCollectees = new List<Pepite>();
+                    cheminExistant = m_matriceAjacences.explorerCartes(m_joueurActif, depart, null, v_cartePlacable, v_cartesVisitees, v_pepitesCollectees);
+                    if (cheminExistant)
                     {
-                        if (m_joueurActif.CouleurJoueur == depart.CouleurJoueur)
+                        Console.WriteLine("Carte trouvée !");
+                    }
+                    Console.WriteLine("Cartes visitées : ");
+                    foreach (CartePlacable carte in v_cartesVisitees)
+                    {
+                        Console.Write(carte.Id + " ");
+                        if(carte.Pepite != null && carte.Pepite.Proprietaire == null)
                         {
-                            //cheminExistant = m_matriceAjacences.verifCheminLargeur(depart.Id, v_cartePlacable.Id);
-                            List<CartePlacable> cartesVisitees = new List<CartePlacable>();
-                            cheminExistant = m_matriceAjacences.explorerCartes(depart, null, v_cartePlacable, cartesVisitees);
-                            if (cheminExistant)
-                            {
-                                Console.WriteLine("Carte trouvée !");
-                            }
-                            Console.WriteLine("Cartes visitées : ");
-                            foreach (CartePlacable carte in cartesVisitees)
-                            {
-                                Console.Write(carte.Id + " ");
-                                if(carte.Pepite != null)
-                                {
-                                    Console.Write("(" + carte.Pepite.NbPepite + " pépites !) ");
-                                }
-                            }
+                            Console.Write("(" + carte.Pepite.Nombre + " pépites !) ");
+                            //carte.Pepite.Proprietaire = m_joueurActif;
                         }
                     }
                     m_matriceAjacences.afficherMatriceAdjacence();
